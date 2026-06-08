@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="MobileSuite">
+
+    <listeners>
+        <listener class-name="Base.ExtentTestListener"/>
+    </listeners>
+
+    <test name="SmartSortFlowTest">
+        <classes>
+<!--            <class name="Testcase.ASmartSortRegistrationFlowTest"/>-->
+<!--            <class name="Testcase.BSmartSortOrderPlacingFlowTest"/>-->
+<!--            <class name="Testcase.CSmartSortRedeemFlowTest"/>-->
+<!--            <class name="Testcase.DSmartBotChatFlowTest"/>-->
+<!--            <class name="Testcase.ESmartBotTicketManagementFlowTest"/>-->
+            <class name="Testcase.FProfileViewBasicFeaturesFlowTest"/>
+<!--            <class name="Testcase.GCustomerCareServicesFlowTest"/>-->
+<!--            <class name="Testcase.HNotificationsFlowTest"/>-->
+<!--            <class name="Testcase.IOrderDetailsFlowTest"/>-->
+        </classes>
+    </test>
+</suite>
