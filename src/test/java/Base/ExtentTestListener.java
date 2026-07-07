@@ -29,15 +29,15 @@ public class ExtentTestListener extends BaseClassMobile implements ITestListener
     @Override
     public void onTestFailure(ITestResult result) {
 
-        test.get().fail("❌ Test Failed");
+        test.get().fail("Test Failed");
 
-        // ✅ Take screenshot
+        // Take screenshot
         String screenshotPath = takeScreenshot(result.getMethod().getMethodName());
 
         try {
-            // ✅ THIS LINE IS IMPORTANT
             test.get().addScreenCaptureFromPath(screenshotPath);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             test.get().fail("Screenshot attach failed");
         }
 
@@ -55,7 +55,6 @@ public class ExtentTestListener extends BaseClassMobile implements ITestListener
         extent.flush();
     }
 
-    // ✅ THIS IS IMPORTANT FOR YOUR TEST CLASS
     public static ExtentTest getTest() {
         return test.get();
     }

@@ -26,75 +26,57 @@ public class MobileUtility {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
-    /* ======================================================
-                       SEND KEYS
-    ====================================================== */
 
+    //SEND KEYS
     public void sendKeys(By locator, String value) {
 
         WebElement element = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator)
-        );
+                ExpectedConditions.visibilityOfElementLocated(locator));
 
         element.click();
         element.clear();
         element.sendKeys(value);
     }
 
-    /* ======================================================
-                       NORMAL CLICK
-    ====================================================== */
 
+    //NORMAL CLICK
     public void click(By locator) {
 
         WebElement element = wait.until(
-                ExpectedConditions.elementToBeClickable(locator)
-        );
+                ExpectedConditions.elementToBeClickable(locator));
 
         element.click();
     }
 
-    /* ======================================================
-                    MOBILE STRONG CLICK
-    ====================================================== */
-
-    public void mobileClick(By locator) {
+    //MOBILE STRONG CLICK
+     public void mobileClick(By locator) {
 
         WebElement element = wait.until(
-                ExpectedConditions.presenceOfElementLocated(locator)
-        );
+                ExpectedConditions.presenceOfElementLocated(locator));
 
         driver.executeScript(
                 "mobile: clickGesture",
                 Map.of(
                         "elementId",
-                        ((RemoteWebElement) element).getId()
-                )
-        );
+                        ((RemoteWebElement) element).getId()));
     }
 
-    /* ======================================================
-                       WAIT METHODS
-    ====================================================== */
 
+    //WAIT METHODS
     public void waitForVisible(By locator) {
 
         wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator)
-        );
+                ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public void waitForClickable(By locator) {
 
         wait.until(
-                ExpectedConditions.elementToBeClickable(locator)
-        );
+                ExpectedConditions.elementToBeClickable(locator));
     }
 
-    /* ======================================================
-                        HIDE KEYBOARD
-    ====================================================== */
 
+    //HIDE KEYBOARD
     public void hideKeyboard() {
 
         try {
@@ -106,10 +88,8 @@ public class MobileUtility {
         }
     }
 
-    /* ======================================================
-                          SCROLL TEXT
-    ====================================================== */
 
+    //SCROLL TEXT
     public void scrollToText(String text) {
 
         driver.findElement(
@@ -117,15 +97,11 @@ public class MobileUtility {
                         "new UiScrollable(new UiSelector().scrollable(true))"
                                 + ".setMaxSearchSwipes(10)"
                                 + ".scrollIntoView(new UiSelector().textContains(\""
-                                + text + "\"))"
-                )
-        );
+                                + text + "\"))"));
     }
 
-    /* ======================================================
-                    SCROLL ACCESSIBILITY ID
-    ====================================================== */
 
+    //SCROLL ACCESSIBILITY ID
     public void scrollToDescription(String description) {
 
         driver.findElement(
@@ -133,15 +109,11 @@ public class MobileUtility {
                         "new UiScrollable(new UiSelector().scrollable(true))"
                                 + ".setMaxSearchSwipes(10)"
                                 + ".scrollIntoView(new UiSelector().descriptionContains(\""
-                                + description + "\"))"
-                )
-        );
+                                + description + "\"))"));
     }
 
-    /* ======================================================
-                         SWIPE UP
-    ====================================================== */
 
+    //SWIPE UP
     public void swipeUp() {
 
         Dimension size = driver.manage().window().getSize();
@@ -160,15 +132,11 @@ public class MobileUtility {
                         "width", 100,
                         "height", 600,
                         "direction", "up",
-                        "percent", 0.75
-                )
-        );
+                        "percent", 0.75));
     }
 
-    /* ======================================================
-                         SWIPE DOWN
-    ====================================================== */
 
+    //SWIPE DOWN
     public void swipeDown() {
 
         Dimension size = driver.manage().window().getSize();
@@ -187,36 +155,26 @@ public class MobileUtility {
                         "width", 100,
                         "height", 600,
                         "direction", "down",
-                        "percent", 0.75
-                )
-        );
+                        "percent", 0.75));
     }
 
-    /* ======================================================
-                            LONG PRESS
-    ====================================================== */
 
+    //LONG PRESS
     public void longPress(By locator) {
 
         WebElement element = wait.until(
-                ExpectedConditions.presenceOfElementLocated(locator)
-        );
+                ExpectedConditions.presenceOfElementLocated(locator));
 
         driver.executeScript(
                 "mobile: longClickGesture",
                 Map.of(
                         "elementId",
                         ((RemoteWebElement) element).getId(),
-                        "duration", 2000
-                )
-        );
+                        "duration", 2000));
     }
 
-    /* ======================================================
-                              DELAY
-    ====================================================== */
-
-    public void delay(int seconds) {
+     //DELAY
+     public void delay(int seconds) {
 
         try {
 

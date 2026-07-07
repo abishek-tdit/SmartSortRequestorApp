@@ -37,12 +37,24 @@ public class BaseClassMobile {
 
             cap.setCapability("platformName", "Android");
             cap.setCapability("automationName", "UiAutomator2");
-            cap.setCapability("deviceName", "Android");
+            cap.setCapability("deviceName", "HA69Z5PJ8PROEYHA");
 
             cap.setCapability("appPackage", "com.abqaiq.smartsort");
             cap.setCapability("appActivity", "com.abqaiq.smartsort.MainActivity");
 
             cap.setCapability("noReset", true);
+            cap.setCapability("autoGrantPermissions", true);
+
+            cap.setCapability("newCommandTimeout", 300);
+
+            cap.setCapability("adbExecTimeout", 120000);
+
+            cap.setCapability("uiautomator2ServerInstallTimeout", 120000);
+
+            cap.setCapability("uiautomator2ServerLaunchTimeout", 120000);
+
+            cap.setCapability("ignoreHiddenApiPolicyError", true);
+
 
             driver = new AndroidDriver(
                     new URL("http://127.0.0.1:4723"),
@@ -55,8 +67,6 @@ public class BaseClassMobile {
         }
     }
 
-
-    // ✅ ADD METHOD HERE 👇 (INSIDE CLASS)
     public String takeScreenshot(String testName) {
 
         String path = System.getProperty("user.dir") + "/screenshots/" + testName + ".png";
@@ -70,7 +80,8 @@ public class BaseClassMobile {
 
             System.out.println("Screenshot saved: " + path);
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println("Screenshot failed");
         }
 
@@ -96,10 +107,11 @@ public class BaseClassMobile {
 
         try {
             if (driver != null) {
-                // driver.quit();   // ✅ COMMENT THIS LINE
-                // driver = null;   // optional (can comment)
+//                 driver.quit();
+//                 driver = null;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             System.out.println("Driver already closed");
         }
     }

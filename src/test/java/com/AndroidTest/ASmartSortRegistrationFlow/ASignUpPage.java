@@ -106,7 +106,7 @@ public class ASignUpPage {
         Thread.sleep(2000);
 
 
-        // SELECT REQUESTOR TYPE
+        // SELECT REQUESTOR TYPE FOR DOMESTIC
         WebElement requestorType = driver.findElement(
                 AppiumBy.accessibilityId("Domestic Requestor")
         );
@@ -121,6 +121,23 @@ public class ASignUpPage {
         );
 
         System.out.println("Domestic Requestor selected successfully");
+
+//        // SELECT REQUESTOR TYPE FOR CORPORATE
+//        WebElement requestorType = driver.findElement(
+//                AppiumBy.accessibilityId("Corporate Requestor")
+//        );
+//
+//        driver.executeScript(
+//                "mobile: clickGesture",
+//                java.util.Map.of(
+//                        "elementId",
+//                        ((org.openqa.selenium.remote.RemoteWebElement)
+//                                requestorType).getId()
+//                )
+//        );
+//
+//        System.out.println("Corporate Requestor selected successfully");
+
 
         // WAIT AFTER REQUESTOR TYPE SELECTION
         Thread.sleep(4000);
@@ -150,30 +167,9 @@ public class ASignUpPage {
         );
 
         firstName.click();
-        firstName.sendKeys("Ram");
+        firstName.sendKeys("Krishna");
 
         System.out.println("First Name entered");
-
-        Thread.sleep(2000);
-
-
-        // HIDE KEYBOARD
-        driver.hideKeyboard();
-
-        Thread.sleep(2000);
-
-
-        // ENTER MIDDLE NAME
-        WebElement middleName = driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.widget.EditText\").instance(1)"
-                )
-        );
-
-        middleName.click();
-        middleName.sendKeys("Kumar");
-
-        System.out.println("Middle Name entered");
 
         Thread.sleep(2000);
 
@@ -192,7 +188,7 @@ public class ASignUpPage {
         );
 
         lastName.click();
-        lastName.sendKeys("RR");
+        lastName.sendKeys("Kumar");
 
         System.out.println("Last Name entered successfully");
 
@@ -260,7 +256,8 @@ public class ASignUpPage {
 
 
         //previous no used for registration        0500121212
-        mobileNumber.sendKeys("0500120101");
+        //                                         0500098765
+        mobileNumber.sendKeys("0500987654");
 
         System.out.println("Mobile Number entered successfully");
 
@@ -342,57 +339,56 @@ public class ASignUpPage {
         System.out.println("Terms checkbox selected successfully");
 
 
-        // CLICK REGISTER BUTTON
-        WebElement registerBtn = driver.findElement(
-                AppiumBy.accessibilityId("Register")
-        );
+//        // CLICK REGISTER BUTTON
+//        WebElement registerBtn = driver.findElement(
+//                AppiumBy.accessibilityId("Register")
+//        );
+//
+//        registerBtn.click();
+//
+//        System.out.println("Register button clicked successfully");
+//
+//        Thread.sleep(5000);
+//
+//
+//        //CLICK OK BUTTON
+//        WebElement okBtn = driver.findElement(
+//                AppiumBy.accessibilityId("OK")
+//        );
+//
+//        okBtn.click();
+//
+//        System.out.println("OTP sent successfully popup OK clicked");
+//
+//
+//        // WAIT 30 SECONDS FOR MANUAL OTP ENTRY
+//        System.out.println("Please enter OTP manually within 30 seconds");
+//
+//        Thread.sleep(30000);
+//
+//
+//        // CLICK CONFIRM BUTTON
+//        WebElement confirmBtn = driver.findElement(
+//                AppiumBy.accessibilityId("Confirm")
+//        );
+//
+//        confirmBtn.click();
+//
+//        System.out.println("OTP Confirm button clicked successfully");
+//
+//
+//        // WAIT FOR REGISTRATION SUCCESS POPUP
+//        Thread.sleep(5000);
+//
+//
+//        // CLICK SUCCESS OK BUTTON
+//        WebElement successOkBtn = driver.findElement(
+//                AppiumBy.accessibilityId("OK")
+//        );
+//
+//        successOkBtn.click();
+//
+//        System.out.println("Registration Success OK button clicked");
 
-        registerBtn.click();
-
-        System.out.println("Register button clicked successfully");
-
-
-        // WAIT FOR OTP SUCCESS POPUP
-        Thread.sleep(5000);
-
-
-        // CLICK OK BUTTON
-        WebElement okBtn = driver.findElement(
-                AppiumBy.accessibilityId("OK")
-        );
-
-        okBtn.click();
-
-        System.out.println("OTP sent successfully popup OK clicked");
-
-
-        // WAIT 30 SECONDS FOR MANUAL OTP ENTRY
-        System.out.println("Please enter OTP manually within 30 seconds");
-
-        Thread.sleep(30000);
-
-
-        // CLICK CONFIRM BUTTON
-        WebElement confirmBtn = driver.findElement(
-                AppiumBy.accessibilityId("Confirm")
-        );
-
-        confirmBtn.click();
-
-        System.out.println("OTP Confirm button clicked successfully");
-
-
-        // WAIT FOR REGISTRATION SUCCESS POPUP
-        Thread.sleep(5000);
-
-
-        // CLICK SUCCESS OK BUTTON
-        WebElement successOkBtn = driver.findElement(
-                AppiumBy.accessibilityId("OK")
-        );
-
-        successOkBtn.click();
-
-        System.out.println("Registration Success OK button clicked");
     }
 }
