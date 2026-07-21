@@ -30,7 +30,7 @@ public class BLocationPage {
 
         exploreBtn.click();
 
-        System.out.println("Explore Other Locations clicked");
+        ExtentTestListener.logStep("Explore Other Locations clicked");
 
         Thread.sleep(2000);
 
@@ -42,12 +42,7 @@ public class BLocationPage {
 
         locationBtn.click();
 
-        System.out.println("Location Selected : Bqaiq");
-
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Selected Location: Bqaiq");
-        }
-
+        ExtentTestListener.logStep("Location Selected : Bqaiq");
         Thread.sleep(5000);
     }
 }

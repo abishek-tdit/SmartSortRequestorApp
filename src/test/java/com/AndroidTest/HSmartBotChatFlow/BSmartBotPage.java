@@ -1,5 +1,6 @@
 package com.AndroidTest.HSmartBotChatFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -26,7 +27,7 @@ public class BSmartBotPage {
                         "//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[2]"
                 ))).click();
 
-        System.out.println("Clicked SmartBot");
+        ExtentTestListener.logStep("Clicked SmartBot");
 
         Thread.sleep(4000);
 
@@ -36,7 +37,7 @@ public class BSmartBotPage {
                 AppiumBy.accessibilityId("Start new chat")
         )).click();
 
-        System.out.println("Clicked Start New Chat");
+        ExtentTestListener.logStep("Clicked Start New Chat");
 
         Thread.sleep(2000);
     }

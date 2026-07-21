@@ -1,5 +1,6 @@
 package com.AndroidTest.HSmartBotChatFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -30,7 +31,7 @@ public class CChatConversationPage {
         textBox.click();
         textBox.sendKeys(question);
 
-        System.out.println("Question Entered : " + question);
+        ExtentTestListener.logStep("Question Entered : " + question);
 
         Thread.sleep(2000);
 
@@ -42,12 +43,13 @@ public class CChatConversationPage {
                 )
         )).click();
 
-        System.out.println("Send Button Clicked");
+        ExtentTestListener.logStep("Send Button Clicked");
 
 
         // Wait for Bot Response
         Thread.sleep(10000);
 
-        System.out.println("Bot Response Received");
+        ExtentTestListener.logStep("Bot Response Received");
+        driver.navigate().back();
     }
 }

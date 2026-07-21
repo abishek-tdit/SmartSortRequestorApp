@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,11 +26,11 @@ public class JCheckForUpdatePage {
                     AppiumBy.accessibilityId("View Profile")
             )).click();
 
-            System.out.println("View Profile Clicked");
+            ExtentTestListener.logStep("View Profile Clicked");
 
             Thread.sleep(3000);
         } catch (Exception e) {
-            System.out.println("View Profile already open");
+            ExtentTestListener.logStep("View Profile already open");
         }
 
         //Click Check for Update
@@ -37,7 +38,7 @@ public class JCheckForUpdatePage {
                 AppiumBy.accessibilityId("Check for update")
         )).click();
 
-        System.out.println("Check for Update Clicked");
+        ExtentTestListener.logStep("Check for Update Clicked");
 
         Thread.sleep(3000);
     }

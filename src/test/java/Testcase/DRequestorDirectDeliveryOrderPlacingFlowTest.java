@@ -9,23 +9,24 @@ public class DRequestorDirectDeliveryOrderPlacingFlowTest extends BaseClassMobil
     @Test
     public void smartSortDirectDeliveryOrderFlow() throws Exception {
 
-        //.Abishek DS      - 0500098765 Dom
-        //.Krishna Kumar   - 0500003576 Corp
+        //Abishek rtr      - 0500098765 Dom (RO)
+        //Jamuna           - 0500445566 Dom (NON RO)
 
-//        //Login
-//        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500098765",
-//                         "Admin@194");
+        //Login:
+        ALoginPage loginPage = new ALoginPage(driver);
+        loginPage.login(
+                "0500098765",
+                "Admin@194");
 
-        //Location
+        //Location:
         BLocationPage homePage = new BLocationPage(driver);
         homePage.selectLocation();
 
-        //Direct Delivery
+        //Direct Delivery:
         CDirectDeliveryPage pickupPage = new CDirectDeliveryPage(driver);
         pickupPage.clickDirectDelivery();
 
-        //Schedule Date
+        //Schedule Date:
         DScheduleDatePage schedulePage = new DScheduleDatePage(driver);
         schedulePage.clickScheduleDate();
         schedulePage.selectTodayDateAndClickOK();

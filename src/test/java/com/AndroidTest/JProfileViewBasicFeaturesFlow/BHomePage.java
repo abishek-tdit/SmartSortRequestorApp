@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,7 +30,7 @@ public class BHomePage {
                 )
         )).click();
 
-        System.out.println("Profile Icon Clicked");
+        ExtentTestListener.logStep("Profile Icon Clicked");
 
         Thread.sleep(3000);
     }

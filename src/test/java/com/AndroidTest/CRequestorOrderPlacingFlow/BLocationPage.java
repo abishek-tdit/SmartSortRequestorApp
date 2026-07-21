@@ -24,32 +24,24 @@ public class BLocationPage {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
+        //LOCATION
         WebElement exploreBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Explore Other Locations")
-                )
-        );
+                        AppiumBy.accessibilityId("Explore Other Locations")));
 
         exploreBtn.click();
 
-        System.out.println("Explore Other Locations clicked");
-
+        ExtentTestListener.logStep("Explore Other Locations clicked");
         Thread.sleep(2000);
 
+        //BQAIQ
         WebElement locationBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Bqaiq")
-                )
-        );
+                        AppiumBy.accessibilityId("Bqaiq")));
 
         locationBtn.click();
 
-        System.out.println("Location Selected : Bqaiq");
-
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Selected Location: Bqaiq");
-        }
-
+        ExtentTestListener.logStep("Location Selected : Bqaiq");
         Thread.sleep(3000);
     }
 }

@@ -2,6 +2,8 @@ package com.AndroidTest.LNotificationsFlow;
 
 import java.util.Set;
 import java.util.HashSet;
+
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
@@ -43,7 +45,7 @@ public class BNotificationPage {
     public void clickNotificationIcon() {
 
         wait.until(ExpectedConditions.elementToBeClickable(notificationIcon)).click();
-        System.out.println("Notification icon clicked");
+        ExtentTestListener.logStep("Notification icon clicked");
 
         // Wait until list appears
         wait.until(ExpectedConditions.presenceOfElementLocated(allNotifications));
@@ -53,10 +55,10 @@ public class BNotificationPage {
     public boolean isNotificationScreenDisplayed() {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(allNotifications));
-            System.out.println("Notification screen opened");
+            ExtentTestListener.logStep("Notification screen opened");
             return false;
         } catch (Exception e) {
-            System.out.println("Notification screen NOT opened");
+            ExtentTestListener.logStep("Notification screen NOT opened");
             return true;
         }
     }
@@ -68,12 +70,12 @@ public class BNotificationPage {
                 ExpectedConditions.presenceOfAllElementsLocatedBy(allNotifications)
         );
 
-        System.out.println("Total notifications: " + list.size());
+        ExtentTestListener.logStep("Total notifications: " + list.size());
 
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("Notification " + (i + 1));
-            System.out.println(list.get(i).getAttribute("content-desc"));
-            System.out.println("----------------------");
+            ExtentTestListener.logStep("Notification " + (i + 1));
+            ExtentTestListener.logStep(list.get(i).getAttribute("content-desc"));
+            ExtentTestListener.logStep("----------------------");
         }
     }
 
@@ -110,7 +112,7 @@ public class BNotificationPage {
                 "y", y
         ));
 
-        System.out.println("First notification tapped using coordinates");
+        ExtentTestListener.logStep("First notification tapped using coordinates");
 
         try {
         }
@@ -123,11 +125,11 @@ public class BNotificationPage {
 
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(detailHeader));
-            System.out.println("Detail screen opened");
+            ExtentTestListener.logStep("Detail screen opened");
             return true;
         }
         catch (Exception e) {
-            System.out.println("Detail screen NOT opened");
+            ExtentTestListener.logStep("Detail screen NOT opened");
             return false;
         }
     }
@@ -135,11 +137,11 @@ public class BNotificationPage {
     public boolean isStillOnNotificationScreen() {
         try {
             wait.until(ExpectedConditions.presenceOfElementLocated(allNotifications));
-            System.out.println("Still on notification screen (no navigation)");
+            ExtentTestListener.logStep("Still on notification screen (no navigation)");
             return true;
         }
         catch (Exception e) {
-            System.out.println("Screen changed");
+            ExtentTestListener.logStep("Screen changed");
             return false;
         }
     }
@@ -149,7 +151,7 @@ public class BNotificationPage {
             wait.until(ExpectedConditions.presenceOfElementLocated(
                     AppiumBy.xpath("//android.view.View[contains(@content-desc,'Welcome')]")
             ));
-            System.out.println("Home screen opened after notification click");
+            ExtentTestListener.logStep("Home screen opened after notification click");
             return true;
         }
         catch (Exception e) {
@@ -163,13 +165,13 @@ public class BNotificationPage {
     public void goBack() {
         driver.navigate().back();
         wait.until(ExpectedConditions.presenceOfElementLocated(allNotifications));
-        System.out.println("Back to notification list");
+        ExtentTestListener.logStep("Back to notification list");
     }
 
     // STEP 8
     public void validateNotificationRead(String before, String after) {
 
-        System.out.println("========== READ VALIDATION ==========");
+        ExtentTestListener.logStep("========== READ VALIDATION ==========");
         System.out.println("Before:\n" + before);
         System.out.println("After:\n" + after);
 
@@ -178,7 +180,7 @@ public class BNotificationPage {
         }
         else
         {
-            System.out.println("Notification updated");
+            ExtentTestListener.logStep("Notification updated");
         }
     }
 
@@ -190,7 +192,7 @@ public class BNotificationPage {
 
         wait.until(ExpectedConditions.presenceOfElementLocated(allNotifications));
 
-        System.out.println("Scrolled down");
+        ExtentTestListener.logStep("Scrolled down");
     }
 
     // STEP 10
@@ -212,7 +214,7 @@ public class BNotificationPage {
             List<WebElement> notifications =
                     driver.findElements(allNotifications);
 
-            System.out.println("Visible : " + notifications.size());
+            ExtentTestListener.logStep("Visible : " + notifications.size());
 
             for (WebElement notification : notifications) {
 
@@ -226,7 +228,7 @@ public class BNotificationPage {
                 visited.add(text);
 
                 System.out.println("--------------------------------");
-                System.out.println("Notification " + visited.size());
+                ExtentTestListener.logStep("Notification " + visited.size());
                 System.out.println(text);
 
                 int x = notification.getRect().getX()
@@ -268,14 +270,14 @@ public class BNotificationPage {
                     ));
         }
 
-        System.out.println("TOTAL VALIDATED : " + visited.size());
+        ExtentTestListener.logStep("TOTAL VALIDATED : " + visited.size());
     }
 
     // UI BACK BUTTON
     public void clickBackButton() {
 
         wait.until(ExpectedConditions.elementToBeClickable(backButton)).click();
-        System.out.println("Back button clicked");
+        ExtentTestListener.logStep("Back button clicked");
 
         // FIX → WAIT FOR NOTIFICATION LIST, NOT HOME
         wait.until(ExpectedConditions.presenceOfElementLocated(allNotifications));
@@ -285,20 +287,20 @@ public class BNotificationPage {
 
         driver.navigate().back();
 
-        System.out.println("Back action performed");
+        ExtentTestListener.logStep("Back action performed");
 
         try {
             // Try to detect notification screen again
             wait.until(ExpectedConditions.presenceOfElementLocated(allNotifications));
-            System.out.println("Still on notification screen");
+            ExtentTestListener.logStep("Still on notification screen");
 
             // 👉 If still there, go back AGAIN
             driver.navigate().back();
-            System.out.println("Second back to reach Home");
+            ExtentTestListener.logStep("Second back to reach Home");
 
         }
         catch (Exception e) {
-            System.out.println("Navigated away from notification screen");
+            ExtentTestListener.logStep("Navigated away from notification screen");
         }
     }
 }

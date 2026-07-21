@@ -33,7 +33,7 @@ public class ALoginPage {
 
         logInBtn.click();
 
-        System.out.println("Log In Button Clicked");
+        ExtentTestListener.logStep("Log In Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Log in button clicked");
@@ -50,7 +50,7 @@ public class ALoginPage {
         mobile.clear();
         mobile.sendKeys(mobileNo);
 
-        System.out.println("Mobile Number Entered");
+        ExtentTestListener.logStep("Mobile Number Entered");
 
         // Password
         WebElement password = wait.until(
@@ -61,14 +61,14 @@ public class ALoginPage {
         password.clear();
         password.sendKeys(passwordText);
 
-        System.out.println("Password Entered");
+        ExtentTestListener.logStep("Password Entered");
 
         // Close keyboard safely
         try {
             driver.navigate().back();
             Thread.sleep(1000);
         } catch (Exception e) {
-            System.out.println("Keyboard already hidden");
+            ExtentTestListener.logStep("Keyboard already hidden");
         }
 
         // Login Button
@@ -78,7 +78,7 @@ public class ALoginPage {
 
         loginBtn.click();
 
-        System.out.println("Login Button Clicked");
+        ExtentTestListener.logStep("Login Button Clicked");
 
 
         // WAIT AFTER LOGIN

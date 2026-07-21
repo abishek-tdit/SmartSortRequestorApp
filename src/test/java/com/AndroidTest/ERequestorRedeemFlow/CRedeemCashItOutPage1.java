@@ -1,5 +1,6 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.Dimension;
@@ -30,7 +31,7 @@ public class CRedeemCashItOutPage1 {
         Thread.sleep(5000);
 
 
-        // GET MOBILE SCREEN SIZE
+        //GET MOBILE SCREEN SIZE
         Dimension size = driver.manage().window().getSize();
 
         int startX = size.width / 2;
@@ -40,7 +41,7 @@ public class CRedeemCashItOutPage1 {
         int endY = (int) (size.height * 0.30);
 
 
-        // SWIPE CODE
+        //SWIPE CODE
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
 
         Sequence swipe = new Sequence(finger, 1);
@@ -57,12 +58,12 @@ public class CRedeemCashItOutPage1 {
 
         driver.perform(List.of(swipe));
 
-        System.out.println("Page scrolling");
+        ExtentTestListener.logStep("Page scrolling");
 
         Thread.sleep(3000);
 
 
-        // CLICK REDEEM BUTTON
+        //CLICK REDEEM BUTTON
         WebElement redeemBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.xpath("//android.view.View[@content-desc=\"Redeem & cash it out\"]/android.widget.Button")
@@ -71,6 +72,6 @@ public class CRedeemCashItOutPage1 {
 
         redeemBtn.click();
 
-        System.out.println("Redeem button clicked");
+        ExtentTestListener.logStep("Redeem button clicked");
     }
 }

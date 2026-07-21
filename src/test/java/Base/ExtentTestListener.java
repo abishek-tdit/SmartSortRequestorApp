@@ -56,6 +56,17 @@ public class ExtentTestListener extends BaseClassMobile implements ITestListener
     }
 
     public static ExtentTest getTest() {
+
         return test.get();
+    }
+
+    public static void logStep(String message) {
+
+        System.out.println(message);
+
+        if (getTest() != null) {
+            getTest().pass(message);
+        }
+
     }
 }

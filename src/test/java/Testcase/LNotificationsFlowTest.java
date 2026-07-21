@@ -7,19 +7,20 @@ import com.AndroidTest.LNotificationsFlow.BNotificationPage;
 import org.testng.annotations.Test;
 
 public class LNotificationsFlowTest extends BaseClassMobile {
-
     @Test
     public void testNotificationFlow() throws Exception {
 
-        //.Abishek DS      - 0500098765 Dom
-        //.Krishna Kumar   - 0500003576 Corp
+        //Abishek rtr      - 0500098765 Dom (RO)
+        //Jamuna           - 0500445566 Dom (NON RO)
 
-        //LOGIN
-        ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login();
-        System.out.println("Login completed");
+        //Login:
+//        ALoginPage loginPage = new ALoginPage(driver);
+//        loginPage.login("0500445566",
+//                "Admin@194");
+//
+//        ExtentTestListener.logStep("Login completed");
 
-        //NOTIFICATION PAGE
+        //NOTIFICATION PAGE:
         BNotificationPage page = new BNotificationPage(driver);
         ExtentTestListener.getTest().info("Clicking notification icon");
         page.clickNotificationIcon();
@@ -31,25 +32,25 @@ public class LNotificationsFlowTest extends BaseClassMobile {
         ExtentTestListener.getTest().pass("Notification screen opened");
 
 
-        //PRINT LIST
+        //PRINT LIST:
         page.printAllNotifications();
         String before = page.getFirstNotificationText();
 
-        // OPEN FIRST NOTIFICATION
+        //OPEN FIRST NOTIFICATION:
         ExtentTestListener.getTest().info("Click first notification");
         page.clickFirstNotification();
 
         if (page.isStillOnNotificationScreen()) {
-            System.out.println("Notification clicked but no navigation (expected behavior)");
+            ExtentTestListener.logStep("Notification clicked but no navigation (expected behavior)");
         }
         else
         {
-            System.out.println("Navigation happened");
+            ExtentTestListener.logStep("Navigation happened");
         }
 
         ExtentTestListener.getTest().pass("Navigation to Home screen after notification click successful");
 
-        //USE UI BACK BUTTON
+        //USE UI BACK BUTTON:
         ExtentTestListener.getTest().info("Clicking UI back button");
         page.clickBackButton();
 
@@ -59,12 +60,12 @@ public class LNotificationsFlowTest extends BaseClassMobile {
         }
         ExtentTestListener.getTest().pass("Back navigation successful");
 
-        //READ VALIDATION
+        //READ VALIDATION:
         String after = page.getFirstNotificationText();
         page.validateNotificationRead(before, after);
         ExtentTestListener.getTest().pass("Read validation completed");
 
-        //SCROLL VALIDATION
+        //SCROLL VALIDATION:
         int beforeScroll = page.getNotificationCount();
         ExtentTestListener.getTest().info("Before scroll count: " + beforeScroll);
         page.scrollDown();
@@ -73,11 +74,11 @@ public class LNotificationsFlowTest extends BaseClassMobile {
         ExtentTestListener.getTest().info("After scroll count: " + afterScroll);
         ExtentTestListener.getTest().pass("Scroll executed");
 
-        //LOOP VALIDATION
+        //LOOP VALIDATION:
         page.verifyAllNotifications();
         ExtentTestListener.getTest().pass("All notifications validated successfully");
         driver.navigate().back();
 
-        System.out.println("Navigated to Home screen");
+        ExtentTestListener.logStep("Navigated to Home screen");
     }
 }

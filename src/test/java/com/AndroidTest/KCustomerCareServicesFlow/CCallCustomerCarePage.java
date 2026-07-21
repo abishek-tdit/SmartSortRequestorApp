@@ -1,5 +1,6 @@
 package com.AndroidTest.KCustomerCareServicesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
@@ -23,12 +24,15 @@ public class CCallCustomerCarePage {
     // Click Call Icon
     public void clickCallIcon() throws Exception {
 
-        driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.widget.ImageView\").instance(8)"))
-                .click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
-        System.out.println("Call Icon Clicked");
+        WebElement callIcon = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[1]")
+                )
+        );
+
+        callIcon.click();
 
         Thread.sleep(2000);
     }
@@ -42,7 +46,7 @@ public class CCallCustomerCarePage {
 
         callBtn.click();
 
-        System.out.println("Call Popup Clicked");
+        ExtentTestListener.logStep("Call Popup Clicked");
 
         // Wait for Phone app to open
         Thread.sleep(3000);

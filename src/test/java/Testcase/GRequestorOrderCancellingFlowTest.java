@@ -14,30 +14,33 @@ public class GRequestorOrderCancellingFlowTest extends ExtentTestListener {
 
         try {
 
-            //.Abishek DS      - 0500098765 Dom
-            //.Krishna Kumar   - 0500003576 Corp
+            //Abishek rtr      - 0500098765 Dom (RO)
+            //Jamuna           - 0500445566 Dom (NON RO)
 
-            //LOGIN
-            ALoginPage loginPage = new ALoginPage(driver);
-            loginPage.login("0500098765",
-                         "Admin@194");
+            //LOGIN:
+//            ALoginPage loginPage = new ALoginPage(driver);
+//            loginPage.login("0500445566",
+//                         "Admin@194");
+//            Thread.sleep(3000);
+//            //LOCATION:
+//            BLocationPage locationPage = new BLocationPage(driver);
+//            locationPage.selectLocation();
+            Thread.sleep(3000);
 
-            //LOCATION
-            BLocationPage locationPage = new BLocationPage(driver);
-            locationPage.selectLocation();
-
-            //CANCEL
+            //CANCEL:
             CCancelPage cancelPage = new CCancelPage(driver);
             cancelPage.openPendingOrders();
 //================================================================================//
-            // Change order no before RUN
-            cancelPage.selectOrderToCancel("AB-RO-60453");
+//================================================================================//
+                      // Change order no before RUN:
+            cancelPage.selectOrderToCancel("AB-RO-62003");
+//================================================================================//
 //================================================================================//
             cancelPage.clickCancelButton();
             cancelPage.selectCancelReason();
             cancelPage.clickSubmit();
             cancelPage.clickOkPopup();
-            System.out.println("Cancel Flow Login → Location → Pending Order Completed Successfully");
+            ExtentTestListener.logStep("Cancel Flow Login → Location → Pending Order Completed Successfully");
         }
         catch (Exception e)
         {

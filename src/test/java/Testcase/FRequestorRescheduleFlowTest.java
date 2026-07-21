@@ -15,38 +15,41 @@ public class FRequestorRescheduleFlowTest extends ExtentTestListener {
 
         try {
 
-            //.Abishek DS      - 0500098765 Dom
-            //.Krishna Kumar   - 0500003576 Corp
+            //Abishek rtr      - 0500098765 Dom (RO)
+            //Jamuna           - 0500445566 Dom (NON RO)
 
-            //LOGIN
+//            //LOGIN:
 //            ALoginPage loginPage = new ALoginPage(driver);
-//            loginPage.login("0500098765",
+//            loginPage.login("0500445566",
 //                         "Admin@194");
-//
-//            //LOCATION
-//            HLocationPage locationPage = new HLocationPage(driver);
+//            Thread.sleep(3000);
+//            //LOCATION:
+//            BLocationPage locationPage = new BLocationPage(driver);
 //            locationPage.selectLocation();
+            Thread.sleep(3000);
 
-            //RESCHEDULE
+            //RESCHEDULE:
             CReschedulePage reschedule = new CReschedulePage(driver);
             reschedule.clickReschedule();
 //================================================================================//
-                // Change order no before RUN
-            reschedule.selectOrderToReschedule("AB-RO-60453");
+//================================================================================//
+                      // Change order no before RUN:
+            reschedule.selectOrderToReschedule("AB-RO-62004");
+//================================================================================//
 //================================================================================//
             reschedule.clickRescheduleButton();
 
-            //SLOT PAGE
+            //SLOT PAGE:
             DSlotPage slotPage = new DSlotPage(driver);
 
             slotPage.selectSlotTiming();
             slotPage.confirmReschedule();
 
-            System.out.println("SmartSort Reschedule Flow Completed Successfully");
+            ExtentTestListener.logStep("SmartSort Reschedule Flow Completed Successfully");
 
         }
-        catch (Exception e) {
-
+        catch (Exception e)
+        {
             e.printStackTrace();
 
             //Screenshot

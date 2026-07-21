@@ -39,7 +39,7 @@ public class DSlotPage {
                         )
                 );
 
-                System.out.println("Dates Found : " + dates.size());
+                ExtentTestListener.logStep("Dates Found : " + dates.size());
 
                 if (dates.size() < 2) {
                     throw new RuntimeException("Tomorrow date not found.");
@@ -47,7 +47,7 @@ public class DSlotPage {
 
                 WebElement tomorrow = dates.get(1);
 
-                System.out.println("Selecting Date : "
+                ExtentTestListener.logStep("Selecting Date : "
                         + tomorrow.getAttribute("content-desc"));
 
                 tomorrow.click();
@@ -70,12 +70,12 @@ public class DSlotPage {
 
                 WebElement firstSlot = slots.get(0);
 
-                System.out.println("Selecting Slot : "
+                ExtentTestListener.logStep("Selecting Slot : "
                         + firstSlot.getAttribute("content-desc"));
 
                 firstSlot.click();
 
-                System.out.println("Tomorrow date and first slot selected successfully.");
+                ExtentTestListener.logStep("Tomorrow date and first slot selected successfully.");
 
                 if (ExtentTestListener.getTest() != null) {
                     ExtentTestListener.getTest().pass("Tomorrow date and first slot selected");
@@ -122,7 +122,7 @@ public class DSlotPage {
 
         confirmBtn.click();
 
-        System.out.println("Confirm button clicked");
+        ExtentTestListener.logStep("Confirm button clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked Confirm button");
@@ -139,7 +139,7 @@ public class DSlotPage {
 
         okBtn.click();
 
-        System.out.println("OK popup clicked");
+        ExtentTestListener.logStep("OK popup clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked OK popup");

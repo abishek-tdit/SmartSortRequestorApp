@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -31,7 +32,7 @@ public class DProfileUserDetailsPage {
                 )
         )).click();
 
-        System.out.println("Profile Icon Clicked");
+        ExtentTestListener.logStep("Profile Icon Clicked");
 
         Thread.sleep(5000);
 
@@ -41,7 +42,7 @@ public class DProfileUserDetailsPage {
                 AppiumBy.accessibilityId("View Profile")
         )).click();
 
-        System.out.println("View Profile Clicked");
+        ExtentTestListener.logStep("View Profile Clicked");
 
         Thread.sleep(5000);
 
@@ -51,7 +52,7 @@ public class DProfileUserDetailsPage {
                 AppiumBy.xpath("//android.widget.ScrollView/android.view.View[3]")
         )).click();
 
-        System.out.println("User Name Edit Icon Clicked");
+        ExtentTestListener.logStep("User Name Edit Icon Clicked");
 
         Thread.sleep(5000);
 
@@ -59,19 +60,19 @@ public class DProfileUserDetailsPage {
                 driver.findElements(
                         AppiumBy.className("android.widget.EditText"));
 
-        System.out.println("Total Fields = " + fields.size());
+        ExtentTestListener.logStep("Total Fields = " + fields.size());
 
         // First Name
         fields.getFirst().clear();
         fields.get(0).sendKeys("Abishek");
 
-        System.out.println("First Name Updated");
+        ExtentTestListener.logStep("First Name Updated");
 
         // Last Name
         fields.get(1).clear();
         fields.get(1).sendKeys("DD");
 
-        System.out.println("Last Name Updated");
+        ExtentTestListener.logStep("Last Name Updated");
 
         Thread.sleep(2000);
 
@@ -81,7 +82,7 @@ public class DProfileUserDetailsPage {
                 AppiumBy.accessibilityId("Update")
         )).click();
 
-        System.out.println("Update Button Clicked");
+        ExtentTestListener.logStep("Update Button Clicked");
 
         Thread.sleep(5000);
 
@@ -91,7 +92,7 @@ public class DProfileUserDetailsPage {
                 AppiumBy.xpath("//android.widget.ScrollView/android.view.View[7]")
         )).click();
 
-        System.out.println("Email Edit Icon Clicked");
+        ExtentTestListener.logStep("Email Edit Icon Clicked");
 
         Thread.sleep(3000);
 
@@ -108,7 +109,7 @@ public class DProfileUserDetailsPage {
 
         Thread.sleep(2000);
 
-        System.out.println("Email Value = " + emailField.getText());
+        ExtentTestListener.logStep("Email Value = " + emailField.getText());
 
         Thread.sleep(2000);
 
@@ -118,7 +119,7 @@ public class DProfileUserDetailsPage {
                 AppiumBy.accessibilityId("Send OTP")
         )).click();
 
-        System.out.println("Send OTP Clicked");
+        ExtentTestListener.logStep("Send OTP Clicked");
 
         Thread.sleep(3000);
 
@@ -128,9 +129,9 @@ public class DProfileUserDetailsPage {
                 AppiumBy.accessibilityId("OK")
         )).click();
 
-        System.out.println("OTP Sent Popup OK Clicked");
+        ExtentTestListener.logStep("OTP Sent Popup OK Clicked");
 
-        System.out.println("Waiting 30 seconds for OTP entry...");
+        ExtentTestListener.logStep("Waiting 30 seconds for OTP entry...");
 
         Thread.sleep(20000);
 
@@ -140,7 +141,7 @@ public class DProfileUserDetailsPage {
                 AppiumBy.accessibilityId("Verify OTP")
         )).click();
 
-        System.out.println("Verify OTP Clicked");
+        ExtentTestListener.logStep("Verify OTP Clicked");
 
         Thread.sleep(5000);
 
@@ -150,10 +151,10 @@ public class DProfileUserDetailsPage {
                 AppiumBy.accessibilityId("OK")
         )).click();
 
-        System.out.println("Success Popup OK Clicked");
+        ExtentTestListener.logStep("Success Popup OK Clicked");
 
         Thread.sleep(3000);
 
-        System.out.println("User Details Updated Successfully");
+        ExtentTestListener.logStep("User Details Updated Successfully");
     }
 }

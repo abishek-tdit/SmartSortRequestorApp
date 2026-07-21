@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -30,7 +31,7 @@ public class IYourAddressPage {
                                 "/android.view.View/android.view.View[1]" +
                                 "/android.view.View/android.widget.ImageView[1]"))).click();
 
-        System.out.println("Profile Icon Clicked");
+        ExtentTestListener.logStep("Profile Icon Clicked");
         Thread.sleep(3000);
 
         //Click View Profile
@@ -38,40 +39,40 @@ public class IYourAddressPage {
                 AppiumBy.accessibilityId("View Profile"))).click();
 
 
-        System.out.println("Clicked View Profile, waiting for next screen...");
+        ExtentTestListener.logStep("Clicked View Profile, waiting for next screen...");
         Thread.sleep(5000);
 
         // Click Your Address (using your locator)
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Your Address"))).click();
 
-        System.out.println("Your Address Clicked");
+        ExtentTestListener.logStep("Your Address Clicked");
 
         Thread.sleep(3000);
 
         //Select City
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Select City"))).click();
-        System.out.println("Select City Clicked");
+        ExtentTestListener.logStep("Select City Clicked");
 
         Thread.sleep(2000);
 
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Bqaiq"))).click();
-        System.out.println("City Selected (Bqaiq)");
+        ExtentTestListener.logStep("City Selected (Bqaiq)");
 
         Thread.sleep(2000);
 
         //Select District
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Select district"))).click();
-        System.out.println("Select District Clicked");
+        ExtentTestListener.logStep("Select District Clicked");
 
         Thread.sleep(2000);
 
         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Abudabi"))).click();
-        System.out.println("District Selected (Abudabi)");
+                AppiumBy.accessibilityId("AlAndalus"))).click();
+        ExtentTestListener.logStep("District Selected (AlAndalus)");
 
         Thread.sleep(2000);
 
@@ -80,11 +81,11 @@ public class IYourAddressPage {
                 AppiumBy.className("android.widget.EditText")));
 
         if (searchField.isDisplayed()) {
-            System.out.println("Search Location Field Visible");
+            ExtentTestListener.logStep("Search Location Field Visible");
         }
         else
         {
-            System.out.println("Search Location Field NOT Visible");
+            ExtentTestListener.logStep("Search Location Field NOT Visible");
         }
 
         //Choose Location From Map
@@ -92,7 +93,7 @@ public class IYourAddressPage {
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().descriptionContains(\"Choose location from map\")"))).click();
 
-        System.out.println("Choose Location From Map Clicked");
+        ExtentTestListener.logStep("Choose Location From Map Clicked");
 
         Thread.sleep(4000);
 
@@ -104,7 +105,7 @@ public class IYourAddressPage {
         searchBox.click();
         searchBox.sendKeys("Bqaiq");
 
-        System.out.println("Entered Location : Bqaiq");
+        ExtentTestListener.logStep("Entered Location : Bqaiq");
 
         Thread.sleep(3000);
 
@@ -115,13 +116,13 @@ public class IYourAddressPage {
 
         vellore.click();
 
-        System.out.println("Selected : Abqaiq Saudi Arabia");
+        ExtentTestListener.logStep("Selected : Abqaiq Saudi Arabia");
 
         Thread.sleep(2000);
 
         try {
             driver.hideKeyboard();
-            System.out.println("Keyboard Hidden");
+            ExtentTestListener.logStep("Keyboard Hidden");
         } catch (Exception e) {
             System.out.println("Keyboard already hidden");
         }
@@ -132,7 +133,7 @@ public class IYourAddressPage {
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("OK"))).click();
 
-        System.out.println("Location Confirmed (OK Clicked)");
+        ExtentTestListener.logStep("Location Confirmed (OK Clicked)");
 
         Thread.sleep(3000);
 
@@ -142,7 +143,7 @@ public class IYourAddressPage {
                 AppiumBy.accessibilityId("Save")
         )).click();
 
-        System.out.println("Popup Save Button Clicked");
+        ExtentTestListener.logStep("Popup Save Button Clicked");
 
         Thread.sleep(3000);
 
@@ -151,7 +152,7 @@ public class IYourAddressPage {
                 AppiumBy.accessibilityId("Your Address")
         )).click();
 
-        System.out.println("Again Your Address Clicked");
+        ExtentTestListener.logStep("Again Your Address Clicked");
 
         Thread.sleep(3000);
 
@@ -170,7 +171,7 @@ public class IYourAddressPage {
                 AppiumBy.className("android.widget.Button")
         );
 
-        System.out.println("Delete Buttons Found : " + deleteButtons.size());
+        ExtentTestListener.logStep("Delete Buttons Found : " + deleteButtons.size());
 
         if (deleteButtons.isEmpty()) {
             throw new RuntimeException("No delete button found.");
@@ -181,7 +182,7 @@ public class IYourAddressPage {
 
         wait.until(ExpectedConditions.elementToBeClickable(lastDelete)).click();
 
-        System.out.println("Last Address Deleted Successfully");
+        ExtentTestListener.logStep("Last Address Deleted Successfully");
 
         Thread.sleep(2000);
 
@@ -190,7 +191,7 @@ public class IYourAddressPage {
                 AppiumBy.accessibilityId("OK")
         )).click();
 
-        System.out.println("First OK Popup Clicked");
+        ExtentTestListener.logStep("First OK Popup Clicked");
 
         Thread.sleep(2000);
 
@@ -199,14 +200,14 @@ public class IYourAddressPage {
                 AppiumBy.accessibilityId("OK")
         )).click();
 
-        System.out.println("Second OK Popup Clicked");
+        ExtentTestListener.logStep("Second OK Popup Clicked");
 
         Thread.sleep(3000);
 
 
         //goback
         driver.navigate().back();
-        System.out.println("Navigated Back");
+        ExtentTestListener.logStep("Navigated Back");
 
 
     }

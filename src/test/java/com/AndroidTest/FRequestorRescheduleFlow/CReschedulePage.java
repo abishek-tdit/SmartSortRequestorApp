@@ -39,7 +39,7 @@ public class CReschedulePage {
 
                 if (pendingBtn.isDisplayed()) {
                     pendingBtn.click();
-                    System.out.println("Pending clicked successfully");
+                    ExtentTestListener.logStep("Pending clicked successfully");
 
                     if (ExtentTestListener.getTest() != null) {
                         ExtentTestListener.getTest().pass("Clicked Pending Orders");
@@ -48,9 +48,9 @@ public class CReschedulePage {
                     found = true;
                     break;
                 }
-
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 // Scroll if not found
                 Map<String, Object> params = new HashMap<>();
                 params.put("left", 100);
@@ -80,8 +80,7 @@ public class CReschedulePage {
 
         // Dynamic XPath using Order Number
         By orderXpath = By.xpath(
-                "//android.widget.ImageView[contains(@content-desc,'" + orderNumber + "')]"
-        );
+                "//android.widget.ImageView[contains(@content-desc,'" + orderNumber + "')]");
 
         for (int i = 0; i < 6; i++) {
 
@@ -93,11 +92,11 @@ public class CReschedulePage {
                 wait.until(ExpectedConditions.elementToBeClickable(order));
 
                 String orderDetails = order.getAttribute("content-desc");
-                System.out.println("Order Found : " + orderDetails);
+                ExtentTestListener.logStep("Order Found : " + orderDetails);
 
                 order.click();
 
-                System.out.println("Order Clicked Successfully : " + orderNumber);
+                ExtentTestListener.logStep("Order Clicked Successfully : " + orderNumber);
 
                 if (ExtentTestListener.getTest() != null) {
                     ExtentTestListener.getTest().pass(
@@ -107,8 +106,9 @@ public class CReschedulePage {
                 found = true;
                 break;
 
-            } catch (Exception e) {
-
+            }
+            catch (Exception e)
+            {
                 // Scroll Up
                 driver.executeScript("mobile: swipeGesture",
                         java.util.Map.of(
@@ -148,7 +148,7 @@ public class CReschedulePage {
 
         rescheduleBtn.click();
 
-        System.out.println("Reschedule button clicked");
+        ExtentTestListener.logStep("Reschedule button clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked Reschedule button");

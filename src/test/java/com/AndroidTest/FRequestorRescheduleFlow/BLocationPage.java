@@ -42,7 +42,7 @@ public class BLocationPage {
 
         locationBtn.click();
 
-        System.out.println("Location Selected : Bqaiq");
+        ExtentTestListener.logStep("Location Selected : Bqaiq");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Selected Location: Bqaiq");

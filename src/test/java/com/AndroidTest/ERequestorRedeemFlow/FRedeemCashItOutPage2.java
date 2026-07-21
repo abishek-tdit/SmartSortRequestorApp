@@ -1,5 +1,6 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.Dimension;
@@ -57,7 +58,7 @@ public class FRedeemCashItOutPage2 {
 
         driver.perform(List.of(swipe));
 
-        System.out.println("Page scrolling");
+        ExtentTestListener.logStep("Page scrolling");
 
         Thread.sleep(3000);
 
@@ -71,6 +72,6 @@ public class FRedeemCashItOutPage2 {
 
         redeemBtn.click();
 
-        System.out.println("Redeem button clicked");
+        ExtentTestListener.logStep("Redeem button clicked");
     }
 }

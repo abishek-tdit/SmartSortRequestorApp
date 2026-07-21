@@ -33,11 +33,7 @@ public class ALoginPage {
 
         logInBtn.click();
 
-        System.out.println("Log In Button Clicked");
-
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Log in button clicked");
-        }
+        ExtentTestListener.logStep("Log In Button Clicked");
 
         Thread.sleep(2000);
 
@@ -50,9 +46,9 @@ public class ALoginPage {
         );
 
         mobile.click();
-        mobile.sendKeys("0500123456");
+        mobile.sendKeys("0500098765");
 
-        System.out.println("Mobile number entered");
+        ExtentTestListener.logStep("Mobile number entered");
 
 
         // Password
@@ -64,12 +60,11 @@ public class ALoginPage {
 
         password.click();
         password.sendKeys("Admin@194");
-        System.out.println("Password entered");
+        ExtentTestListener.logStep("Password entered");
 
 
         // Hide Keyboard
         driver.hideKeyboard();
-
         Thread.sleep(2000);
 
         // LOGIN BUTTON
@@ -81,7 +76,7 @@ public class ALoginPage {
 
         loginBtn.click();
 
-        System.out.println("Login button clicked");
+        ExtentTestListener.logStep("Login button clicked");
 
 
         // WAIT AFTER LOGIN

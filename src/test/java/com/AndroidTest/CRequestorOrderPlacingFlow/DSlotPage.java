@@ -24,52 +24,44 @@ public class DSlotPage {
     }
 
     public void selectSlot() throws InterruptedException {
-    // Wait for page to load
+        // Wait for page to load
         Thread.sleep(5000);
 
-    // Scroll until Select Slot is visible
+        // Scroll until Select Slot is visible
         driver.findElement(
                 AppiumBy.androidUIAutomator(
                         "new UiScrollable(new UiSelector().scrollable(true))" +
-                                ".scrollIntoView(new UiSelector().description(\"Select Slot\"))"
-                )
-        );
+                                ".scrollIntoView(new UiSelector().description(\"Select Slot\"))"));
 
         Thread.sleep(1000);
 
-    // Find Select Slot button
+        // Find Select Slot button
         WebElement selectSlotBtn = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.accessibilityId("Select Slot")
-                )
-        );
+                        AppiumBy.accessibilityId("Select Slot")));
 
-    // Click using gesture
+        // Click using gesture
         assert ((RemoteWebElement) selectSlotBtn).getId() != null;
         driver.executeScript(
                 "mobile: clickGesture",
                 Map.of(
                         "elementId",
-                        ((RemoteWebElement) selectSlotBtn).getId()
-                )
-        );
+                        ((RemoteWebElement) selectSlotBtn).getId()));
 
-        System.out.println("✅ Select Slot Clicked");
+        ExtentTestListener.logStep("Select Slot Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked Select Slot");
         }
 
         Thread.sleep(3000);
-        // Get all time slots
 
+        //Get all time slots
         List<WebElement> timeSlots = wait.until(
                 ExpectedConditions.presenceOfAllElementsLocatedBy(
-                        AppiumBy.xpath("//android.view.View[contains(@content-desc, 'PM') or contains(@content-desc, 'AM')]")
-                )
-        );
+                        AppiumBy.xpath("//android.view.View[contains(@content-desc, 'PM') or contains(@content-desc, 'AM')]")));
 
-        // ✅ Click first available slot
+        //Click first available slot
         if (!timeSlots.isEmpty()) {
 
             // Filter visible + clickable slot
@@ -77,26 +69,24 @@ public class DSlotPage {
 
             wait.until(ExpectedConditions.elementToBeClickable(firstSlot)).click();
 
-            log("✅ First Time Slot Selected");
+            log("First Time Slot Selected");
 
-        } else {
-            throw new RuntimeException("❌ No Time Slots Available");
+        }
+        else
+        {
+            throw new RuntimeException("No Time Slots Available");
         }
 
         WebElement continueBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Continue")
-                )
-        );
+                        AppiumBy.accessibilityId("Continue")));
 
         continueBtn.click();
         ExtentTestListener.getTest().pass("Clicked Continue");
 
         WebElement confirmBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Confirm")
-                )
-        );
+                        AppiumBy.accessibilityId("Confirm")));
 
         confirmBtn.click();
         ExtentTestListener.getTest().pass("Clicked Confirm");
@@ -107,13 +97,11 @@ public class DSlotPage {
         // CLICK FINAL OK BUTTON
         WebElement finalOkBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("OK")
-                )
-        );
+                        AppiumBy.accessibilityId("OK")));
 
         finalOkBtn.click();
 
-        System.out.println("Final OK Button Clicked");
+        ExtentTestListener.logStep("Final OK Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Final OK Button Clicked");

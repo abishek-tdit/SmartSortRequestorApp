@@ -173,12 +173,23 @@ public class MobileUtility {
                         "duration", 2000));
     }
 
+    public WebElement waitForElement(WebElement element)
+    {    return wait.until(ExpectedConditions.visibilityOf(element));}
+
+
+    public WebElement waitForAccessibilityId(String id) {
+        return wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.accessibilityId(id)));
+    }
+
+    public void click(WebElement element)
+    {wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
      //DELAY
      public void delay(int seconds) {
 
         try {
 
-            Thread.sleep(seconds * 1000L);
+            Thread.sleep(seconds * 1000);
         }
         catch (InterruptedException e) {
 

@@ -9,23 +9,25 @@ public class CRequestorOrderPlacingFlowTest extends BaseClassMobile {
     @Test
     public void smartSortOrderFlow() throws Exception {
 
-        //.Abishek DS      - 0500098765 Dom
-        //.Krishna Kumar   - 0500003576 Corp
+        //Abishek Rtr      - 0500098765 Dom (RO)
+        //Jamuna           - 0500445566 Dom (NON RO)
 
-//        //Login
-//        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500098765",
-//                     "Admin@194");
+        //Login:
+        ALoginPage loginPage = new ALoginPage(driver);
+        loginPage.login(
+                "0500445566",
+                "Admin@194");
+        Thread.sleep(4000);
 
-        //Location
+        //Location:
         BLocationPage homePage = new BLocationPage(driver);
         homePage.selectLocation();
 
-        //Door Pickup
+        //Door Pickup:
         CDoorPickupPage pickupPage = new CDoorPickupPage(driver);
         pickupPage.selectPickup();
 
-        //Slot
+        //Slot:
         DSlotPage slotPage = new DSlotPage(driver);
         slotPage.selectSlot();
 

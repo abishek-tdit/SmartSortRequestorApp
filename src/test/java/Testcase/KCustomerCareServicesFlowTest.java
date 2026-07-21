@@ -1,6 +1,7 @@
 package Testcase;
 
 import Base.BaseClassMobile;
+import Base.ExtentTestListener;
 import com.AndroidTest.KCustomerCareServicesFlow.ALoginPage;
 import com.AndroidTest.KCustomerCareServicesFlow.BLocationPage;
 import com.AndroidTest.KCustomerCareServicesFlow.CCallCustomerCarePage;
@@ -11,17 +12,19 @@ public class KCustomerCareServicesFlowTest extends BaseClassMobile {
     @Test
     public void CustomerCareServicesFlow() throws Exception {
 
-        //Login
-        ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login("0500098765",
-                     "Admin@194");
+        //Abishek rtr      - 0500098765 Dom (RO)
+        //Jamuna           - 0500445566 Dom (NON RO)
 
-
-        //Location
+//        //Login:
+//        ALoginPage loginPage = new ALoginPage(driver);
+//        loginPage.login("0500445566",
+//                     "Admin@194");
+        Thread.sleep(3000);
+        //Location:
         BLocationPage homePage = new BLocationPage(driver);
         homePage.selectLocation();
 
-        // Customer Care
+        //Customer Care:
         CCallCustomerCarePage callPage = new CCallCustomerCarePage(driver);
         callPage.clickCallIcon();
         Thread.sleep(2000);
@@ -30,6 +33,6 @@ public class KCustomerCareServicesFlowTest extends BaseClassMobile {
         callPage.navigateBackToHomePage();
         Thread.sleep(2000);
 
-        System.out.println("Customer Care Services Flow Completed Successfully");
+        ExtentTestListener.logStep("Customer Care Services Flow Completed Successfully");
     }
 }

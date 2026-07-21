@@ -32,6 +32,7 @@ public class BLocationPage {
         );
 
         exploreBtn.click();
+        ExtentTestListener.logStep("Explore Other Locations");
 
         Thread.sleep(2000);
 
@@ -43,7 +44,7 @@ public class BLocationPage {
 
         locationBtn.click();
 
-        System.out.println("Location Selected : Bqaiq");
+        ExtentTestListener.logStep("Location Selected : Bqaiq");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Selected Location: Bqaiq");

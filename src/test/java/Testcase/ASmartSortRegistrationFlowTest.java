@@ -14,7 +14,7 @@ public class ASmartSortRegistrationFlowTest extends BaseClassMobile {
 
             System.out.println("Registration Flow Started");
 
-            //Sign Up
+            //Sign Up:
             ASignUpPage signUpPage = new ASignUpPage(driver);
             signUpPage.signUp();
 
@@ -22,8 +22,8 @@ public class ASmartSortRegistrationFlowTest extends BaseClassMobile {
 
             Assert.assertTrue(true, "Registration completed successfully");
         }
-        catch (Exception e) {
-
+        catch (Exception e)
+        {
             e.printStackTrace();
 
             Assert.fail("Registration Flow Failed : " + e.getMessage());

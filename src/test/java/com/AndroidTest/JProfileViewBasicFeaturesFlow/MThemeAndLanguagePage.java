@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +26,7 @@ public class MThemeAndLanguagePage {
                 AppiumBy.accessibilityId("Off")
         )).click();
 
-        System.out.println("Dark Mode Clicked");
+        ExtentTestListener.logStep("Dark Mode Clicked");
 
         Thread.sleep(3000);
 
@@ -34,7 +35,7 @@ public class MThemeAndLanguagePage {
                 AppiumBy.accessibilityId("On")
         )).click();
 
-        System.out.println("Dark Mode ON Clicked");
+        ExtentTestListener.logStep("Dark Mode ON Clicked");
 
         Thread.sleep(3000);
 
@@ -43,7 +44,7 @@ public class MThemeAndLanguagePage {
                 AppiumBy.accessibilityId("On")
         )).click();
 
-        System.out.println("Dark Mode Clicked Again");
+        ExtentTestListener.logStep("Dark Mode Clicked Again");
 
         Thread.sleep(3000);
 
@@ -52,7 +53,7 @@ public class MThemeAndLanguagePage {
                 AppiumBy.accessibilityId("Off")
         )).click();
 
-        System.out.println("Dark Mode OFF Clicked");
+        ExtentTestListener.logStep("Dark Mode OFF Clicked");
 
         Thread.sleep(3000);
 
@@ -66,7 +67,7 @@ public class MThemeAndLanguagePage {
 
         languageBtn.click();
 
-        System.out.println("Language Option Clicked");
+        ExtentTestListener.logStep("Language Option Clicked");
 
         Thread.sleep(3000);
 
@@ -79,7 +80,7 @@ public class MThemeAndLanguagePage {
 
         arabicBtn.click();
 
-        System.out.println("Arabic Language Selected");
+        ExtentTestListener.logStep("Arabic Language Selected");
 
         Thread.sleep(5000);
 
@@ -92,7 +93,7 @@ public class MThemeAndLanguagePage {
 
         arabicLanguageMenu.click();
 
-        System.out.println("Arabic Language Menu Clicked");
+        ExtentTestListener.logStep("Arabic Language Menu Clicked");
 
         Thread.sleep(3000);
 
@@ -105,41 +106,9 @@ public class MThemeAndLanguagePage {
 
         englishBtn.click();
 
-        System.out.println("English Language Selected");
+        ExtentTestListener.logStep("English Language Selected");
 
         Thread.sleep(5000);
-
-
-        // Click Logout
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("log out")
-        )).click();
-
-        System.out.println("Logout Clicked");
-
-        Thread.sleep(5000);
-
-        System.out.println("User Logged Out Successfully");
-
-        // CLICK YES BUTTON ON LOGOUT POPUP
-        try {
-
-            WebElement yesBtn = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            AppiumBy.accessibilityId("Yes")
-                    )
-            );
-
-            yesBtn.click();
-
-            System.out.println("Yes Button Clicked");
-
-        } catch (Exception e) {
-
-            System.out.println("Yes Button Not Found");
-            e.printStackTrace();
-        }
-
-        Thread.sleep(3000);
+        driver.navigate().back();
     }
 }

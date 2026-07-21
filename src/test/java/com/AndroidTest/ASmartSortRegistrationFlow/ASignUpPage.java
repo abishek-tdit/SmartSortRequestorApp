@@ -1,7 +1,7 @@
 package com.AndroidTest.ASmartSortRegistrationFlow;
 
+import Base.ExtentTestListener;
 import Utility.MobileUtility;
-
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 
@@ -23,162 +23,60 @@ public class ASignUpPage {
     public void signUp() throws Exception {
 
 
-        // WAIT FOR APP LOAD
-        Thread.sleep(5000);
+//		WebElement registerBtnHome = util.waitForAccessibilityId("Register");
 
+//		util.click(registerBtnHome);
+        util.click(util.waitForAccessibilityId("Register"));
+        ExtentTestListener.logStep("Home Register button clicked");
+        util.click(util.waitForAccessibilityId("Select City"));
 
-        // CLICK REGISTER BUTTON
-        WebElement registerBtnHome = driver.findElement(
-                AppiumBy.accessibilityId("Register")
-        );
+        ExtentTestListener.logStep("Select City dropdown clicked");
+        String city = "Chennai";
 
-        driver.executeScript(
-                "mobile: clickGesture",
-                java.util.Map.of(
-                        "elementId",
-                        ((org.openqa.selenium.remote.RemoteWebElement) registerBtnHome).getId()
-                )
-        );
+        util.click(util.waitForAccessibilityId(city));
 
-        System.out.println("Home Register button clicked");
+        ExtentTestListener.logStep("City selected successfully");
 
-        Thread.sleep(3000);
+        util.click(util.waitForAccessibilityId("Select Requestor Type"));
 
+        ExtentTestListener.logStep("Requestor Type dropdown clicked");
 
-        // CLICK SELECT CITY DROPDOWN
-        WebElement selectCityDropdown = driver.findElement(
-                AppiumBy.accessibilityId("Select City")
-        );
+        util.click(util.waitForAccessibilityId("Domestic Requestor"));
 
-        driver.executeScript(
-                "mobile: clickGesture",
-                java.util.Map.of(
-                        "elementId",
-                        ((org.openqa.selenium.remote.RemoteWebElement) selectCityDropdown).getId()
-                )
-        );
+        ExtentTestListener.logStep("Requestor Type selected successfully");
 
-        System.out.println("Select City dropdown clicked");
+//		WebElement requestorType =
+//        util.waitForAccessibilityId("Corporate Requestor");
 
+//		util.click(requestorType);
 
-        // WAIT FOR DROPDOWN OPTIONS
-        Thread.sleep(2000);
+//      ExtentTestListener.logStep("Requestor Type selected successfully");
 
-
-        // SELECT CITY NAME
-        WebElement cityName = driver.findElement(
-                AppiumBy.accessibilityId("Bqaiq")
-        );
-
-        driver.executeScript(
-                "mobile: clickGesture",
-                java.util.Map.of(
-                        "elementId",
-                        ((org.openqa.selenium.remote.RemoteWebElement) cityName).getId()
-                )
-        );
-
-        System.out.println("City selected successfully");
-
-
-        // WAIT AFTER CITY SELECTION
-        Thread.sleep(2000);
-
-
-        // CLICK REQUESTOR TYPE DROPDOWN
-        WebElement requestorTypeDropdown = driver.findElement(
-                AppiumBy.accessibilityId("Select Requestor Type")
-        );
-
-        driver.executeScript(
-                "mobile: clickGesture",
-                java.util.Map.of(
-                        "elementId",
-                        ((org.openqa.selenium.remote.RemoteWebElement)
-                                requestorTypeDropdown).getId()
-                )
-        );
-
-        System.out.println("Requestor Type dropdown clicked");
-
-
-        // WAIT FOR DROPDOWN OPTIONS
-        Thread.sleep(2000);
-
-
-        // SELECT REQUESTOR TYPE FOR DOMESTIC
-        WebElement requestorType = driver.findElement(
-                AppiumBy.accessibilityId("Domestic Requestor")
-        );
-
-        driver.executeScript(
-                "mobile: clickGesture",
-                java.util.Map.of(
-                        "elementId",
-                        ((org.openqa.selenium.remote.RemoteWebElement)
-                                requestorType).getId()
-                )
-        );
-
-        System.out.println("Domestic Requestor selected successfully");
-
-//        // SELECT REQUESTOR TYPE FOR CORPORATE
-//        WebElement requestorType = driver.findElement(
-//                AppiumBy.accessibilityId("Corporate Requestor")
-//        );
-//
+//        // SCROLL DOWN LITTLE
 //        driver.executeScript(
-//                "mobile: clickGesture",
+//                "mobile: swipeGesture",
 //                java.util.Map.of(
-//                        "elementId",
-//                        ((org.openqa.selenium.remote.RemoteWebElement)
-//                                requestorType).getId()
-//                )
-//        );
+//                        "left", 500,
+//                        "top", 1500,
+//                        "width", 300,
+//                        "height", 600,
+//                        "direction", "up",
+//                        "percent", 0.75 ));
 //
-//        System.out.println("Corporate Requestor selected successfully");
-
-
-        // WAIT AFTER REQUESTOR TYPE SELECTION
-        Thread.sleep(4000);
-
-
-        // SCROLL DOWN LITTLE
-        driver.executeScript(
-                "mobile: swipeGesture",
-                java.util.Map.of(
-                        "left", 500,
-                        "top", 1500,
-                        "width", 300,
-                        "height", 600,
-                        "direction", "up",
-                        "percent", 0.75
-                )
-        );
-
-        Thread.sleep(3000);
-
+//        util.delay(1);
 
         // ENTER FIRST NAME
         WebElement firstName = driver.findElement(
                 AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.widget.EditText\").instance(0)"
-                )
-        );
+                        "new UiSelector().className(\"android.widget.EditText\").instance(0)"));
 
-        firstName.click();
-        firstName.sendKeys("Krishna");
+        util.click(firstName);
+        firstName.sendKeys("Krish");
 
-        System.out.println("First Name entered");
-
-        Thread.sleep(2000);
-
+        ExtentTestListener.logStep("First Name entered successfully");
 
         // HIDE KEYBOARD
         driver.hideKeyboard();
-
-        Thread.sleep(2000);
-
 
         // ENTER LAST NAME
         WebElement lastName = driver.findElement(
@@ -186,48 +84,29 @@ public class ASignUpPage {
                         "new UiSelector().className(\"android.widget.EditText\").instance(2)"
                 )
         );
+        util.click(lastName);
 
-        lastName.click();
-        lastName.sendKeys("Kumar");
+        lastName.sendKeys("Krishnan");
 
-        System.out.println("Last Name entered successfully");
-
-        Thread.sleep(2000);
-
+        ExtentTestListener.logStep("Last Name entered successfully");
 
         // HIDE KEYBOARD
         try {
             driver.hideKeyboard();
         } catch (Exception e) {
-            System.out.println("Keyboard not visible");
+            ExtentTestListener.logStep("Keyboard not visible");
         }
-
-        Thread.sleep(2000);
 
 
         // CLICK GENDER DROPDOWN
-        WebElement genderDropdown = driver.findElement(
-                AppiumBy.accessibilityId("Select Gender")
-        );
+        util.click(util.waitForAccessibilityId("Select Gender"));
 
-        genderDropdown.click();
-
-        System.out.println("Gender dropdown clicked");
-
-        Thread.sleep(2000);
-
+        ExtentTestListener.logStep("Gender dropdown clicked");
 
         // SELECT MALE
-        WebElement maleOption = driver.findElement(
-                AppiumBy.accessibilityId("Male")
-        );
+        util.click(util.waitForAccessibilityId("Male"));
 
-        maleOption.click();
-
-        System.out.println("Male selected successfully");
-
-        Thread.sleep(2000);
-
+        ExtentTestListener.logStep("Male selected successfully");
 
         // SCROLL LITTLE DOWN
         driver.executeScript(
@@ -242,41 +121,41 @@ public class ASignUpPage {
                 )
         );
 
-        Thread.sleep(3000);
+        MobileNumber mobileUtil = new MobileNumber();
 
+        String mobile = mobileUtil.getUniqueMobileNumber(city);
+
+        ExtentTestListener.logStep("Generated Mobile Number : " + mobile);
 
         // ENTER MOBILE NUMBER
         WebElement mobileNumber = driver.findElement(
                 AppiumBy.xpath("(//android.widget.EditText)[4]")
         );
+        util.waitForElement(mobileNumber);
 
-        mobileNumber.click();
+        util.click(mobileNumber);
 
-        Thread.sleep(2000);
-
+        mobileNumber.sendKeys(mobile);
 
         //previous no used for registration        0500121212
         //                                         0500098765
-        mobileNumber.sendKeys("0500987654");
+        // mobileNumber.sendKeys("0500987654");
 
-        System.out.println("Mobile Number entered successfully");
+        ExtentTestListener.logStep("Mobile Number entered successfully");
 
         Thread.sleep(2000);
 
 
         // PRESS TAB / NEXT
         driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
-                io.appium.java_client.android.nativekey.AndroidKey.TAB
-        ));
+                io.appium.java_client.android.nativekey.AndroidKey.TAB));
 
         Thread.sleep(2000);
-
 
         // ENTER PASSWORD
         driver.switchTo().activeElement().sendKeys("Admin@194");
 
-        System.out.println("Password entered successfully");
-
+        ExtentTestListener.logStep("Password entered successfully");
         Thread.sleep(2000);
 
 
@@ -317,7 +196,7 @@ public class ASignUpPage {
         // ENTER CONFIRM PASSWORD
         confirmPassword.sendKeys("Admin@194");
 
-        System.out.println("Confirm Password entered successfully");
+        ExtentTestListener.logStep("Confirm Password entered successfully");
 
         Thread.sleep(2000);
 
@@ -336,59 +215,62 @@ public class ASignUpPage {
 
         checkbox.click();
 
-        System.out.println("Terms checkbox selected successfully");
+        ExtentTestListener.logStep("Terms checkbox selected successfully");
 
 
-//        // CLICK REGISTER BUTTON
-//        WebElement registerBtn = driver.findElement(
-//                AppiumBy.accessibilityId("Register")
-//        );
-//
-//        registerBtn.click();
-//
-//        System.out.println("Register button clicked successfully");
-//
-//        Thread.sleep(5000);
-//
-//
-//        //CLICK OK BUTTON
-//        WebElement okBtn = driver.findElement(
-//                AppiumBy.accessibilityId("OK")
-//        );
-//
-//        okBtn.click();
-//
-//        System.out.println("OTP sent successfully popup OK clicked");
-//
-//
-//        // WAIT 30 SECONDS FOR MANUAL OTP ENTRY
-//        System.out.println("Please enter OTP manually within 30 seconds");
-//
-//        Thread.sleep(30000);
-//
-//
-//        // CLICK CONFIRM BUTTON
-//        WebElement confirmBtn = driver.findElement(
-//                AppiumBy.accessibilityId("Confirm")
-//        );
-//
-//        confirmBtn.click();
-//
-//        System.out.println("OTP Confirm button clicked successfully");
-//
-//
-//        // WAIT FOR REGISTRATION SUCCESS POPUP
-//        Thread.sleep(5000);
-//
-//
-//        // CLICK SUCCESS OK BUTTON
-//        WebElement successOkBtn = driver.findElement(
-//                AppiumBy.accessibilityId("OK")
-//        );
-//
-//        successOkBtn.click();
-//
-//        System.out.println("Registration Success OK button clicked");
+        // CLICK REGISTER BUTTON
+        WebElement registerBtn = driver.findElement(
+                AppiumBy.accessibilityId("Register")
+        );
+
+        registerBtn.click();
+
+        ExtentTestListener.logStep("Register button clicked successfully");
+
+        Thread.sleep(5000);
+
+
+        //CLICK OK BUTTON
+        WebElement okBtn = driver.findElement(
+                AppiumBy.accessibilityId("OK")
+        );
+
+        okBtn.click();
+
+        ExtentTestListener.logStep("OTP sent successfully popup OK clicked");
+
+        String otp = mobileUtil.getOTP(mobile);
+
+        ExtentTestListener.logStep("Generated OTP : " + otp);
+
+        // WAIT 30 SECONDS FOR MANUAL OTP ENTRY
+        ExtentTestListener.logStep("Please enter OTP manually within 30 seconds");
+
+        Thread.sleep(30000);
+
+
+        // CLICK CONFIRM BUTTON
+        WebElement confirmBtn = driver.findElement(
+                AppiumBy.accessibilityId("Confirm")
+        );
+
+        confirmBtn.click();
+
+        ExtentTestListener.logStep("OTP Confirm button clicked successfully");
+
+
+        // WAIT FOR REGISTRATION SUCCESS POPUP
+        Thread.sleep(5000);
+
+
+        // CLICK SUCCESS OK BUTTON
+        WebElement successOkBtn = driver.findElement(
+                AppiumBy.accessibilityId("OK")
+        );
+
+        successOkBtn.click();
+
+        ExtentTestListener.logStep("Registration Success OK button clicked");
 
     }
 }

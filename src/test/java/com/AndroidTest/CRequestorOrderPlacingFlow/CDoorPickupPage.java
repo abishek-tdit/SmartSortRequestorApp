@@ -29,26 +29,19 @@ public class CDoorPickupPage {
         driver.findElement(
                 AppiumBy.androidUIAutomator(
                         "new UiScrollable(new UiSelector().scrollable(true))"
-                                + ".scrollIntoView(new UiSelector().descriptionContains(\"Door Pickup\"))"
-                )
-        );
+                                + ".scrollIntoView(new UiSelector().descriptionContains(\"Door Pickup\"))"));
 
-        System.out.println("Scrolled to Door Pickup");
+        ExtentTestListener.logStep("Scrolled to Door Pickup");
 
         Thread.sleep(3000);
 
         // Click Door Pickup directly
         WebElement doorPickup = driver.findElement(
-                By.xpath("//android.widget.ImageView[contains(@content-desc,'Door Pickup')]")
-        );
+                By.xpath("//android.widget.ImageView[contains(@content-desc,'Door Pickup')]"));
 
         doorPickup.click();
 
-        System.out.println("Door Pickup Clicked");
-
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Clicked Door Pickup");
-        }
+        ExtentTestListener.logStep("Door Pickup Clicked");
 
         Thread.sleep(3000);
 
@@ -56,44 +49,52 @@ public class CDoorPickupPage {
         // CLICK "SELECT YOUR PICKUP LOCATION ON MAP"
         WebElement pickupLocation = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[2]")
-                )
-        );
+                        By.xpath("//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View/android.view.View[2]")));
 
         pickupLocation.click();
 
-        System.out.println("Pickup Location Clicked");
+        ExtentTestListener.logStep("Pickup Location Clicked");
 
         ExtentTestListener.getTest().pass("Clicked Select Pickup Location On Map");
         Thread.sleep(5000);
 
+
+//         //Click Saved Address
+//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+//
+//        WebElement savedAddress = new WebDriverWait(driver, Duration.ofSeconds(20))
+//                .until(ExpectedConditions.elementToBeClickable(
+//                        AppiumBy.xpath("//android.view.View[contains(@content-desc,'WJPM+72')]")
+//                ));
+//
+//        savedAddress.click();
+//
+//        System.out.println("Saved Address Selected");
 
         // Click Saved Address
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         WebElement savedAddress = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath(
-                                "//android.view.View[contains(@content-desc,'FBJA8115')]"
-                        )
+                        AppiumBy.xpath("//android.view.View[contains(@content-desc,'FBPA4143')]")
                 )
         );
 
         savedAddress.click();
 
-        System.out.println("✅ Saved Address Selected");
+        ExtentTestListener.logStep("Saved Address Selected");
+
+
 
 
         // WAIT FOR OK POPUP
         WebElement okButton = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("OK")
-                )
-        );
+                        AppiumBy.accessibilityId("OK")));
 
         okButton.click();
 
-        System.out.println("OK Popup Clicked");
+        ExtentTestListener.logStep("OK Popup Clicked");
         ExtentTestListener.getTest().pass("Clicked OK Popup");
 
         Thread.sleep(3000);
@@ -102,20 +103,15 @@ public class CDoorPickupPage {
         WebElement checkBox = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.xpath(
-                                "//android.widget.CheckBox[@content-desc='I confirm that my request contains only the accepted materials and meets the above conditions *']"
-                        )
-                )
-        );
+                                "//android.widget.CheckBox[@content-desc='I confirm that my request contains only the accepted materials and meets the above conditions *']")));
 
         driver.executeScript(
                 "mobile: clickGesture",
                 Map.of(
                         "elementId",
-                        ((RemoteWebElement) checkBox).getId()
-                )
-        );
+                        ((RemoteWebElement) checkBox).getId()));
 
-        System.out.println("✅ Checkbox Selected");
+        ExtentTestListener.logStep("Checkbox Selected");
         ExtentTestListener.getTest().pass("Checkbox Selected");
 
         Thread.sleep(2000);

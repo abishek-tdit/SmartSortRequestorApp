@@ -41,7 +41,7 @@ public class CCancelPage {
 
                 if (pendingBtn.isDisplayed()) {
                     pendingBtn.click();
-                    System.out.println("Pending clicked successfully");
+                    ExtentTestListener.logStep("Pending clicked successfully");
 
                     if (ExtentTestListener.getTest() != null) {
                         ExtentTestListener.getTest().pass("Clicked Pending Orders");
@@ -91,14 +91,14 @@ public class CCancelPage {
 
                 WebElement order = driver.findElement(orderXpath);
 
-                System.out.println("Found Order : "
+                ExtentTestListener.logStep("Found Order : "
                         + order.getAttribute("content-desc"));
 
                 wait.until(ExpectedConditions.elementToBeClickable(order));
 
                 order.click();
 
-                System.out.println("Clicked Successfully : " + orderNumber);
+                ExtentTestListener.logStep("Clicked Successfully : " + orderNumber);
 
                 found = true;
                 break;
@@ -137,7 +137,7 @@ public class CCancelPage {
 
         cancelBtn.click();
 
-        System.out.println("Cancel Button Clicked");
+        ExtentTestListener.logStep("Cancel Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Cancel Button Clicked");
@@ -159,7 +159,7 @@ public class CCancelPage {
 
         reasonBtn.click();
 
-        System.out.println("Cancel Reason Selected: Changed My Mind");
+        ExtentTestListener.logStep("Cancel Reason Selected: Changed My Mind");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Selected Cancel Reason: Changed My Mind");
@@ -181,7 +181,7 @@ public class CCancelPage {
 
         submitBtn.click();
 
-        System.out.println("Submit Button Clicked");
+        ExtentTestListener.logStep("Submit Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked Submit Button");
@@ -203,7 +203,7 @@ public class CCancelPage {
 
         okBtn.click();
 
-        System.out.println("OK Popup Clicked");
+        ExtentTestListener.logStep("OK Popup Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked OK Popup");

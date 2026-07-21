@@ -29,7 +29,7 @@ public class ALoginPage {
 
         logInBtn.click();
 
-        System.out.println("Log In Button Clicked");
+        ExtentTestListener.logStep("Log In Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Log in button clicked");
@@ -46,7 +46,7 @@ public class ALoginPage {
         mobile.clear();
         mobile.sendKeys(mobileNumber);
 
-        System.out.println("Mobile Number Entered");
+        ExtentTestListener.logStep("Mobile Number Entered");
 
         // Password
         WebElement password = wait.until(
@@ -57,7 +57,7 @@ public class ALoginPage {
         password.clear();
         password.sendKeys(passwordText);
 
-        System.out.println("Password Entered");
+        ExtentTestListener.logStep("Password Entered");
 
         // Close keyboard safely
         try {
@@ -74,6 +74,6 @@ public class ALoginPage {
 
         loginBtn.click();
 
-        System.out.println("Login Button Clicked");
+        ExtentTestListener.logStep("Login Button Clicked");
     }
 }

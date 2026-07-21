@@ -32,11 +32,7 @@ public class ALoginPage {
         );
         logInBtn.click();
 
-        System.out.println("Log In Button Clicked");
-
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Log in button clicked");
-        }
+        ExtentTestListener.logStep("Log In Button Clicked");
 
         Thread.sleep(2000);
 
@@ -53,7 +49,7 @@ public class ALoginPage {
         mobile.clear();
         mobile.sendKeys(mobileNo);
 
-        System.out.println("Mobile number entered");
+        ExtentTestListener.logStep("Mobile number entered");
 
         // =============================
         // ✅ PASSWORD
@@ -68,7 +64,7 @@ public class ALoginPage {
         password.clear();
         password.sendKeys(passwordText);
 
-        System.out.println("Password entered");
+        ExtentTestListener.logStep("Password entered");
 
         driver.hideKeyboard();
 
@@ -85,7 +81,7 @@ public class ALoginPage {
 
         loginBtn.click();
 
-        System.out.println("Login button clicked");
+        ExtentTestListener.logStep("Login button clicked");
 
         Thread.sleep(7000);
     }

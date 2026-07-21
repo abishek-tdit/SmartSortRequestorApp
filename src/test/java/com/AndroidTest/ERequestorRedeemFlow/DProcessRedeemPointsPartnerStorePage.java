@@ -1,5 +1,6 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 
@@ -34,7 +35,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         proceedBtn.click();
 
-        System.out.println("Proceed to Redeem Points clicked");
+        ExtentTestListener.logStep("Proceed to Redeem Points clicked");
 
 
         // WAIT AFTER CLICK
@@ -48,7 +49,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         checkBox.click();
 
-        System.out.println("Checkbox selected");
+        ExtentTestListener.logStep("Checkbox selected");
 
 
         // WAIT AFTER CHECKBOX CLICK
@@ -62,7 +63,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         mostPopular.click();
 
-        System.out.println("Most Popular clicked");
+        ExtentTestListener.logStep("Most Popular clicked");
 
 
         // WAIT AFTER MOST POPULAR CLICK
@@ -80,7 +81,7 @@ public class DProcessRedeemPointsPartnerStorePage {
         // ENTER AMAZON
         searchBox.sendKeys("Amazon");
 
-        System.out.println("Amazon entered in search box");
+        ExtentTestListener.logStep("Amazon entered in search box");
 
 
         // WAIT AFTER ENTER
@@ -90,7 +91,7 @@ public class DProcessRedeemPointsPartnerStorePage {
         // CLOSE KEYBOARD
         driver.hideKeyboard();
 
-        System.out.println("Keyboard closed");
+        ExtentTestListener.logStep("Keyboard closed");
 
 
         // WAIT AFTER KEYBOARD CLOSE
@@ -140,7 +141,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         driver.perform(List.of(swipe));
 
-        System.out.println("Page scrolled manually");
+        ExtentTestListener.logStep("Page scrolled manually");
 
 
         // WAIT AFTER SCROLL
@@ -184,7 +185,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         driver.perform(List.of(tap));
 
-        System.out.println("Redeem clicked successfully");
+        ExtentTestListener.logStep("Redeem clicked successfully");
 
 
         // WAIT AFTER REDEEM CLICK
@@ -269,7 +270,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         sarAmount.sendKeys("10");
 
-        System.out.println("SAR Amount entered");
+        ExtentTestListener.logStep("SAR Amount entered");
 
         Thread.sleep(2000);
 
@@ -281,7 +282,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         redeemGiftBtn.click();
 
-        System.out.println("Redeem Gift button clicked");
+        ExtentTestListener.logStep("Redeem Gift button clicked");
 
         Thread.sleep(5000);
 
@@ -293,7 +294,7 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         okBtn.click();
 
-        System.out.println("OK popup clicked successfully");
+        ExtentTestListener.logStep("OK popup clicked successfully");
 
         Thread.sleep(3000);
     }

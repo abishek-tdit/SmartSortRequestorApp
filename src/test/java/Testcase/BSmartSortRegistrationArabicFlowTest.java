@@ -14,7 +14,7 @@ public class BSmartSortRegistrationArabicFlowTest extends BaseClassMobile {
 
             System.out.println("Arabic Registration Flow Started");
 
-            //Arabic Sign Up
+            //Arabic Sign Up:
             ASignUpArabicPage signUpPage = new ASignUpArabicPage(driver);
             signUpPage.signUp();
 
@@ -22,10 +22,9 @@ public class BSmartSortRegistrationArabicFlowTest extends BaseClassMobile {
 
             Assert.assertTrue(true,"Arabic Registration completed successfully");
         }
-        catch (Exception e) {
-
+        catch (Exception e)
+        {
             e.printStackTrace();
-
             Assert.fail("Arabic Registration Flow Failed : " + e.getMessage());
         }
     }

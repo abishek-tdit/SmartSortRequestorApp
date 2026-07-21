@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -25,7 +26,7 @@ public class EViewQRCodePage {
                         "new UiSelector().className(\"android.widget.ImageView\").instance(0)")
         )).click();
 
-        System.out.println("Profile Icon Clicked");
+        ExtentTestListener.logStep("Profile Icon Clicked");
 
         Thread.sleep(5000);
 
@@ -35,7 +36,7 @@ public class EViewQRCodePage {
                 AppiumBy.accessibilityId("View Profile")
         )).click();
 
-        System.out.println("View Profile Clicked");
+        ExtentTestListener.logStep("View Profile Clicked");
 
         Thread.sleep(5000);
 
@@ -44,7 +45,7 @@ public class EViewQRCodePage {
                 AppiumBy.accessibilityId("View QR Code")
         )).click();
 
-        System.out.println("View QR Code Clicked");
+        ExtentTestListener.logStep("View QR Code Clicked");
 
         Thread.sleep(5000);
 
@@ -53,14 +54,14 @@ public class EViewQRCodePage {
                 AppiumBy.xpath("//android.widget.Button")
         )).click();
 
-        System.out.println("Download QR Clicked");
+        ExtentTestListener.logStep("Download QR Clicked");
 
         Thread.sleep(5000);
 
         // Go Back to Previous Screen
         driver.navigate().back();
 
-        System.out.println("Navigated Back");
+        ExtentTestListener.logStep("Navigated Back");
 
         Thread.sleep(3000);
 

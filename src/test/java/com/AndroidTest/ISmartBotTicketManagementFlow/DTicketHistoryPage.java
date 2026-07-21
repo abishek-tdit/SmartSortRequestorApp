@@ -1,12 +1,14 @@
 package com.AndroidTest.ISmartBotTicketManagementFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-
+import java.util.Map;
 public class DTicketHistoryPage {
 
     AndroidDriver driver;
@@ -19,70 +21,75 @@ public class DTicketHistoryPage {
 
     public void viewTicketHistory() throws InterruptedException {
 
-        // Scroll Down
-        driver.findElement(AppiumBy.androidUIAutomator(
-                "new UiScrollable(new UiSelector().scrollable(true))" +
-                        ".scrollIntoView(new UiSelector().description(\"Ticket History\"))"));
-
-        System.out.println("Scrolled to Ticket History");
-
-        Thread.sleep(2000);
-
+        //ScrollDown
+        driver.executeScript("mobile: scrollGesture", Map.of(
+                "left", 100,
+                "top", 300,
+                "width", 500,
+                "height", 1000,
+                "direction", "down",
+                "percent", 0.8 ));
 
         // Click Ticket History
         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Ticket History")
-        )).click();
+                        AppiumBy.accessibilityId("Ticket History"))).click();
 
-        System.out.println("Clicked Ticket History");
+        ExtentTestListener.logStep("Clicked Ticket History");
+        Thread.sleep(3000);
 
+        //click view ticket details
+        wait.until(ExpectedConditions.elementToBeClickable(
+                AppiumBy.xpath(
+                        "(//android.view.View[contains(@content-desc,'View Ticket Details')])[1]"))).click();
+
+        ExtentTestListener.logStep("Clicked View Ticket");
         Thread.sleep(3000);
 
 
+        //Validate Ticket Details Page
+        WebElement pageTitle = wait.until(ExpectedConditions.visibilityOfElementLocated
+                                         (AppiumBy.accessibilityId("Ticket Details")));
+
+        if (pageTitle.isDisplayed()) {
+            System.out.println("====================================");
+            System.out.println("Ticket Details Page Opened Successfully");
+        }
+
+        //Ticket ID
+        WebElement ticketId = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                AppiumBy.xpath("//android.view.View[@content-desc[contains(.,'TCK-')]]")));
+
+        //Created Date
+        WebElement createdDate = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                AppiumBy.xpath("//android.view.View[@content-desc[contains(.,'July')]]")));
+
+        //Print values
+        System.out.println("Ticket ID      : " + ticketId.getAttribute("content-desc"));
+        System.out.println("Created Date   : " + createdDate.getAttribute("content-desc"));
+
+        ExtentTestListener.logStep("Validation PASSED");
+
+        //Click Back
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.xpath(
-                        "(//android.view.View[contains(@content-desc,'View Ticket Details')])[1]"
-                )
-        )).click();
+                        "(//android.widget.Button[@content-desc='Back'])[2]"))).click();
 
-        System.out.println("Clicked First Ticket");
-
-
-        // Click Back
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath(
-                        "(//android.widget.Button[@content-desc='Back'])[2]"
-                )
-        )).click();
-
-        System.out.println("Clicked Back Button");
-
+        ExtentTestListener.logStep("Clicked Back Button");
         Thread.sleep(3000);
-
-        System.out.println("Returned from Ticket Details Page");
-        System.out.println(driver.getPageSource());
 
         //Click Completed Tab
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.xpath(
-                        "//android.view.View[contains(@content-desc,'Completed')]"
-                )
-        )).click();
+                        "//android.view.View[contains(@content-desc,'Completed')]"))).click();
 
-        System.out.println("Clicked Completed Tab");
-
+        ExtentTestListener.logStep("Clicked Completed Tab");
         Thread.sleep(5000);
 
+        //Click Back
+        wait.until(ExpectedConditions.elementToBeClickable(
+                AppiumBy.xpath("//android.widget.Button[@content-desc='Back']"))).click();
 
-       // Click Back
-         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath("//android.widget.Button[@content-desc='Back']")
-        )).click();
-
-        System.out.println("Clicked Back Button");
-
+        ExtentTestListener.logStep("Clicked Back Button");
         Thread.sleep(3000);
-
-        System.out.println("Returned to Previous Page");
     }
 }

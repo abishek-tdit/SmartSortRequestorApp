@@ -1,5 +1,6 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.Dimension;
@@ -33,21 +34,21 @@ public class HVoucherPage {
         );
 
         exploreBtn.click();
-        System.out.println("Explore Other Locations clicked");
+        ExtentTestListener.logStep("Explore Other Locations clicked");
 
     }
 
     // STEP 2: Select Bqaiq Location
-    public void selectBqaiqLocation() {
+    public void selectAsyutLocation() {
 
         WebElement locationBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Bqaiq")
+                        AppiumBy.accessibilityId("Asyut")
                 )
         );
 
         locationBtn.click();
-        System.out.println("Bqaiq location selected");
+        ExtentTestListener.logStep("Asyut location selected");
     }
 
     // STEP 3: Custom Scroll Method
@@ -80,7 +81,7 @@ public class HVoucherPage {
 
         driver.perform(List.of(swipe));
 
-        System.out.println("Page scrolled manually");
+        ExtentTestListener.logStep("Page scrolled manually");
 
         Thread.sleep(3000);
     }
@@ -95,7 +96,7 @@ public class HVoucherPage {
         );
 
         redeemBtn.click();
-        System.out.println("Redeem & Cash it out clicked");
+        ExtentTestListener.logStep("Redeem & Cash it out clicked");
     }
 
 
@@ -117,7 +118,7 @@ public class HVoucherPage {
         );
 
         proceedRedeemBtn.click();
-        System.out.println("Proceed to Redeem Points clicked");
+        ExtentTestListener.logStep("Proceed to Redeem Points clicked");
     }
 
 
@@ -131,7 +132,7 @@ public class HVoucherPage {
         );
 
         voucherBtn.click();
-        System.out.println("Voucher selected");
+        ExtentTestListener.logStep("Voucher selected");
     }
 
 
@@ -145,7 +146,7 @@ public class HVoucherPage {
         );
 
         checkbox.click();
-        System.out.println("Checkbox selected");
+        ExtentTestListener.logStep("Checkbox selected");
     }
 
     public void enterPoints(String pointsValue) {
@@ -160,14 +161,14 @@ public class HVoucherPage {
         pointsField.clear();
         pointsField.sendKeys(pointsValue);
 
-        System.out.println("Points entered: " + pointsValue);
+        ExtentTestListener.logStep("Points entered: " + pointsValue);
     }
 
     public void hideKeyboardIfVisible() {
 
         try {
             driver.hideKeyboard();
-            System.out.println("Keyboard hidden");
+            ExtentTestListener.logStep("Keyboard hidden");
         } catch (Exception e) {
             System.out.println("Keyboard not visible");
         }
@@ -182,7 +183,7 @@ public class HVoucherPage {
         );
 
         redeemVoucherBtn.click();
-        System.out.println("Redeem Voucher clicked");
+        ExtentTestListener.logStep("Redeem Voucher clicked");
     }
 
     // ✅ STEP 11: Click OK Popup
@@ -195,7 +196,7 @@ public class HVoucherPage {
         );
 
         okBtn.click();
-        System.out.println("✅ OK popup clicked");
+        ExtentTestListener.logStep("✅ OK popup clicked");
 
     }
 }

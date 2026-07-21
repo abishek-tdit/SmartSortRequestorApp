@@ -1,6 +1,7 @@
 package Testcase;
 
 import Base.BaseClassMobile;
+import Base.ExtentTestListener;
 import com.AndroidTest.HSmartBotChatFlow.ALoginPage;
 import com.AndroidTest.HSmartBotChatFlow.BSmartBotPage;
 import com.AndroidTest.HSmartBotChatFlow.CChatConversationPage;
@@ -11,26 +12,26 @@ public class HSmartBotChatFlowTest extends BaseClassMobile {
     @Test
     public void smartBotFlow() throws Exception {
 
-        //.Abishek DS      - 0500098765 Dom
-        //.Krishna Kumar   - 0500003576 Corp
+        //Abishek rtr      - 0500098765 Dom (RO)
+        //Jamuna           - 0500445566 Dom (NON RO)
 
-        //Login
-        ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login("0500098765",
-                     "Admin@194");
+        //Login:
+//        ALoginPage loginPage = new ALoginPage(driver);
+//        loginPage.login("0500445566",
+//                     "Admin@194");
+//
+//        ExtentTestListener.logStep("Login completed successfully");
 
-        System.out.println("Login completed successfully");
-
-        //Smart Bot
+        //Smart Bot:
         BSmartBotPage smartBotPage = new BSmartBotPage(driver);
         smartBotPage.openSmartBotAndStartChat();
 
-        System.out.println("Chat started successfully");
+        ExtentTestListener.logStep("Chat started successfully");
 
-        //Chat Conversation
+        //Chat Conversation:
         CChatConversationPage chatPage = new CChatConversationPage(driver);
         chatPage.askQuestion("Where is my collector?");
 
-        System.out.println("Question sent successfully");
+        ExtentTestListener.logStep("Answer Received successfully");
     }
 }

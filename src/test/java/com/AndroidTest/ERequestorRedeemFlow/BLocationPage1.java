@@ -1,5 +1,6 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -35,7 +36,7 @@ public class BLocationPage1 {
         // Click Button
         exploreBtn.click();
 
-        System.out.println("Explore Other Locations clicked");
+        ExtentTestListener.logStep("Explore Other Locations clicked");
 
 
         // Wait After Explore Other Locations Click
@@ -51,7 +52,7 @@ public class BLocationPage1 {
 
         locationBtn.click();
 
-        System.out.println("Bqaiq location selected");
+        ExtentTestListener.logStep("Bqaiq location selected");
 
 
         // Wait After Location Selection

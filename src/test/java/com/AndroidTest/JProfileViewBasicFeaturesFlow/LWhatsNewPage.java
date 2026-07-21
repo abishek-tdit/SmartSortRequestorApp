@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
@@ -36,7 +37,7 @@ public class LWhatsNewPage {
                 )
         );
 
-        System.out.println("More Clicked");
+        ExtentTestListener.logStep("More Clicked");
 
         // CLICK WHAT'S NEW
         WebElement whatsNew = wait.until(
@@ -45,7 +46,7 @@ public class LWhatsNewPage {
 
         whatsNew.click();
 
-        System.out.println("What's New Clicked");
+        ExtentTestListener.logStep("What's New Clicked");
         Thread.sleep(5000);
 
         // SWIPE LEFT 4 TIMES
@@ -60,7 +61,7 @@ public class LWhatsNewPage {
                             "direction", "left",
                             "percent", 0.75));
 
-            System.out.println("Swipe Left Count : " + i);
+            ExtentTestListener.logStep("Swipe Left Count : " + i);
 
             Thread.sleep(2000);
         }
@@ -72,7 +73,7 @@ public class LWhatsNewPage {
         driver.findElement(
                 AppiumBy.xpath("//android.widget.Button")).click();
 
-        System.out.println("Back Button Clicked");
+        ExtentTestListener.logStep("Back Button Clicked");
         Thread.sleep(3000);
     }
 }

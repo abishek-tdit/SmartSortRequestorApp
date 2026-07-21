@@ -1,6 +1,7 @@
 package Testcase;
 
 import Base.BaseClassMobile;
+import Base.ExtentTestListener;
 import com.AndroidTest.ISmartBotTicketManagementFlow.ALoginPage;
 import com.AndroidTest.ISmartBotTicketManagementFlow.BSmartBotPage;
 import com.AndroidTest.ISmartBotTicketManagementFlow.CRaiseTicketPage;
@@ -12,32 +13,32 @@ public class ISmartBotTicketManagementFlowTest extends BaseClassMobile {
     @Test
     public void smartBotTicketManagementFlow() throws Exception {
 
-        //.Abishek DS      - 0500098765 Dom
-        //.Krishna Kumar   - 0500003576 Corp
+        //Abishek rtr      - 0500098765 Dom (RO)
+        //Jamuna           - 0500445566 Dom (NON RO)
 
-        //LOGIN FLOW
-        ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login("0500098765",
-                     "Admin@194");
+        //LOGIN FLOW:
+//        ALoginPage loginPage = new ALoginPage(driver);
+//        loginPage.login("0500445566",
+//                     "Admin@194");
+//
+//        ExtentTestListener.logStep("Login completed successfully");
+//
+//        // OPEN SMART-BOT & START CHAT:
+//        BSmartBotPage smartBotPage = new BSmartBotPage(driver);
+//        smartBotPage.openSmartBotAndStartChat();
+//
+//        ExtentTestListener.logStep("SmartBot opened successfully");
 
-        System.out.println("Login completed successfully");
-
-        // OPEN SMART-BOT & START CHAT
-        BSmartBotPage smartBotPage = new BSmartBotPage(driver);
-        smartBotPage.openSmartBotAndStartChat();
-
-        System.out.println("SmartBot opened successfully");
-
-        // RAISE TICKET FLOW
+        // RAISE TICKET FLOW:
         CRaiseTicketPage raiseTicketPage = new CRaiseTicketPage(driver);
         raiseTicketPage.raiseTicket();
 
-        System.out.println("Ticket raised successfully");
+        ExtentTestListener.logStep("Ticket raised successfully");
 
-        //TICKET MANAGEMENT FLOW
+        //TICKET MANAGEMENT FLOW:
         DTicketHistoryPage ticketHistoryPage = new DTicketHistoryPage(driver);
         ticketHistoryPage.viewTicketHistory();
 
-        System.out.println("Ticket History verified successfully");
+        ExtentTestListener.logStep("Ticket History verified successfully");
     }
 }

@@ -1,5 +1,6 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -24,11 +25,10 @@ public class GProcessRedeemPointsConvertToCashPage {
         // CLICK PROCEED TO REDEEM POINTS
         WebElement proceedBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Proceed to Redeem Points"))
-        );
+                        AppiumBy.accessibilityId("Proceed to Redeem Points")));
 
         proceedBtn.click();
-        System.out.println("Proceed to Redeem Points clicked");
+        ExtentTestListener.logStep("Proceed to Redeem Points clicked");
 
         // WAIT AFTER CLICK
         Thread.sleep(2000);
@@ -40,7 +40,7 @@ public class GProcessRedeemPointsConvertToCashPage {
         );
 
         checkBox.click();
-        System.out.println("Checkbox selected");
+        ExtentTestListener.logStep("Checkbox selected");
 
         // WAIT AFTER CHECKBOX CLICK
         Thread.sleep(3000);
@@ -56,7 +56,7 @@ public class GProcessRedeemPointsConvertToCashPage {
         );
 
         convertButton.click();
-        System.out.println("Convert to Cash clicked");
+        ExtentTestListener.logStep("Convert to Cash clicked");
         Thread.sleep(3000);
     }
 
@@ -70,7 +70,7 @@ public class GProcessRedeemPointsConvertToCashPage {
         );
 
         sarPoints.click();
-        System.out.println("✅ SAR 10 Points selected");
+        ExtentTestListener.logStep("✅ SAR 10 Points selected");
     }
 
     //SELECT BANK TRANSFER OPTION
@@ -83,7 +83,7 @@ public class GProcessRedeemPointsConvertToCashPage {
         );
 
         bankTransfer.click();
-        System.out.println("✅ Bank Transfer option selected");
+        ExtentTestListener.logStep("✅ Bank Transfer option selected");
     }
 
 
@@ -101,7 +101,7 @@ public class GProcessRedeemPointsConvertToCashPage {
 //        middleName.clear();
 //        middleName.sendKeys(middleNameValue);
 //
-//        System.out.println("Middle Name entered: " + middleNameValue);
+//        ExtentTestListener.logStep("Middle Name entered: " + middleNameValue);
 //    }
 //
 //    //COMPLETE FLOW METHOD (CALL THIS)
@@ -112,7 +112,7 @@ public class GProcessRedeemPointsConvertToCashPage {
 //        selectBankTransfer();
 //        enterMiddleName("raman");
 //
-//        System.out.println("✅ Convert to Cash flow completed");
+//       ExtentTestListener.logStep("✅ Convert to Cash flow completed");
 //    }
 //----------------------------------------------------------------------------------
 
@@ -121,9 +121,11 @@ public class GProcessRedeemPointsConvertToCashPage {
 
         try {
             driver.hideKeyboard(); // hide keyboard
-            System.out.println("Keyboard hidden");
-        } catch (Exception e) {
-            System.out.println("Keyboard not visible");
+            ExtentTestListener.logStep("Keyboard hidden");
+        }
+        catch (Exception e)
+        {
+            ExtentTestListener.logStep("Keyboard not visible");
         }
 
         WebElement proceedBtn = wait.until(
@@ -133,10 +135,10 @@ public class GProcessRedeemPointsConvertToCashPage {
         );
 
         proceedBtn.click();
-        System.out.println("Proceed button clicked");
+        ExtentTestListener.logStep("Proceed button clicked");
     }
 
-    public void clickConfirm() {
+    public void clickConfirm() throws InterruptedException {
 
         WebElement confirmBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
@@ -145,7 +147,8 @@ public class GProcessRedeemPointsConvertToCashPage {
         );
 
         confirmBtn.click();
-        System.out.println("Confirm button clicked");
+        ExtentTestListener.logStep("Confirm button clicked");
+        Thread.sleep(5000);
     }
 
     public void clickOkPopup() throws InterruptedException {
@@ -157,8 +160,8 @@ public class GProcessRedeemPointsConvertToCashPage {
         );
 
         okBtn.click();
-        System.out.println("OK popup clicked");
-        Thread.sleep(10000);
+        ExtentTestListener.logStep("OK popup clicked");
+        Thread.sleep(5000);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +26,7 @@ public class FChangePasswordPage {
                 AppiumBy.accessibilityId("Change Password")
         )).click();
 
-        System.out.println("Change Password Clicked");
+        ExtentTestListener.logStep("Change Password Clicked");
 
         Thread.sleep(3000);
 
@@ -40,7 +41,7 @@ public class FChangePasswordPage {
         currentPassword.clear();
         currentPassword.sendKeys("Admin@194");
 
-        System.out.println("Current Password Entered");
+        ExtentTestListener.logStep("Current Password Entered");
 
         Thread.sleep(2000);
 
@@ -55,7 +56,7 @@ public class FChangePasswordPage {
         newPassword.clear();
         newPassword.sendKeys("Admin@199");
 
-        System.out.println("New Password Entered");
+        ExtentTestListener.logStep("New Password Entered");
 
         Thread.sleep(2000);
 
@@ -65,7 +66,7 @@ public class FChangePasswordPage {
 
         Thread.sleep(3000);
 
-        System.out.println("Scrolled Down");
+        ExtentTestListener.logStep("Scrolled Down");
 
 
         // Confirm New Password
@@ -79,7 +80,7 @@ public class FChangePasswordPage {
         confirmPassword.clear();
         confirmPassword.sendKeys("Admin@199");
 
-        System.out.println("Confirm New Password Entered");
+        ExtentTestListener.logStep("Confirm New Password Entered");
 
         Thread.sleep(3000);
 
@@ -96,7 +97,7 @@ public class FChangePasswordPage {
                 AppiumBy.accessibilityId("Change Password")
         )).click();
 
-        System.out.println("Change Password Clicked Again");
+        ExtentTestListener.logStep("Change Password Clicked Again");
 
         Thread.sleep(3000);
 
@@ -111,7 +112,7 @@ public class FChangePasswordPage {
         currentPasswordAgain.clear();
         currentPasswordAgain.sendKeys("Admin@199");
 
-        System.out.println("Current Password Entered Again");
+        ExtentTestListener.logStep("Current Password Entered Again");
 
         Thread.sleep(2000);
 
@@ -127,7 +128,7 @@ public class FChangePasswordPage {
         newPasswordAgain.clear();
         newPasswordAgain.sendKeys("Admin@194");
 
-        System.out.println("New Password Entered Again");
+        ExtentTestListener.logStep("New Password Entered Again");
 
         Thread.sleep(2000);
 
@@ -138,7 +139,7 @@ public class FChangePasswordPage {
 
         Thread.sleep(3000);
 
-        System.out.println("Scrolled Down");
+        ExtentTestListener.logStep("Scrolled Down");
 
 
         // Confirm Password
@@ -152,7 +153,7 @@ public class FChangePasswordPage {
         confirmPasswordAgain.clear();
         confirmPasswordAgain.sendKeys("Admin@194");
 
-        System.out.println("Confirm Password Entered Again");
+        ExtentTestListener.logStep("Confirm Password Entered Again");
 
         Thread.sleep(3000);
 
@@ -163,6 +164,6 @@ public class FChangePasswordPage {
 
         Thread.sleep(5000);
 
-        System.out.println("Password Changed Back Successfully");
+        ExtentTestListener.logStep("Password Changed Back Successfully");
     }
 }

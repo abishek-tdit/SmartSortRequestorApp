@@ -1,5 +1,6 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -25,7 +26,7 @@ public class GContactUsPage {
                 AppiumBy.accessibilityId("Contact us")
         )).click();
 
-        System.out.println("Contact Us Clicked");
+        ExtentTestListener.logStep("Contact Us Clicked");
 
         Thread.sleep(3000);
 
@@ -40,7 +41,7 @@ public class GContactUsPage {
         nameField.clear();
         nameField.sendKeys("Abishek");
 
-        System.out.println("Name Entered");
+        ExtentTestListener.logStep("Name Entered");
 
         Thread.sleep(1000);
 
@@ -55,7 +56,7 @@ public class GContactUsPage {
         emailField.clear();
         emailField.sendKeys("abishek251295@gmail.com");
 
-        System.out.println("Email Entered");
+        ExtentTestListener.logStep("Email Entered");
 
         Thread.sleep(1000);
 
@@ -70,7 +71,7 @@ public class GContactUsPage {
         mobileField.clear();
         mobileField.sendKeys("0500123456");
 
-        System.out.println("Mobile Number Entered");
+        ExtentTestListener.logStep("Mobile Number Entered");
 
         Thread.sleep(1000);
 
@@ -85,14 +86,14 @@ public class GContactUsPage {
         messageField.clear();
         messageField.sendKeys("This is a test message from mobile automation.");
 
-        System.out.println("Message Entered");
+        ExtentTestListener.logStep("Message Entered");
 
         Thread.sleep(2000);
 
         // Close Keyboard
         try {
             driver.hideKeyboard();
-            System.out.println("Keyboard Closed");
+            ExtentTestListener.logStep("Keyboard Closed");
         } catch (Exception e) {
             System.out.println("Keyboard Already Closed");
         }
@@ -105,7 +106,7 @@ public class GContactUsPage {
                         "new UiSelector().className(\"android.widget.Button\").instance(1)")
         )).click();
 
-        System.out.println("Send Button Clicked");
+        ExtentTestListener.logStep("Send Button Clicked");
 
         Thread.sleep(7000);
 
@@ -114,7 +115,7 @@ public class GContactUsPage {
                 AppiumBy.accessibilityId("OK")
         )).click();
 
-        System.out.println("OK Popup Clicked");
+        ExtentTestListener.logStep("OK Popup Clicked");
 
         Thread.sleep(3000);
     }

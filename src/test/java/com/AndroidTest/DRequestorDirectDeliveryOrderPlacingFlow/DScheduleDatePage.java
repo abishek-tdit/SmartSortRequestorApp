@@ -1,5 +1,6 @@
 package com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow;
 
+import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
@@ -22,10 +23,9 @@ public class DScheduleDatePage {
 
     public void clickScheduleDate() {
 
-        // Scroll down
+        //Scroll down
         driver.findElement(AppiumBy.androidUIAutomator(
-                "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"
-        ));
+                "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
         WebElement scheduleDate = wait.until(
                 ExpectedConditions.presenceOfElementLocated(
@@ -63,7 +63,7 @@ public class DScheduleDatePage {
 
         timeField.click();
 
-        System.out.println("Schedule Time clicked");
+        ExtentTestListener.logStep("Schedule Time clicked");
     }
 
 
@@ -82,7 +82,7 @@ public class DScheduleDatePage {
                         AppiumBy.accessibilityId("Switch to text input mode")
                 ).click();
 
-                System.out.println("Time Picker opened");
+                ExtentTestListener.logStep("Time Picker opened");
 
             }else {
 
@@ -100,7 +100,7 @@ public class DScheduleDatePage {
             hour.clear();
             hour.sendKeys("9");
 
-            System.out.println("Hour changed to 9");
+            ExtentTestListener.logStep("Hour changed to 9");
 
             // Minute
             WebElement minute = wait.until(
@@ -111,7 +111,7 @@ public class DScheduleDatePage {
             minute.clear();
             minute.sendKeys("00");
 
-            System.out.println("Minutes changed to 00");
+            ExtentTestListener.logStep("Minutes changed to 00");
 
             // PM
             driver.findElement(
