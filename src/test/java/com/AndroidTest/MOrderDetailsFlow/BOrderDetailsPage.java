@@ -202,7 +202,6 @@ public class BOrderDetailsPage {
 
     public void validateAllOrders(String tabName, int maxOrders) {
 
-        System.out.println();
         ExtentTestListener.logStep("========== " + tabName + " ==========");
 
         Set<String> validatedOrders = new HashSet<>();
@@ -213,14 +212,15 @@ public class BOrderDetailsPage {
 
             List<String> visibleOrders = getVisibleOrders();
 
-            boolean clickedAny = false;
+            boolean foundNewOrder = false;
 
             for (String orderId : visibleOrders) {
 
                 if (validatedOrders.contains(orderId))
                     continue;
 
-                System.out.println("--------------------------------");
+                foundNewOrder = true;
+
                 ExtentTestListener.logStep("Opening : " + orderId);
 
                 clickOrderById(orderId);
@@ -237,8 +237,6 @@ public class BOrderDetailsPage {
 
                 clickBackButton();
 
-                clickedAny = true;
-
                 if (validated >= maxOrders)
                     break;
             }
@@ -246,27 +244,35 @@ public class BOrderDetailsPage {
             if (validated >= maxOrders)
                 break;
 
-            if (!clickedAny) {
+            // All visible orders are completed
+            if (!foundNewOrder) {
 
-                List<String> before = getVisibleOrders();
+                int beforeCount = validatedOrders.size();
 
                 swipeUp();
 
-                List<String> after = getVisibleOrders();
+                List<String> afterOrders = getVisibleOrders();
 
-                if (before.equals(after)) {
+                int newOrders = 0;
 
-                    System.out.println("Reached End of List");
+                for (String id : afterOrders) {
+                    if (!validatedOrders.contains(id)) {
+                        newOrders++;
+                    }
+                }
+
+                // No new orders after swipe
+                if (newOrders == 0) {
+
+                    ExtentTestListener.logStep("Reached End Of Pending Orders");
 
                     break;
                 }
             }
         }
 
-        System.out.println();
         ExtentTestListener.logStep("Validated Orders : " + validated);
     }
-
     //=========================
     // OPEN TAB
     //=========================
@@ -274,6 +280,9 @@ public class BOrderDetailsPage {
     public void openTab(String tabName) {
 
         ExtentTestListener.logStep("Opening tab : " + tabName);
+
+        // Scroll down once before searching for the tab
+        swipeUp();
 
         WebElement tab = driver.findElement(
                 AppiumBy.androidUIAutomator(

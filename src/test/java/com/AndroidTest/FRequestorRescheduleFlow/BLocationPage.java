@@ -1,51 +1,52 @@
 package com.AndroidTest.FRequestorRescheduleFlow;
 
-
-import Base.ExtentTestListener;
+import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
-import java.time.Duration;
+public class BLocationPage extends BasePage {
 
-public class BLocationPage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public BLocationPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        super(driver);
     }
 
-    public void selectLocation() throws Exception {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        Thread.sleep(6000);
+    private final By exploreLocationsBtn =
+            AppiumBy.accessibilityId("Explore Other Locations");
 
-        WebElement exploreBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.accessibilityId("Explore Other Locations")
-                )
-        );
+    private final By bqaiqLocation =
+            AppiumBy.accessibilityId("Bqaiq");
 
-        exploreBtn.click();
+    //=========================================================
+    // Select Location
+    //=========================================================
 
-        Thread.sleep(2000);
+    public void selectLocation() {
 
-        WebElement locationBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Bqaiq")
-                )
-        );
+        log("========== LOCATION SELECTION STARTED ==========");
 
-        locationBtn.click();
+        // Wait for Home Screen
+        waitVisible(exploreLocationsBtn);
 
-        ExtentTestListener.logStep("Location Selected : Bqaiq");
+        // Click Explore Other Locations
+        click(exploreLocationsBtn);
+        log("Clicked 'Explore Other Locations'");
 
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Selected Location: Bqaiq");
-        }
+        // Wait for Location List
+        waitClickable(bqaiqLocation);
+
+        // Select Bqaiq
+        click(bqaiqLocation);
+        log("Selected Location : Bqaiq");
+
+        log("========== LOCATION SELECTION COMPLETED ==========");
     }
 }

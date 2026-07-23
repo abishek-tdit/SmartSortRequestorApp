@@ -2,13 +2,10 @@ package Utility;
 
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
-
 import org.openqa.selenium.remote.RemoteWebElement;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,8 +14,8 @@ import java.util.Map;
 
 public class MobileUtility {
 
-    private AndroidDriver driver;
-    private WebDriverWait wait;
+    private final AndroidDriver driver;
+    private final WebDriverWait wait;
 
     public MobileUtility(AndroidDriver driver) {
 
@@ -26,30 +23,53 @@ public class MobileUtility {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
+    //=========================================================
+    // Wait Until Visible
+    //=========================================================
 
-    //SEND KEYS
+    public WebElement waitForVisible(By locator) {
+
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    //=========================================================
+    // Wait Until Clickable
+    //=========================================================
+
+    public WebElement waitForClickable(By locator) {
+
+        return wait.until(
+                ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    //=========================================================
+    // Send Keys
+    //=========================================================
+
     public void sendKeys(By locator, String value) {
 
-        WebElement element = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator));
+        WebElement element = waitForVisible(locator);
 
         element.click();
         element.clear();
         element.sendKeys(value);
     }
 
+    //=========================================================
+    // Normal Click
+    //=========================================================
 
-    //NORMAL CLICK
     public void click(By locator) {
 
-        WebElement element = wait.until(
-                ExpectedConditions.elementToBeClickable(locator));
-
-        element.click();
+        waitForClickable(locator).click();
     }
 
-    //MOBILE STRONG CLICK
-     public void mobileClick(By locator) {
+    //=========================================================
+    // Mobile Click Gesture
+    //=========================================================
+
+    public void mobileClick(By locator) {
 
         WebElement element = wait.until(
                 ExpectedConditions.presenceOfElementLocated(locator));
@@ -61,35 +81,72 @@ public class MobileUtility {
                         ((RemoteWebElement) element).getId()));
     }
 
+    //=========================================================
+    // Hide Keyboard
+    //=========================================================
 
-    //WAIT METHODS
-    public void waitForVisible(By locator) {
-
-        wait.until(
-                ExpectedConditions.visibilityOfElementLocated(locator));
-    }
-
-    public void waitForClickable(By locator) {
-
-        wait.until(
-                ExpectedConditions.elementToBeClickable(locator));
-    }
-
-
-    //HIDE KEYBOARD
     public void hideKeyboard() {
 
         try {
-            driver.hideKeyboard();
-        }
-        catch (Exception e) {
 
-            System.out.println("Keyboard not visible");
+            driver.hideKeyboard();
+
+        } catch (Exception e) {
+
+            System.out.println("Keyboard already hidden.");
         }
     }
 
+    //=========================================================
+    // Delay
+    //=========================================================
 
-    //SCROLL TEXT
+    public void delay(int seconds) {
+
+        try {
+
+            Thread.sleep(seconds * 1000L);
+
+        } catch (InterruptedException e) {
+
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    //=========================================================
+    // Wait for Element
+    //=========================================================
+
+    public WebElement waitForElement(WebElement element) {
+
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    //=========================================================
+    // Wait by Accessibility Id
+    //=========================================================
+
+    public WebElement waitForAccessibilityId(String id) {
+
+        return wait.until(
+                ExpectedConditions.presenceOfElementLocated(
+                        AppiumBy.accessibilityId(id)));
+    }
+
+    //=========================================================
+    // Click WebElement
+    //=========================================================
+
+    public void click(WebElement element) {
+
+        wait.until(ExpectedConditions.elementToBeClickable(element))
+                .click();
+    }
+
+    //=========================================================
+    // Scroll To Text
+    //=========================================================
+
     public void scrollToText(String text) {
 
         driver.findElement(
@@ -100,8 +157,10 @@ public class MobileUtility {
                                 + text + "\"))"));
     }
 
+    //=========================================================
+    // Scroll To Accessibility Description
+    //=========================================================
 
-    //SCROLL ACCESSIBILITY ID
     public void scrollToDescription(String description) {
 
         driver.findElement(
@@ -112,13 +171,15 @@ public class MobileUtility {
                                 + description + "\"))"));
     }
 
+    //=========================================================
+    // Swipe Up
+    //=========================================================
 
-    //SWIPE UP
-    public void swipeUp() {
+    public void swipeUp(double v) {
 
         Dimension size = driver.manage().window().getSize();
 
-        int startX = size.width / 2;
+        int startX = (int) (size.width * 0.20);   // Left side of screen
 
         int startY = (int) (size.height * 0.80);
 
@@ -127,39 +188,38 @@ public class MobileUtility {
         driver.executeScript(
                 "mobile: swipeGesture",
                 Map.of(
-                        "left", startX,
-                        "top", startY,
-                        "width", 100,
-                        "height", 600,
+                        "left", startX - 50,
+                        "top", endY,
+                        "width", 150,
+                        "height", startY - endY,
                         "direction", "up",
-                        "percent", 0.75));
+                        "percent", 0.85
+                ));
     }
 
+    //=========================================================
+    // Swipe Down
+    //=========================================================
 
-    //SWIPE DOWN
     public void swipeDown() {
 
         Dimension size = driver.manage().window().getSize();
 
-        int startX = size.width / 2;
-
-        int startY = (int) (size.height * 0.30);
-
-        int endY = (int) (size.height * 0.80);
-
         driver.executeScript(
                 "mobile: swipeGesture",
                 Map.of(
-                        "left", startX,
-                        "top", startY,
-                        "width", 100,
-                        "height", 600,
+                        "left", size.width / 4,
+                        "top", size.height / 4,
+                        "width", size.width / 2,
+                        "height", size.height / 2,
                         "direction", "down",
-                        "percent", 0.75));
+                        "percent", 0.80));
     }
 
+    //=========================================================
+    // Long Press
+    //=========================================================
 
-    //LONG PRESS
     public void longPress(By locator) {
 
         WebElement element = wait.until(
@@ -170,30 +230,7 @@ public class MobileUtility {
                 Map.of(
                         "elementId",
                         ((RemoteWebElement) element).getId(),
-                        "duration", 2000));
-    }
-
-    public WebElement waitForElement(WebElement element)
-    {    return wait.until(ExpectedConditions.visibilityOf(element));}
-
-
-    public WebElement waitForAccessibilityId(String id) {
-        return wait.until(ExpectedConditions.presenceOfElementLocated(AppiumBy.accessibilityId(id)));
-    }
-
-    public void click(WebElement element)
-    {wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-    }
-     //DELAY
-     public void delay(int seconds) {
-
-        try {
-
-            Thread.sleep(seconds * 1000);
-        }
-        catch (InterruptedException e) {
-
-            Thread.currentThread().interrupt();
-        }
+                        "duration",
+                        2000));
     }
 }

@@ -10,88 +10,70 @@ public class JProfileViewBasicFeaturesFlowTest extends BaseClassMobile {
     @Test
     public void profileViewBasicFeaturesFlow() throws Exception {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
-
-         //LOGIN:
+        //Login
 //        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500445566",
-//                     "Admin@194");
-//
-//         ExtentTestListener.logStep("Login completed successfully");
+//        loginPage.login("0500000055",
+//                        "Admin@194");
+//        ExtentTestListener.logStep("Login completed successfully");
 
-        //PROFILE ICON:
-        BHomePage homePage1 = new BHomePage(driver);
-        homePage1.clickProfileIcon();
-
+        // Profile Icon
+        BHomePage homePage = new BHomePage(driver);
+        homePage.clickProfileIcon();
         ExtentTestListener.logStep("Profile Icon clicked successfully");
 
-        // VIEW PROFILE + PHOTO UPLOAD:
-        CProfilePhotoUploadPage profilePage = new CProfilePhotoUploadPage(driver);
-        profilePage.clickViewProfile();
-        profilePage.uploadProfilePhoto();
+        // Profile Photo Upload
+        CProfilePhotoUploadPage profilePhotoPage = new CProfilePhotoUploadPage(driver);
+        profilePhotoPage.clickViewProfile();
+        profilePhotoPage.uploadProfilePhoto();
+        ExtentTestListener.logStep("Profile Photo Uploaded Successfully");
 
-        ExtentTestListener.logStep("Uploaded Successfully");
 
-        // UPDATE USER DETAILS:
+        // Update User Details
         DProfileUserDetailsPage detailsPage = new DProfileUserDetailsPage(driver);
         detailsPage.updateUserDetails();
-
         ExtentTestListener.logStep("Profile User Details Updated Successfully");
+        Thread.sleep(4000);
 
-        // QR CODE FEATURE:
+        // QR Code
         EViewQRCodePage qrCodePage = new EViewQRCodePage(driver);
         qrCodePage.verifyQRCodeFeature();
+        ExtentTestListener.logStep("QR Code Feature Completed Successfully");
 
-        ExtentTestListener.logStep("Profile QR Code Feature Completed Successfully");
+        //Change Password
+        FChangePasswordPage passwordPage = new FChangePasswordPage(driver);
+        passwordPage.changePassword();
+        ExtentTestListener.logStep("Password Changed Successfully");
 
-        // CHANGE PASSWORD:
-        FChangePasswordPage page = new FChangePasswordPage(driver);
-        page.changePassword();
-
-        ExtentTestListener.logStep("Password Change Feature Completed Successfully");
-
-        // CONTACT US:
+        // Contact Us
         GContactUsPage contactUsPage = new GContactUsPage(driver);
         contactUsPage.submitContactUsForm();
+        ExtentTestListener.logStep("Contact Us Submitted Successfully");
 
-        ExtentTestListener.logStep("Contact Us Feature Completed Successfully");
         driver.navigate().back();
 
-        //Location:
-        HLocationPage homePage2 = new HLocationPage(driver);
-        homePage2.selectLocation();
-
-        ExtentTestListener.logStep("Bqaiq Location Selected Successfully");
-
-        //YOUR ADDRESS:
+        // Location
+        HLocationPage locationPage = new HLocationPage(driver);
+        locationPage.selectLocation();
+        ExtentTestListener.logStep("Location Selected Successfully");
+        Thread.sleep(5000);
+        // Address
         IYourAddressPage addressPage = new IYourAddressPage(driver);
         addressPage.validateYourAddressPage();
+        ExtentTestListener.logStep("Address Feature Completed Successfully");
 
-        ExtentTestListener.logStep("Your Address Completed Successfully");
+        // Free Up Space
+        KFreeUpSpacePage freeUpSpacePage = new KFreeUpSpacePage(driver);
+        freeUpSpacePage.scrollAndOptimize();
+        ExtentTestListener.logStep("Free Up Space Completed Successfully");
 
-//        //Check For Update:
-//        JCheckForUpdatePage updatePage = new JCheckForUpdatePage(driver);
-//        updatePage.clickCheckForUpdate();
-//
-//        System.out.println("Check For Update Completed Successfully");
-
-        //FREE UP SPACE:
-        KFreeUpSpacePage freeUp = new KFreeUpSpacePage(driver);
-        freeUp.scrollAndOptimize();
-
-        ExtentTestListener.logStep("Free Up Space Action Completed");
-
-        //WHAT'S NEW:
+        // What's New
         LWhatsNewPage whatsNewPage = new LWhatsNewPage(driver);
         whatsNewPage.verifyWhatsNewFeature();
-
         ExtentTestListener.logStep("What's New Feature Completed Successfully");
 
-        //THEME AND LANGUAGE:
-        MThemeAndLanguagePage themeAndLanguagePage = new MThemeAndLanguagePage(driver);
-        themeAndLanguagePage.verifySettingsFeatures();
-
-        ExtentTestListener.logStep("Theme And Language Feature Completed Successfully");
+        // Theme & Language
+        MThemeAndLanguagePage settingsPage = new MThemeAndLanguagePage(driver);
+        settingsPage.verifySettingsFeatures();
+        ExtentTestListener.logStep("Theme and Language Feature Completed Successfully");
     }
 }

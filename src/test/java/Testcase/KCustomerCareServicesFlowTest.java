@@ -12,26 +12,27 @@ public class KCustomerCareServicesFlowTest extends BaseClassMobile {
     @Test
     public void CustomerCareServicesFlow() throws Exception {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
+        //Abiram abi      - 0500000055 Dom
 
-//        //Login:
+        //Login:
 //        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500445566",
+//        loginPage.login("0500000055",
 //                     "Admin@194");
         Thread.sleep(3000);
+
         //Location:
         BLocationPage homePage = new BLocationPage(driver);
         homePage.selectLocation();
+        Thread.sleep(3000);
 
         //Customer Care:
         CCallCustomerCarePage callPage = new CCallCustomerCarePage(driver);
         callPage.clickCallIcon();
-        Thread.sleep(2000);
+
         callPage.clickCallButton();
-        Thread.sleep(3000);
+
         callPage.navigateBackToHomePage();
-        Thread.sleep(2000);
+
 
         ExtentTestListener.logStep("Customer Care Services Flow Completed Successfully");
     }

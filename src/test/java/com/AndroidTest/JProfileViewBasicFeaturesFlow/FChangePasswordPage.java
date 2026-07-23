@@ -28,7 +28,7 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("Change Password Clicked");
 
-        Thread.sleep(3000);
+
 
         // Current Password
         WebElement currentPassword = wait.until(
@@ -43,7 +43,7 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("Current Password Entered");
 
-        Thread.sleep(2000);
+
 
         // New Password
         WebElement newPassword = wait.until(
@@ -58,13 +58,13 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("New Password Entered");
 
-        Thread.sleep(2000);
+
 
         // Scroll Down
         driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
-        Thread.sleep(3000);
+
 
         ExtentTestListener.logStep("Scrolled Down");
 
@@ -82,14 +82,15 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("Confirm New Password Entered");
 
-        Thread.sleep(3000);
+
 
         // Click UPDATE
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("UPDATE")
         )).click();
+        Thread.sleep(3000);
 
-        Thread.sleep(5000);
+
 
 
         // Click Change Password Again
@@ -99,7 +100,7 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("Change Password Clicked Again");
 
-        Thread.sleep(3000);
+
 
         // Current Password
         WebElement currentPasswordAgain = wait.until(
@@ -114,7 +115,7 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("Current Password Entered Again");
 
-        Thread.sleep(2000);
+
 
 
         // New Password
@@ -130,14 +131,14 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("New Password Entered Again");
 
-        Thread.sleep(2000);
+
 
 
         // Scroll Down
         driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
-        Thread.sleep(3000);
+
 
         ExtentTestListener.logStep("Scrolled Down");
 
@@ -155,14 +156,14 @@ public class FChangePasswordPage {
 
         ExtentTestListener.logStep("Confirm Password Entered Again");
 
-        Thread.sleep(3000);
+
 
         //Final Click UPDATE
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("UPDATE")
         )).click();
 
-        Thread.sleep(5000);
+
 
         ExtentTestListener.logStep("Password Changed Back Successfully");
     }

@@ -1,36 +1,69 @@
 package com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow;
 
-import Base.BaseClassMobile;
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Map;
 
-public class CDirectDeliveryPage extends BaseClassMobile {
+public class CDirectDeliveryPage extends BasePage {
 
-    public CDirectDeliveryPage(AndroidDriver driver) {super();
+    //=========================================================
+    // Constructor
+    //=========================================================
+
+    public CDirectDeliveryPage(AndroidDriver driver) {
+        super(driver);
     }
+
+    //=========================================================
+    // Locators
+    //=========================================================
+
+    private final By DIRECT_DELIVERY =
+            AppiumBy.accessibilityId(
+                    "Direct Delivery\nSubmit materials directly to Collection Center");
+
+    private final By SELECT_COLLECTION_CENTER =
+            AppiumBy.xpath("//android.widget.Button[contains(@content-desc,'Select Collection Centre')]");
+    private final By TTF_CENTER =
+            AppiumBy.androidUIAutomator(
+                    "new UiSelector().descriptionContains(\"TTFVaasan\")");
+
+    private final By MIXED_MATERIALS =
+            AppiumBy.accessibilityId("Mixed Materials *");
+
+    private final By CONFIRM_CHECKBOX =
+            AppiumBy.accessibilityId(
+                    "I confirm that my request contains only the accepted materials and meets the above conditions *");
+
+    //=========================================================
+    // Direct Delivery
+    //=========================================================
+
     public void clickDirectDelivery() {
 
         try {
+
+            // Scroll
             driver.findElement(
                     AppiumBy.androidUIAutomator(
-                            "new UiScrollable(new UiSelector().scrollable(true))" +
-                                    ".setAsVerticalList()" +
-                                    ".setSwipeDeadZonePercentage(0.3)" +
-                                    ".scrollForward()"));
+                            "new UiScrollable(new UiSelector().scrollable(true))"
+                                    + ".setAsVerticalList()"
+                                    + ".setSwipeDeadZonePercentage(0.3)"
+                                    + ".scrollForward()"));
 
             ExtentTestListener.logStep("Half-like scroll done");
-            Thread.sleep(2000);
 
-            // Swipe left
+            // Swipe Left
             Dimension size = driver.manage().window().getSize();
 
             int startX = (int) (size.width * 0.85);
@@ -41,71 +74,61 @@ public class CDirectDeliveryPage extends BaseClassMobile {
 
             Sequence swipe = new Sequence(finger, 1);
 
-            swipe.addAction(finger.createPointerMove(Duration.ZERO,
-                    PointerInput.Origin.viewport(), startX, y));
+            swipe.addAction(finger.createPointerMove(
+                    Duration.ZERO,
+                    PointerInput.Origin.viewport(),
+                    startX,
+                    y));
 
-            swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+            swipe.addAction(
+                    finger.createPointerDown(
+                            PointerInput.MouseButton.LEFT.asArg()));
 
-            swipe.addAction(finger.createPointerMove(Duration.ofMillis(700),
-                    PointerInput.Origin.viewport(), endX, y));
+            swipe.addAction(finger.createPointerMove(
+                    Duration.ofMillis(700),
+                    PointerInput.Origin.viewport(),
+                    endX,
+                    y));
 
-            swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+            swipe.addAction(
+                    finger.createPointerUp(
+                            PointerInput.MouseButton.LEFT.asArg()));
 
             driver.perform(Collections.singletonList(swipe));
 
-            ExtentTestListener.logStep("Swiped left");
+            ExtentTestListener.logStep("Swiped Left");
 
-            Thread.sleep(2000);
+            // Direct Delivery
+            click(DIRECT_DELIVERY);
 
-            // Click Direct Delivery
-            WebElement directDelivery = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            AppiumBy.accessibilityId(
-                                    "Direct Delivery\nSubmit materials directly to Collection Center")));
+            ExtentTestListener.logStep("Direct Delivery Clicked");
+            Thread.sleep(4000);
+            // Collection Centre
+            click(SELECT_COLLECTION_CENTER);
 
-            directDelivery.click();
+            ExtentTestListener.logStep("Select Collection Center Clicked");
 
-            ExtentTestListener.logStep("Direct Delivery clicked");
-            Thread.sleep(5000);
+            // Select Centre
+            click(TTF_CENTER);
 
-            //CC
-            WebElement selectCentre = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            AppiumBy.xpath("//android.widget.Button[contains(@content-desc,'Select Collection Centre')]")));
+            ExtentTestListener.logStep("TTFVaasan Selected");
 
-            selectCentre.click();
-            ExtentTestListener.logStep("Select Collection Center clicked");
+            // Scroll Down
+            driver.findElement(
+                    AppiumBy.androidUIAutomator(
+                            "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
-            Thread.sleep(3000);
+            ExtentTestListener.logStep("Page Scrolled");
 
-            //Select CC
-            WebElement centre = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            AppiumBy.androidUIAutomator(
-                                    "new UiSelector().descriptionContains(\"TTFVaasan\")")));
+            // Mixed Materials
+            click(MIXED_MATERIALS);
 
-            centre.click();
-            ExtentTestListener.logStep("TTFVaasan 0.03KM selected");
+            ExtentTestListener.logStep("Mixed Materials Checked");
 
-            //Scroll DOWN
-            driver.findElement(AppiumBy.androidUIAutomator(
-                    "new UiScrollable(new UiSelector().scrollable(true))" +
-                            ".scrollForward()"));
-
-            ExtentTestListener.logStep("Page scrolled");
-
-            //Tic - Checkbox
-            WebElement mixedMaterials = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            AppiumBy.accessibilityId("Mixed Materials *")));
-
-            mixedMaterials.click();
-            ExtentTestListener.logStep("Mixed Materials checked");
-
-            // Scroll DOWN
+            // Swipe Up
             driver.executeScript(
                     "mobile: swipeGesture",
-                    java.util.Map.of(
+                    Map.of(
                             "left", 100,
                             "top", 400,
                             "width", 500,
@@ -113,23 +136,16 @@ public class CDirectDeliveryPage extends BaseClassMobile {
                             "direction", "up",
                             "percent", 0.75));
 
-            Thread.sleep(2000);
+            // Final Checkbox
+            click(CONFIRM_CHECKBOX);
 
-            //Tic
-            WebElement confirmDryMaterials = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            AppiumBy.accessibilityId(
-                                    "I confirm that my request contains only the accepted materials and meets the above conditions *")));
-
-            confirmDryMaterials.click();
-            ExtentTestListener.logStep("Checkbox clicked");
-
+            ExtentTestListener.logStep("Confirmation Checkbox Clicked");
 
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
+
             ExtentTestListener.logStep("Failed to click Direct Delivery");
-            e.printStackTrace();
+
             throw new RuntimeException(e);
         }
     }

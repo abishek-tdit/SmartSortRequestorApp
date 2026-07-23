@@ -1,167 +1,133 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
-import Base.ExtentTestListener;
+import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
-import java.time.Duration;
+public class GProcessRedeemPointsConvertToCashPage extends BasePage {
 
-public class GProcessRedeemPointsConvertToCashPage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public GProcessRedeemPointsConvertToCashPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        super(driver);
     }
 
-    //CLICK PROCEED TO REDEEM POINTS + CHECKBOX
-    public void proceedToRedeemPointsAndSelectCheckbox() throws InterruptedException {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        // CLICK PROCEED TO REDEEM POINTS
-        WebElement proceedBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Proceed to Redeem Points")));
+    private final By proceedRedeemBtn =
+            AppiumBy.accessibilityId("Proceed to Redeem Points");
 
-        proceedBtn.click();
-        ExtentTestListener.logStep("Proceed to Redeem Points clicked");
+    private final By checkBox =
+            AppiumBy.className("android.widget.CheckBox");
 
-        // WAIT AFTER CLICK
-        Thread.sleep(2000);
+    private final By convertToCashBtn =
+            AppiumBy.accessibilityId("Convert to cash");
 
-        // CLICK CHECKBOX
-        WebElement checkBox = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.className("android.widget.CheckBox"))
-        );
+    private final By sar10Points =
+            AppiumBy.xpath("//android.view.View[@content-desc='SAR 10\nPoints 200.0']");
 
-        checkBox.click();
-        ExtentTestListener.logStep("Checkbox selected");
+    private final By bankTransfer =
+            AppiumBy.accessibilityId(
+                    "Bank Transfer (IBAN, Beneficiary Name, BIC Code)");
 
-        // WAIT AFTER CHECKBOX CLICK
-        Thread.sleep(3000);
+    private final By proceedBtn =
+            AppiumBy.accessibilityId("Proceed");
+
+    private final By confirmBtn =
+            AppiumBy.accessibilityId("Confirm");
+
+    private final By okBtn =
+            AppiumBy.accessibilityId("OK");
+
+    //=========================================================
+    // Proceed To Redeem Points
+    //=========================================================
+
+    public void proceedToRedeemPointsAndSelectCheckbox() {
+
+        log("========== PROCEED TO REDEEM ==========");
+
+        click(proceedRedeemBtn);
+        log("Clicked Proceed to Redeem Points");
+
+        // Checkbox
+        click(checkBox);
+        log("Checkbox Selected");
     }
 
-    //CLICK CONVERT TO CASH
-    public void clickConvertToCash() throws InterruptedException {
+    //=========================================================
+    // Convert To Cash
+    //=========================================================
 
-        WebElement convertButton = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Convert to cash")
-                )
-        );
+    public void clickConvertToCash() {
 
-        convertButton.click();
-        ExtentTestListener.logStep("Convert to Cash clicked");
-        Thread.sleep(3000);
+        click(convertToCashBtn);
+
+        log("Clicked Convert To Cash");
     }
 
+    //=========================================================
+    // Select SAR 10
+    //=========================================================
 
     public void selectSAR10Points() {
 
-        WebElement sarPoints = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.view.View[@content-desc='SAR 10\nPoints 200.0']")
-                )
-        );
+        click(sar10Points);
 
-        sarPoints.click();
-        ExtentTestListener.logStep("✅ SAR 10 Points selected");
+        log("Selected SAR 10 Points");
     }
 
-    //SELECT BANK TRANSFER OPTION
+    //=========================================================
+    // Select Bank Transfer
+    //=========================================================
+
     public void selectBankTransfer() {
 
-        WebElement bankTransfer = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Bank Transfer (IBAN, Beneficiary Name, BIC Code)")
-                )
-        );
+        click(bankTransfer);
 
-        bankTransfer.click();
-        ExtentTestListener.logStep("✅ Bank Transfer option selected");
+        log("Selected Bank Transfer");
     }
 
-
-    //---------This step only for 1st time -------//
-//     //STEP 4: ENTER MIDDLE NAME
-//    public void enterMiddleName(String middleNameValue) {
-//
-//        WebElement middleName = wait.until(
-//                ExpectedConditions.visibilityOfElementLocated(
-//                        AppiumBy.className("android.widget.EditText")
-//                )
-//        );
-//
-//        middleName.click();
-//        middleName.clear();
-//        middleName.sendKeys(middleNameValue);
-//
-//        ExtentTestListener.logStep("Middle Name entered: " + middleNameValue);
-//    }
-//
-//    //COMPLETE FLOW METHOD (CALL THIS)
-//    public void completeConvertToCashFlow() {
-//
-//        clickConvertToCash();
-//        selectSAR10Points();
-//        selectBankTransfer();
-//        enterMiddleName("raman");
-//
-//       ExtentTestListener.logStep("✅ Convert to Cash flow completed");
-//    }
-//----------------------------------------------------------------------------------
-
+    //=========================================================
+    // Proceed
+    //=========================================================
 
     public void clickProceed() {
 
-        try {
-            driver.hideKeyboard(); // hide keyboard
-            ExtentTestListener.logStep("Keyboard hidden");
-        }
-        catch (Exception e)
-        {
-            ExtentTestListener.logStep("Keyboard not visible");
-        }
+        hideKeyboard();
 
-        WebElement proceedBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Proceed")
-                )
-        );
+        click(proceedBtn);
 
-        proceedBtn.click();
-        ExtentTestListener.logStep("Proceed button clicked");
+        log("Clicked Proceed");
     }
 
-    public void clickConfirm() throws InterruptedException {
+    //=========================================================
+    // Confirm
+    //=========================================================
 
-        WebElement confirmBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Confirm")
-                )
-        );
+    public void clickConfirm() {
 
-        confirmBtn.click();
-        ExtentTestListener.logStep("Confirm button clicked");
-        Thread.sleep(5000);
+        click(confirmBtn);
+
+        log("Clicked Confirm");
     }
 
-    public void clickOkPopup() throws InterruptedException {
+    //=========================================================
+    // OK Popup
+    //=========================================================
 
-        WebElement okBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("OK")
-                )
-        );
+    public void clickOkPopup() {
 
-        okBtn.click();
-        ExtentTestListener.logStep("OK popup clicked");
-        Thread.sleep(5000);
+        click(okBtn);
+
+        log("Clicked OK Popup");
+
+        log("========== CONVERT TO CASH COMPLETED ==========");
     }
 
 }

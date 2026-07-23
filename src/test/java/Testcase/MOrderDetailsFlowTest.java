@@ -10,19 +10,20 @@ public class MOrderDetailsFlowTest extends BaseClassMobile {
 
     @Test public void testOrderDetailsFlow() throws Exception {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
+        //Abiram abi      - 0500000055 Dom
 
         //Login:
 //        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500445566",
+//        loginPage.login("0500000055",
 //                "Admin@194");
 //
 //         ExtentTestListener.logStep("Login completed");
 
         //Order Details Page:
+        Thread.sleep(5000);
         BOrderDetailsPage orderPage = new BOrderDetailsPage(driver);
         orderPage.openTab("Pending");
+        Thread.sleep(2000);
         orderPage.validateAllOrders("Pending", 5);
         orderPage.openTab("Completed");
         orderPage.validateAllOrders("Completed", 5);

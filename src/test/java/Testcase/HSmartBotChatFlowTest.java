@@ -9,29 +9,34 @@ import org.testng.annotations.Test;
 
 public class HSmartBotChatFlowTest extends BaseClassMobile {
 
-    @Test
-    public void smartBotFlow() throws Exception {
+    @Test(priority = 1)
+    public void smartBotFlow() throws InterruptedException {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
-
-        //Login:
+        ExtentTestListener.logStep("========== SMARTBOT TEST STARTED ==========");
+        //Abiram abi      - 0500000055 Dom
+        // Login
 //        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500445566",
-//                     "Admin@194");
+//        loginPage.login("0500000055",
+//                        "Admin@194");
 //
-//        ExtentTestListener.logStep("Login completed successfully");
+//        ExtentTestListener.logStep("Login Completed Successfully");
 
-        //Smart Bot:
+        // Open SmartBot
         BSmartBotPage smartBotPage = new BSmartBotPage(driver);
         smartBotPage.openSmartBotAndStartChat();
 
-        ExtentTestListener.logStep("Chat started successfully");
+        ExtentTestListener.logStep("SmartBot Opened Successfully");
 
-        //Chat Conversation:
+        // Chat
         CChatConversationPage chatPage = new CChatConversationPage(driver);
-        chatPage.askQuestion("Where is my collector?");
 
-        ExtentTestListener.logStep("Answer Received successfully");
+        chatPage.askQuestion("Where is my collector?");
+        chatPage.closeSmartBot();
+
+        ExtentTestListener.logStep("Question 1 Completed");
+
+        ExtentTestListener.logStep("========== SMARTBOT TEST COMPLETED ==========");
+        Thread.sleep(5000);
     }
+
 }

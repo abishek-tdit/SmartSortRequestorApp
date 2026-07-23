@@ -1,169 +1,95 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
-import Base.ExtentTestListener;
+import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
+
 import java.time.Duration;
 import java.util.List;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+public class DProcessRedeemPointsPartnerStorePage extends BasePage {
 
-public class DProcessRedeemPointsPartnerStorePage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public DProcessRedeemPointsPartnerStorePage(AndroidDriver driver) {
-
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        super(driver);
     }
 
-    public void proceedRedeem() throws Exception {
+    //=========================================================
+    // Locators
+    //=========================================================
 
+    private final By proceedRedeemBtn =
+            AppiumBy.accessibilityId("Proceed to Redeem Points");
 
-        // CLICK PROCEED TO REDEEM POINTS
-        WebElement proceedBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Proceed to Redeem Points")));
+    private final By checkBox =
+            AppiumBy.className("android.widget.CheckBox");
 
-        proceedBtn.click();
+    private final By mostPopular =
+            AppiumBy.accessibilityId("Most Popular");
 
-        ExtentTestListener.logStep("Proceed to Redeem Points clicked");
+    private final By searchBox =
+            AppiumBy.className("android.widget.EditText");
 
+    private final By redeemBtn =
+            AppiumBy.androidUIAutomator(
+                    "new UiSelector().description(\"Redeem\").instance(1)");
 
-        // WAIT AFTER CLICK
-        Thread.sleep(5000);
+    private final By redeemGiftBtn =
+            AppiumBy.accessibilityId("Redeem Gift");
 
+    private final By okBtn =
+            AppiumBy.accessibilityId("OK");
 
-        // CLICK CHECKBOX
-        WebElement checkBox = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.className("android.widget.CheckBox")));
+    //=========================================================
+    // Redeem Process
+    //=========================================================
 
-        checkBox.click();
+    public void proceedRedeem() {
 
-        ExtentTestListener.logStep("Checkbox selected");
+        log("========== REDEEM PROCESS STARTED ==========");
 
+        // Proceed Redeem
+        click(proceedRedeemBtn);
+        log("Clicked Proceed to Redeem Points");
 
-        // WAIT AFTER CHECKBOX CLICK
-        Thread.sleep(3000);
+        // Checkbox
+        click(checkBox);
+        log("Checkbox Selected");
 
+        // Most Popular
+        click(mostPopular);
+        log("Clicked Most Popular");
 
-        // CLICK MOST POPULAR
-        WebElement mostPopular = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Most Popular")));
+        // Search Amazon
+        sendKeys(searchBox, "Amazon");
+        log("Entered Amazon");
 
-        mostPopular.click();
+        hideKeyboard();
 
-        ExtentTestListener.logStep("Most Popular clicked");
+        // Scroll
+        utility.swipeUp(0.8);
+        log("Scrolled Up");
 
+        // Redeem Button
+        waitVisible(redeemBtn);
 
-        // WAIT AFTER MOST POPULAR CLICK
-        Thread.sleep(5000);
+        WebElement redeem = getElement(redeemBtn);
 
+        int centerX = redeem.getRect().getX() +
+                (redeem.getRect().getWidth() / 2);
 
-        // SEARCH BOX
-        WebElement searchBox = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.className("android.widget.EditText")));
+        int centerY = redeem.getRect().getY() +
+                (redeem.getRect().getHeight() / 2);
 
-        searchBox.click();
-
-
-        // ENTER AMAZON
-        searchBox.sendKeys("Amazon");
-
-        ExtentTestListener.logStep("Amazon entered in search box");
-
-
-        // WAIT AFTER ENTER
-        Thread.sleep(5000);
-
-
-        // CLOSE KEYBOARD
-        driver.hideKeyboard();
-
-        ExtentTestListener.logStep("Keyboard closed");
-
-
-        // WAIT AFTER KEYBOARD CLOSE
-        Thread.sleep(3000);
-
-
-        // GET MOBILE SCREEN SIZE
-        Dimension size = driver.manage().window().getSize();
-
-        int startX = size.width / 2;
-
-        int startY = (int) (size.height * 0.80);
-
-        int endY = (int) (size.height * 0.30);
-
-
-        // MANUAL SWIPE
-        PointerInput finger = new PointerInput(
-                PointerInput.Kind.TOUCH,
-                "finger");
-
-        Sequence swipe = new Sequence(finger, 1);
-
-        swipe.addAction(
-                finger.createPointerMove(
-                        Duration.ZERO,
-                        PointerInput.Origin.viewport(),
-                        startX,
-                        startY
-                ));
-
-        swipe.addAction(
-                finger.createPointerDown(
-                        PointerInput.MouseButton.LEFT.asArg()));
-
-        swipe.addAction(
-                finger.createPointerMove(
-                        Duration.ofMillis(1000),
-                        PointerInput.Origin.viewport(),
-                        startX,
-                        endY
-                ));
-
-        swipe.addAction(
-                finger.createPointerUp(
-                        PointerInput.MouseButton.LEFT.asArg()));
-
-        driver.perform(List.of(swipe));
-
-        ExtentTestListener.logStep("Page scrolled manually");
-
-
-        // WAIT AFTER SCROLL
-        Thread.sleep(3000);
-
-
-        // FIND REDEEM BUTTON
-        WebElement redeemBtn = wait.until(
-                ExpectedConditions.presenceOfElementLocated(
-                        AppiumBy.androidUIAutomator(
-                                "new UiSelector().description(\"Redeem\").instance(1)")));
-
-
-        // CLICK USING COORDINATE TAP
-        int centerX = redeemBtn.getRect().getX() + (redeemBtn.getRect().getWidth() / 2);
-
-        int centerY = redeemBtn.getRect().getY() + (redeemBtn.getRect().getHeight() / 2);
-
-        PointerInput tapFinger = new PointerInput(
-                PointerInput.Kind.TOUCH,
-                "tapFinger"
-        );
+        PointerInput finger =
+                new PointerInput(PointerInput.Kind.TOUCH, "finger");
 
         Sequence tap = new Sequence(finger, 1);
 
@@ -172,8 +98,7 @@ public class DProcessRedeemPointsPartnerStorePage {
                         Duration.ZERO,
                         PointerInput.Origin.viewport(),
                         centerX,
-                        centerY
-                ));
+                        centerY));
 
         tap.addAction(
                 finger.createPointerDown(
@@ -185,117 +110,21 @@ public class DProcessRedeemPointsPartnerStorePage {
 
         driver.perform(List.of(tap));
 
-        ExtentTestListener.logStep("Redeem clicked successfully");
+        log("Redeem Button Clicked");
 
+        // SAR Amount
+        sendKeys(searchBox, "10");
+        log("Entered SAR Amount");
 
-        // WAIT AFTER REDEEM CLICK
-        Thread.sleep(5000);
+        // Redeem Gift
+        click(redeemGiftBtn);
+        log("Clicked Redeem Gift");
 
+        // OK Popup
+        click(okBtn);
+        log("Clicked OK");
 
-//====================================================================================================
-//For First Time Redeem process - we need to enter email ID and need to verify the OTP
-//Click the popup OK btn for confirmation - after successfully verification done, its completed
-//when we Redeem for 2nd time - After clicked Redeem - it will directly open the SAR Points page
-//=============================================================================================
-
-////   ENTER EMAIL
-//        WebElement emailBox = wait.until(
-//                ExpectedConditions.elementToBeClickable(
-//                        AppiumBy.className("android.widget.EditText")
-//                )
-//        );
-//
-//// CLEAR EXISTING TEXT
-//        emailBox.clear();
-//
-//// ENTER EMAIL ONLY ONCE
-//        emailBox.sendKeys("abishek251295@gmail.com");
-//
-//        System.out.println("Email entered");
-//
-//// WAIT AFTER EMAIL ENTER
-//        Thread.sleep(3000);
-//
-//// CLOSE KEYBOARD
-//        driver.hideKeyboard();
-//
-//        System.out.println("Keyboard closed");
-//
-//// WAIT AFTER KEYBOARD CLOSE
-//        Thread.sleep(2000);
-//
-//// CLICK SEND OTP
-//        WebElement sendOtpBtn = wait.until(
-//                ExpectedConditions.elementToBeClickable(
-//                        AppiumBy.accessibilityId("Send OTP")
-//                )
-//        );
-//
-//        sendOtpBtn.click();
-//
-//        System.out.println("Send OTP clicked");
-//
-//// WAIT FOR OTP SENT POPUP
-//        Thread.sleep(5000);
-//
-//// CLICK OK BUTTON
-//        WebElement okBtn = wait.until(
-//                ExpectedConditions.elementToBeClickable(
-//                        AppiumBy.accessibilityId("OK")
-//                )
-//        );
-//
-//        okBtn.click();
-//
-//        System.out.println("OK popup clicked");
-//
-//// WAIT AFTER CLICK
-//        Thread.sleep(3000);
-//
-//        // WAIT 30 SECONDS FOR MANUAL OTP ENTRY
-//        System.out.println("Waiting 30 seconds for manual OTP entry...");
-//
-//        Thread.sleep(30000);
-//===============================================================================================
-
-
-        // ENTER SAR AMOUNT
-        WebElement sarAmount = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.className("android.widget.EditText")));
-
-        sarAmount.click();
-
-        Thread.sleep(1000);
-
-        sarAmount.sendKeys("10");
-
-        ExtentTestListener.logStep("SAR Amount entered");
-
-        Thread.sleep(2000);
-
-
-        // CLICK REDEEM GIFT BUTTON
-        WebElement redeemGiftBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Redeem Gift")));
-
-        redeemGiftBtn.click();
-
-        ExtentTestListener.logStep("Redeem Gift button clicked");
-
-        Thread.sleep(5000);
-
-
-        // CLICK OK POPUP BUTTON
-        WebElement okBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("OK")));
-
-        okBtn.click();
-
-        ExtentTestListener.logStep("OK popup clicked successfully");
-
-        Thread.sleep(3000);
+        log("========== REDEEM PROCESS COMPLETED ==========");
     }
+
 }

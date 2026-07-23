@@ -4,19 +4,32 @@ import Base.ExtentTestListener;
 import Utility.MobileUtility;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import org.openqa.selenium.WebElement;
 
 public class ASignUpPage {
 
     AndroidDriver driver;
     MobileUtility util;
+    private final WebDriverWait wait;
 
     // CONSTRUCTOR
     public ASignUpPage(AndroidDriver driver) {
 
         this.driver = driver;
         util = new MobileUtility(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+    private WebElement waitForVisible(WebElement element) {
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    private WebElement waitForClickable(WebElement element) {
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
     }
 
     // SIGN UP FLOW
@@ -27,7 +40,9 @@ public class ASignUpPage {
 
 //		util.click(registerBtnHome);
         util.click(util.waitForAccessibilityId("Register"));
+
         ExtentTestListener.logStep("Home Register button clicked");
+
         util.click(util.waitForAccessibilityId("Select City"));
 
         ExtentTestListener.logStep("Select City dropdown clicked");
@@ -66,12 +81,14 @@ public class ASignUpPage {
 //        util.delay(1);
 
         // ENTER FIRST NAME
-        WebElement firstName = driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.widget.EditText\").instance(0)"));
+        WebElement firstName = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.androidUIAutomator(
+                                "new UiSelector().className(\"android.widget.EditText\").instance(0)")
+                ));
 
         util.click(firstName);
-        firstName.sendKeys("Krish");
+        firstName.sendKeys("kareem");
 
         ExtentTestListener.logStep("First Name entered successfully");
 
@@ -121,7 +138,7 @@ public class ASignUpPage {
                 )
         );
 
-        MobileNumber mobileUtil = new MobileNumber();
+        BMobileNumber mobileUtil = new BMobileNumber();
 
         String mobile = mobileUtil.getUniqueMobileNumber(city);
 
@@ -136,36 +153,31 @@ public class ASignUpPage {
         util.click(mobileNumber);
 
         mobileNumber.sendKeys(mobile);
-
-        //previous no used for registration        0500121212
-        //                                         0500098765
-        // mobileNumber.sendKeys("0500987654");
+        try {
+            driver.hideKeyboard();
+        } catch (Exception ignored) {
+        }
 
         ExtentTestListener.logStep("Mobile Number entered successfully");
 
-        Thread.sleep(2000);
-
-
+        wait.until(driver -> true);
         // PRESS TAB / NEXT
         driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
                 io.appium.java_client.android.nativekey.AndroidKey.TAB));
 
-        Thread.sleep(2000);
+        wait.until(driver -> true);
 
         // ENTER PASSWORD
         driver.switchTo().activeElement().sendKeys("Admin@194");
 
         ExtentTestListener.logStep("Password entered successfully");
-        Thread.sleep(2000);
-
+        wait.until(driver -> true);
 
         // PRESS TAB / NEXT
         driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
-                io.appium.java_client.android.nativekey.AndroidKey.TAB
-        ));
+                io.appium.java_client.android.nativekey.AndroidKey.TAB));
 
-        Thread.sleep(2000);
-
+        wait.until(driver -> true);
 
         // SCROLL DOWN (ENSURE FIELD IS VISIBLE)
         driver.executeScript(
@@ -176,42 +188,38 @@ public class ASignUpPage {
                         "width", 600,
                         "height", 900,
                         "direction", "down",
-                        "percent", 0.6
-                )
-        );
+                        "percent", 0.6));
 
-        Thread.sleep(2000);
-
+        wait.until(driver -> true);
 
         // CLICK CONFIRM PASSWORD DIRECTLY
         WebElement confirmPassword = driver.findElement(
-                AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[4]")
-        );
+                AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[4]"));
 
         confirmPassword.click();
-
-        Thread.sleep(2000);
-
+        wait.until(driver -> true);
 
         // ENTER CONFIRM PASSWORD
         confirmPassword.sendKeys("Admin@194");
 
         ExtentTestListener.logStep("Confirm Password entered successfully");
-
-        Thread.sleep(2000);
+        wait.until(driver -> true);
 
         try {
             driver.hideKeyboard();
-        } catch (Exception e) {
-            System.out.println("Keyboard not visible");
+        }
+        catch (Exception e)
+        {
+            ExtentTestListener.logStep("Keyboard not visible");
         }
 
+
         // CLICK TERMS CHECKBOX
-        WebElement checkbox = driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.view.View\").instance(9)"
-                )
-        );
+        WebElement checkbox = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.androidUIAutomator(
+                                "new UiSelector().className(\"android.view.View\").instance(10)"
+                        )));
 
         checkbox.click();
 
@@ -227,13 +235,13 @@ public class ASignUpPage {
 
         ExtentTestListener.logStep("Register button clicked successfully");
 
-        Thread.sleep(5000);
+        wait.until(driver -> true);
 
 
         //CLICK OK BUTTON
-        WebElement okBtn = driver.findElement(
-                AppiumBy.accessibilityId("OK")
-        );
+        WebElement okBtn = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.accessibilityId("OK")));
 
         okBtn.click();
 
@@ -243,16 +251,13 @@ public class ASignUpPage {
 
         ExtentTestListener.logStep("Generated OTP : " + otp);
 
-        // WAIT 30 SECONDS FOR MANUAL OTP ENTRY
-        ExtentTestListener.logStep("Please enter OTP manually within 30 seconds");
+        ExtentTestListener.logStep("Please enter OTP");
 
-        Thread.sleep(30000);
-
-
-        // CLICK CONFIRM BUTTON
-        WebElement confirmBtn = driver.findElement(
-                AppiumBy.accessibilityId("Confirm")
-        );
+        Thread.sleep(6000);
+        WebElement confirmBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Confirm")
+                ));
 
         confirmBtn.click();
 
@@ -260,13 +265,13 @@ public class ASignUpPage {
 
 
         // WAIT FOR REGISTRATION SUCCESS POPUP
-        Thread.sleep(5000);
+        wait.until(driver -> true);
 
 
         // CLICK SUCCESS OK BUTTON
-        WebElement successOkBtn = driver.findElement(
-                AppiumBy.accessibilityId("OK")
-        );
+        WebElement successOkBtn = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.accessibilityId("OK")));
 
         successOkBtn.click();
 

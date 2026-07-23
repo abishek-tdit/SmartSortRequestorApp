@@ -1,175 +1,137 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 
-public class IYourAddressPage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+public class IYourAddressPage extends BasePage {
 
     public IYourAddressPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        super(driver);
     }
 
-    public void validateYourAddressPage() throws InterruptedException {
+    public void validateYourAddressPage() {
 
-        // Profile Icon Page
+        // Profile Icon
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.xpath(
                         "//android.widget.FrameLayout[@resource-id='android:id/content']" +
                                 "/android.widget.FrameLayout/android.widget.FrameLayout" +
                                 "/android.view.View/android.view.View/android.view.View" +
                                 "/android.view.View/android.view.View[1]" +
-                                "/android.view.View/android.widget.ImageView[1]"))).click();
+                                "/android.view.View/android.widget.ImageView[1]"
+                ))).click();
 
         ExtentTestListener.logStep("Profile Icon Clicked");
-        Thread.sleep(3000);
 
-        //Click View Profile
+        // View Profile
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("View Profile"))).click();
 
+        ExtentTestListener.logStep("Clicked View Profile");
 
-        ExtentTestListener.logStep("Clicked View Profile, waiting for next screen...");
-        Thread.sleep(5000);
-
-        // Click Your Address (using your locator)
+        // Your Address
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Your Address"))).click();
 
         ExtentTestListener.logStep("Your Address Clicked");
 
-        Thread.sleep(3000);
-
-        //Select City
+        // Select City
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Select City"))).click();
-        ExtentTestListener.logStep("Select City Clicked");
 
-        Thread.sleep(2000);
+        ExtentTestListener.logStep("Select City Clicked");
 
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Bqaiq"))).click();
-        ExtentTestListener.logStep("City Selected (Bqaiq)");
 
-        Thread.sleep(2000);
+        ExtentTestListener.logStep("City Selected : Bqaiq");
 
-        //Select District
+        // Select District
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("Select district"))).click();
-        ExtentTestListener.logStep("Select District Clicked");
 
-        Thread.sleep(2000);
+        ExtentTestListener.logStep("Select District Clicked");
 
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("AlAndalus"))).click();
-        ExtentTestListener.logStep("District Selected (AlAndalus)");
 
-        Thread.sleep(2000);
+        ExtentTestListener.logStep("District Selected : AlAndalus");
 
-        //Search Location Field
-        WebElement searchField = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                AppiumBy.className("android.widget.EditText")));
+        // Search Location Field
+        WebElement searchField = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.className("android.widget.EditText")));
 
         if (searchField.isDisplayed()) {
             ExtentTestListener.logStep("Search Location Field Visible");
         }
-        else
-        {
-            ExtentTestListener.logStep("Search Location Field NOT Visible");
-        }
 
-        //Choose Location From Map
+        // Choose Location From Map
         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().descriptionContains(\"Choose location from map\")"))).click();
+                        AppiumBy.androidUIAutomator(
+                                "new UiSelector().descriptionContains(\"Choose location from map\")")))
+                .click();
 
         ExtentTestListener.logStep("Choose Location From Map Clicked");
 
-        Thread.sleep(4000);
-
-        // Click Search Location Text Box
+        // Search Location
         WebElement searchBox = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.className("android.widget.EditText")));
 
         searchBox.click();
+        searchBox.clear();
         searchBox.sendKeys("Bqaiq");
 
         ExtentTestListener.logStep("Entered Location : Bqaiq");
 
-        Thread.sleep(3000);
-
-        // Select Vellore, Tamil Nadu, India
-        WebElement vellore = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Abqaiq Saudi Arabia")));
-
-        vellore.click();
+        // Select Address
+        wait.until(ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Abqaiq Saudi Arabia")))
+                .click();
 
         ExtentTestListener.logStep("Selected : Abqaiq Saudi Arabia");
 
-        Thread.sleep(2000);
-
+        // Hide Keyboard
         try {
             driver.hideKeyboard();
             ExtentTestListener.logStep("Keyboard Hidden");
-        } catch (Exception e) {
-            System.out.println("Keyboard already hidden");
+        } catch (Exception ignored) {
         }
 
-        Thread.sleep(2000);
-
-        // Click OK Button
+        // OK
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("OK"))).click();
 
-        ExtentTestListener.logStep("Location Confirmed (OK Clicked)");
+        ExtentTestListener.logStep("Location Confirmed");
 
-        Thread.sleep(3000);
-
-
-        //Click Popup Save Button
+        // Save
         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Save")
-        )).click();
+                AppiumBy.accessibilityId("Save"))).click();
 
         ExtentTestListener.logStep("Popup Save Button Clicked");
 
-        Thread.sleep(3000);
-
-        //Click Your Address
+        // Open Address Again
         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Your Address")
-        )).click();
+                AppiumBy.accessibilityId("Your Address"))).click();
 
         ExtentTestListener.logStep("Again Your Address Clicked");
 
-        Thread.sleep(3000);
-
-
-        // Scroll down to the bottom
+        // Scroll to Bottom
         driver.findElement(
                 AppiumBy.androidUIAutomator(
-                        "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(5)"
-                )
+                        "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(5)")
         );
 
-        Thread.sleep(2000);
-
-// Get all delete buttons
+        // Delete Buttons
         List<WebElement> deleteButtons = driver.findElements(
-                AppiumBy.className("android.widget.Button")
-        );
+                AppiumBy.className("android.widget.Button"));
 
         ExtentTestListener.logStep("Delete Buttons Found : " + deleteButtons.size());
 
@@ -177,38 +139,27 @@ public class IYourAddressPage {
             throw new RuntimeException("No delete button found.");
         }
 
-// Click the last delete button
         WebElement lastDelete = deleteButtons.get(deleteButtons.size() - 1);
 
         wait.until(ExpectedConditions.elementToBeClickable(lastDelete)).click();
 
         ExtentTestListener.logStep("Last Address Deleted Successfully");
 
-        Thread.sleep(2000);
-
-        //OK POPUP
+        // First OK
         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("OK")
-        )).click();
+                AppiumBy.accessibilityId("OK"))).click();
 
         ExtentTestListener.logStep("First OK Popup Clicked");
 
-        Thread.sleep(2000);
-
-        //Second ok popup
+        // Second OK
         wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("OK")
-        )).click();
+                AppiumBy.accessibilityId("OK"))).click();
 
         ExtentTestListener.logStep("Second OK Popup Clicked");
 
-        Thread.sleep(3000);
-
-
-        //goback
+        // Back
         driver.navigate().back();
+
         ExtentTestListener.logStep("Navigated Back");
-
-
     }
 }

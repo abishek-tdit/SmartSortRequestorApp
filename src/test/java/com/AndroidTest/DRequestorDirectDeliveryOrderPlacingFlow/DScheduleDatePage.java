@@ -71,7 +71,7 @@ public class DScheduleDatePage {
 
         try {
 
-            Thread.sleep(3000);
+
 
             // Check if keyboard icon exists
             if (!driver.findElements(
@@ -136,7 +136,7 @@ public class DScheduleDatePage {
     public void clickContinue() {
 
         try {
-            Thread.sleep(3000);
+
         } catch (Exception ignored){
         }
 

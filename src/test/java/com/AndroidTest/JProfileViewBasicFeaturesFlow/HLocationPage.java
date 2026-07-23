@@ -1,55 +1,57 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class HLocationPage {
-    AndroidDriver driver;
-    WebDriverWait wait;
+public class HLocationPage extends BasePage {
+
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public HLocationPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        super(driver);
     }
 
-    public void selectLocation() throws Exception {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        Thread.sleep(3000);
+    private final By exploreOtherLocations =
+            AppiumBy.accessibilityId("Explore Other Locations");
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+    private final By bqaiqLocation =
+            AppiumBy.accessibilityId("Bqaiq");
 
-        WebElement exploreBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Explore Other Locations")
-                )
-        );
 
-        exploreBtn.click();
+    //=========================================================
+    // Select Location
+    //=========================================================
 
-        ExtentTestListener.logStep("Explore Other Locations clicked");
+    public void selectLocation() {
 
-        Thread.sleep(2000);
+        // Click Explore Other Locations
+        wait.until(ExpectedConditions.elementToBeClickable(exploreOtherLocations))
+                .click();
 
-        WebElement locationBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Bqaiq")
-                )
-        );
+        ExtentTestListener.logStep("Clicked Explore Other Locations");
 
-        locationBtn.click();
+        // Select Bqaiq
+        wait.until(ExpectedConditions.elementToBeClickable(bqaiqLocation))
+                .click();
 
         ExtentTestListener.logStep("Location Selected : Bqaiq");
 
         if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Selected Location: Bqaiq");
+            ExtentTestListener.getTest().pass("Selected Location : Bqaiq");
         }
-
-        Thread.sleep(3000);
     }
 }

@@ -20,7 +20,6 @@ public class BLocationPage {
 
     public void selectLocation() throws Exception {
 
-        Thread.sleep(3000);
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
@@ -32,7 +31,7 @@ public class BLocationPage {
         exploreBtn.click();
 
         ExtentTestListener.logStep("Explore Other Locations clicked");
-        Thread.sleep(2000);
+
 
         //BQAIQ
         WebElement locationBtn = wait.until(
@@ -42,6 +41,5 @@ public class BLocationPage {
         locationBtn.click();
 
         ExtentTestListener.logStep("Location Selected : Bqaiq");
-        Thread.sleep(3000);
     }
 }

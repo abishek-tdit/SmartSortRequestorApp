@@ -1,37 +1,47 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+public class BHomePage extends BasePage {
 
-public class BHomePage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public BHomePage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        super(driver);
     }
 
-    public void clickProfileIcon() throws InterruptedException {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath(
-                        "//android.widget.FrameLayout[@resource-id='android:id/content']" +
-                                "/android.widget.FrameLayout/android.widget.FrameLayout" +
-                                "/android.view.View/android.view.View/android.view.View" +
-                                "/android.view.View/android.view.View[1]" +
-                                "/android.view.View/android.widget.ImageView[1]"
-                )
-        )).click();
+    private final By profileIcon = AppiumBy.xpath(
+            "//android.widget.FrameLayout[@resource-id='android:id/content']" +
+                    "/android.widget.FrameLayout/android.widget.FrameLayout" +
+                    "/android.view.View/android.view.View/android.view.View" +
+                    "/android.view.View/android.view.View[1]" +
+                    "/android.view.View/android.widget.ImageView[1]"
+    );
+
+    //=========================================================
+    // Click Profile Icon
+    //=========================================================
+
+    public void clickProfileIcon() {
+
+        wait.until(ExpectedConditions.elementToBeClickable(profileIcon))
+                .click();
 
         ExtentTestListener.logStep("Profile Icon Clicked");
 
-        Thread.sleep(3000);
+        if (ExtentTestListener.getTest() != null) {
+            ExtentTestListener.getTest().pass("Clicked Profile Icon");
+        }
     }
 }

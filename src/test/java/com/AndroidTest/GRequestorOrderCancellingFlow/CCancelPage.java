@@ -1,214 +1,216 @@
 package com.AndroidTest.GRequestorOrderCancellingFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-import java.util.HashMap;
 import java.util.Map;
 
-public class CCancelPage {
+public class CCancelPage extends BasePage {
 
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public CCancelPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        super(driver);
     }
 
-    //OPEN PENDING ORDERS
-    public void openPendingOrders() throws Exception {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        // Wait for page to stabilize after location selection
-        Thread.sleep(8000);
+    private final By pendingButton =
+            By.xpath("//android.view.View[contains(@content-desc,'Pending')]");
+
+    private final By cancelButton =
+            AppiumBy.accessibilityId("Cancel");
+
+    private final By cancelReason =
+            AppiumBy.accessibilityId("Changed My Mind");
+
+    private final By submitButton =
+            AppiumBy.accessibilityId("Submit");
+
+    private final By okButton =
+            AppiumBy.accessibilityId("OK");
+
+
+    //=========================================================
+    // Open Pending Orders
+    //=========================================================
+
+//=========================================================
+// Open Pending Orders
+//=========================================================
+
+    public void openPendingOrders() {
 
         boolean found = false;
 
-        // Try scroll + search multiple times
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
 
-            try {
-                // Try dynamic locator (IMPORTANT FIX)
-                WebElement pendingBtn = driver.findElement(
-                        By.xpath("//android.view.View[contains(@content-desc,'Pending')]")
-                );
+            // Check whether Pending button is available
+            java.util.List<WebElement> pendingList = driver.findElements(pendingButton);
 
-                if (pendingBtn.isDisplayed()) {
-                    pendingBtn.click();
-                    ExtentTestListener.logStep("Pending clicked successfully");
+            if (!pendingList.isEmpty() && pendingList.get(0).isDisplayed()) {
 
-                    if (ExtentTestListener.getTest() != null) {
-                        ExtentTestListener.getTest().pass("Clicked Pending Orders");
-                    }
+                wait.until(ExpectedConditions.elementToBeClickable(pendingList.get(0)));
 
-                    found = true;
-                    break;
+                pendingList.get(0).click();
+
+                ExtentTestListener.logStep("Pending clicked successfully");
+
+                if (ExtentTestListener.getTest() != null) {
+                    ExtentTestListener.getTest().pass("Clicked Pending Orders");
                 }
 
-            } catch (Exception e) {
-                // Scroll if not found
-                Map<String, Object> params = new HashMap<>();
-                params.put("left", 100);
-                params.put("top", 300);
-                params.put("width", 500);
-                params.put("height", 1000);
-                params.put("direction", "up");
-                params.put("percent", 0.85);
-
-                driver.executeScript("mobile: swipeGesture", params);
-
-                Thread.sleep(2000);
+                found = true;
+                break;
             }
+
+            // Scroll down if Pending button is not visible
+            swipeUp(0.85);
         }
 
         if (!found) {
-            throw new RuntimeException("Pending Orders button not found after scrolling");
+            throw new RuntimeException("Pending Orders button not found after scrolling.");
         }
-
-        Thread.sleep(3000);
     }
+    //=========================================================
+    // Select Order
+    //=========================================================
 
-    // Click Order based on Order Number
-    public void selectOrderToCancel(String orderNumber) throws Exception {
-
-        Thread.sleep(5000);
+    public void selectOrderToCancel(String orderNumber) {
 
         boolean found = false;
 
         By orderXpath = By.xpath(
-                "//android.widget.ImageView[contains(@content-desc,'" + orderNumber + "')]"
-        );
+                "//android.widget.ImageView[contains(@content-desc,'" + orderNumber + "')]");
 
         for (int i = 0; i < 8; i++) {
 
             try {
 
-                WebElement order = driver.findElement(orderXpath);
+                WebElement order = wait.until(
+                        ExpectedConditions.visibilityOfElementLocated(orderXpath));
 
-                ExtentTestListener.logStep("Found Order : "
-                        + order.getAttribute("content-desc"));
+                ExtentTestListener.logStep(
+                        "Order Found : " + order.getAttribute("content-desc"));
 
                 wait.until(ExpectedConditions.elementToBeClickable(order));
 
                 order.click();
 
-                ExtentTestListener.logStep("Clicked Successfully : " + orderNumber);
+                ExtentTestListener.logStep(
+                        "Order Clicked Successfully : " + orderNumber);
+
+                if (ExtentTestListener.getTest() != null) {
+                    ExtentTestListener.getTest().pass(
+                            "Selected Order : " + orderNumber);
+                }
 
                 found = true;
                 break;
 
             } catch (Exception e) {
 
-                driver.executeScript("mobile: swipeGesture",
-                        java.util.Map.of(
-                                "left", 100,
-                                "top", 300,
-                                "width", 500,
-                                "height", 1000,
-                                "direction", "up",
-                                "percent", 0.80
-                        ));
-
-                Thread.sleep(2000);
+                swipeUp(0.80);
             }
         }
 
         if (!found) {
-            throw new RuntimeException("Order not found : " + orderNumber);
+            throw new RuntimeException(
+                    "Order not found : " + orderNumber);
         }
     }
 
-    //CLICK CANCEL BUTTON
-    public void clickCancelButton() throws Exception {
+    //=========================================================
+    // Click Cancel Button
+    //=========================================================
 
-        Thread.sleep(3000);
+    public void clickCancelButton() {
 
-        WebElement cancelBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Cancel")
-                )
-        );
-
-        cancelBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(cancelButton))
+                .click();
 
         ExtentTestListener.logStep("Cancel Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Cancel Button Clicked");
+            ExtentTestListener.getTest().pass("Clicked Cancel Button");
         }
-
-        Thread.sleep(2000);
     }
 
-    // ================= SELECT CANCEL REASON =================
-    public void selectCancelReason() throws Exception {
+    //=========================================================
+    // Select Cancel Reason
+    //=========================================================
 
-        Thread.sleep(3000);
+    public void selectCancelReason() {
 
-        WebElement reasonBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Changed My Mind")
-                )
-        );
+        wait.until(ExpectedConditions.elementToBeClickable(cancelReason))
+                .click();
 
-        reasonBtn.click();
-
-        ExtentTestListener.logStep("Cancel Reason Selected: Changed My Mind");
+        ExtentTestListener.logStep(
+                "Cancel Reason Selected : Changed My Mind");
 
         if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Selected Cancel Reason: Changed My Mind");
+            ExtentTestListener.getTest().pass(
+                    "Selected Cancel Reason : Changed My Mind");
         }
-
-        Thread.sleep(2000);
     }
 
-    // ================= CLICK SUBMIT =================
-    public void clickSubmit() throws Exception {
+    //=========================================================
+    // Click Submit
+    //=========================================================
 
-        Thread.sleep(2000);
+    public void clickSubmit() {
 
-        WebElement submitBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Submit")
-                )
-        );
-
-        submitBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(submitButton))
+                .click();
 
         ExtentTestListener.logStep("Submit Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked Submit Button");
         }
-
-        Thread.sleep(2000);
     }
 
-    // ================= CLICK OK POPUP =================
-    public void clickOkPopup() throws Exception {
+    //=========================================================
+    // Click OK Popup
+    //=========================================================
 
-        Thread.sleep(3000);
+    public void clickOkPopup() {
 
-        WebElement okBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("OK")
-                )
-        );
-
-        okBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(okButton))
+                .click();
 
         ExtentTestListener.logStep("OK Popup Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Clicked OK Popup");
         }
+    }
 
-        Thread.sleep(2000);
+    //=========================================================
+    // Reusable Swipe Method
+    //=========================================================
+
+    private void swipeUp(double percent) {
+
+        driver.executeScript(
+                "mobile: swipeGesture",
+                Map.of(
+                        "left", 100,
+                        "top", 300,
+                        "width", 500,
+                        "height", 1000,
+                        "direction", "up",
+                        "percent", percent
+                )
+        );
     }
 }

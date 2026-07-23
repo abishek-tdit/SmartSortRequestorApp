@@ -1,32 +1,27 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
-import java.util.List;
-import java.util.Map;
 
-public class KFreeUpSpacePage {
-    AndroidDriver driver;
-    WebDriverWait wait;
+import java.util.List;
+
+public class KFreeUpSpacePage extends BasePage {
 
     public KFreeUpSpacePage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        super(driver);
     }
 
-    public void scrollAndOptimize() throws InterruptedException {
+    public void scrollAndOptimize() {
 
         ExtentTestListener.logStep("Start Free Up Space Flow");
 
         boolean found = false;
 
-        //Scroll max 5 times
+        // Scroll maximum 5 times
         for (int i = 0; i < 5; i++) {
 
             List<WebElement> elements =
@@ -38,130 +33,98 @@ public class KFreeUpSpacePage {
                 break;
             }
 
-            swipeUp();
-            ExtentTestListener.logStep("Swiping...");
-            Thread.sleep(2000);
+            utility.swipeUp(0.8);
         }
 
-        if (!found)
-        {
+        if (!found) {
             throw new RuntimeException("Free up space NOT found after scrolling");
         }
 
-        //CLICK FREE UP SPACE
-        WebElement freeUpBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Free up space")));
-        freeUpBtn.click();
+        // Click Free Up Space
+        wait.until(ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Free up space")))
+                .click();
 
-        Thread.sleep(3000);
+        ExtentTestListener.logStep("Free up space Clicked");
 
         clickOptimizeAndReset();
     }
 
-    //SWIPE METHOD
-    public void swipeUp() {
+    //=====================================================
+    // Optimize + Reset
+    //=====================================================
 
-        Dimension size = driver.manage().window().getSize();
+    public void clickOptimizeAndReset() {
 
-        int startX = size.width / 2;
-        int startY = (int) (size.height * 0.8);
-
-        driver.executeScript("mobile: swipeGesture", Map.of(
-                "left", startX,
-                "top", startY,
-                "width", 300,
-                "height", 600,
-                "direction", "up",
-                "percent", 0.8 ));
-    }
-
-    //OPTIMIZE + RESET FLOW
-    public void clickOptimizeAndReset() throws InterruptedException {
-
-
-        //OPTIMIZE
+        // Optimize
         ExtentTestListener.logStep("Optimize Step Started");
 
-        WebElement optimizeBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Optimize")));
+        wait.until(ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Optimize")))
+                .click();
 
-        optimizeBtn.click();
         ExtentTestListener.logStep("Optimize Clicked");
-        Thread.sleep(5000);
 
-
-        //RESET
+        // Reset
         ExtentTestListener.logStep("Reset Step Started");
 
-        WebElement resetBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Reset")));
-
-        resetBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Reset")))
+                .click();
 
         ExtentTestListener.logStep("Reset Clicked");
-        Thread.sleep(2000);
 
-
-        //POPUP HANDLING
+        // Popup Handling
         ExtentTestListener.logStep("Handling Popup");
 
-//        //  OPTION 1 → CLICK OK
-//        try {
-//            WebElement okBtn = wait.until(ExpectedConditions.elementToBeClickable(
-//                    AppiumBy.accessibilityId("OK")
-//            ));
-//            okBtn.click();
-//            ExtentTestListener.logStep("OK Clicked");
-//        } catch (Exception e) {
-//            ExtentTestListener.logStep("OK button not found");
-//        }
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(
+                            AppiumBy.accessibilityId("Cancel")))
+                    .click();
 
-        // OPTION 2 → CLICK CANCEL
-    try {
-        WebElement cancelBtn = wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Cancel")
-        ));
-        cancelBtn.click();
-        ExtentTestListener.logStep("Cancel Clicked");
-    }
-    catch (Exception e)
-    {
-        ExtentTestListener.logStep("Cancel button not found");
-    }
-        Thread.sleep(2000);
+            ExtentTestListener.logStep("Cancel Clicked");
 
-       // BACK NAVIGATION
+        } catch (Exception e) {
+
+            ExtentTestListener.logStep("Cancel button not found");
+        }
+
+        // Back Navigation
         ExtentTestListener.logStep("Navigating Back");
 
-        // BACK 1
+        // Back 1
         try {
-            WebElement backBtn1 = wait.until(ExpectedConditions.elementToBeClickable(
-                    AppiumBy.className("android.widget.Button")
-            ));
-            backBtn1.click();
+
+            wait.until(ExpectedConditions.elementToBeClickable(
+                            AppiumBy.className("android.widget.Button")))
+                    .click();
+
             ExtentTestListener.logStep("Back Button Clicked (1st time)");
+
         } catch (Exception e) {
-            ExtentTestListener.logStep("First back button not found, using driver.navigate().back()");
-            driver.navigate().back();  // fallback
+
+            ExtentTestListener.logStep("Using driver.navigate().back()");
+
+            driver.navigate().back();
         }
 
-        Thread.sleep(2000);
-
-        //BACK 2
+        // Back 2
         try {
-            WebElement backBtn2 = wait.until(ExpectedConditions.elementToBeClickable(
-                    AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.Button\").instance(0)")
-            ));
-            backBtn2.click();
-            ExtentTestListener.logStep("Back Button Clicked (2nd time)");
-        } catch (Exception e) {
-            ExtentTestListener.logStep("Second back button not found, using driver.navigate().back()");
-            driver.navigate().back();  // fallback
-        }
 
-        Thread.sleep(2000);
+            wait.until(ExpectedConditions.elementToBeClickable(
+                            AppiumBy.androidUIAutomator(
+                                    "new UiSelector().className(\"android.widget.Button\").instance(0)")))
+                    .click();
+
+            ExtentTestListener.logStep("Back Button Clicked (2nd time)");
+
+        } catch (Exception e) {
+
+            ExtentTestListener.logStep("Using driver.navigate().back()");
+
+            driver.navigate().back();
+        }
 
         ExtentTestListener.logStep("Navigation Completed");
-
     }
 }

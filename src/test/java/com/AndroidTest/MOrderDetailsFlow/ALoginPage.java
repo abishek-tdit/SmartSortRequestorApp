@@ -1,83 +1,68 @@
 package com.AndroidTest.MOrderDetailsFlow;
-import Base.ExtentTestListener;
+
+import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+public class ALoginPage extends BasePage {
 
-public class ALoginPage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public ALoginPage(AndroidDriver driver) {
 
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        super(driver);
     }
 
-    public void login(String mobileNo, String passwordText) throws Exception {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        //Wait for app to load
-        Thread.sleep(5000);
+    private final By loginHomeButton =
+            AppiumBy.accessibilityId("Log in");
 
-        //Click Log In button
-        WebElement logInBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Log in")));
+    private final By mobileNumber =
+            By.xpath("(//android.widget.EditText)[1]");
 
-        logInBtn.click();
+    private final By password =
+            By.xpath("(//android.widget.EditText)[2]");
 
-        ExtentTestListener.logStep("Log In Button Clicked");
+    private final By loginButton =
+            AppiumBy.accessibilityId("LOGIN");
 
-        Thread.sleep(2000);
+    //=========================================================
+    // Login Method
+    //=========================================================
+
+    public void login(String mobileNo, String passwordText) {
+
+        log("========== LOGIN STARTED ==========");
+
+        // Click Login
+        click(loginHomeButton);
+        log("Clicked Log In button");
 
         // Mobile Number
-        WebElement mobile = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("(//android.widget.EditText)[1]")));
-
-        mobile.click();
-        mobile.clear();
-        mobile.sendKeys(mobileNo);
-
-        ExtentTestListener.logStep("Mobile Number Entered");
+        sendKeys(mobileNumber, mobileNo);
+        log("Entered Mobile Number : " + mobileNo);
 
         // Password
-        WebElement password = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        By.xpath("(//android.widget.EditText)[2]")));
+        sendKeys(password, passwordText);
+        log("Entered Password");
 
-        password.click();
-        password.clear();
-        password.sendKeys(passwordText);
+        // Hide Keyboard
+        hideKeyboard();
 
-        ExtentTestListener.logStep("Password Entered");
+        // Click Login
+        click(loginButton);
+        log("Clicked LOGIN button");
 
-        // Close keyboard safely
-        try {
-            driver.navigate().back();
-            Thread.sleep(1000);
-        }
-        catch (Exception e)
-        {
-            ExtentTestListener.logStep("Keyboard already hidden");
-        }
+        // Wait for Home Page
+        delay(5);
 
-        // Login Button
-        WebElement loginBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("LOGIN")));
-
-        loginBtn.click();
-
-        ExtentTestListener.logStep("Login Button Clicked");
-
-        // Wait after login
-        Thread.sleep(3000);
+        log("Login Successful");
     }
+
 }

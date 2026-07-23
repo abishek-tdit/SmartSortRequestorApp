@@ -1,10 +1,11 @@
-package com.AndroidTest.ASmartSortRegistrationFlow;
+package com.AndroidTest.BSmartSortRegistrationArabicFlow;
+
 import Base.ExtentTestListener;
 
 import java.sql.*;
 import java.util.Random;
 
-public class MobileNumber {
+public class BMobileNumber {
 
     // Database Configuration
     private static final String URL =
@@ -46,7 +47,6 @@ public class MobileNumber {
             // India
             case "chennai":
             case "vellore":
-
                 int[] startDigits = {6, 7, 8, 9};
                 prefix = String.valueOf(startDigits[random.nextInt(startDigits.length)]);
                 totalLength = 10;
@@ -66,11 +66,10 @@ public class MobileNumber {
     }
 
     /**
-     * Check whether mobile number already exists in database
+     * Check whether mobile number already exists
      */
     public boolean mobileExists(String mobile) {
 
-        // Change table and column name if required
         String sql = "SELECT COUNT(*) FROM Users WHERE Phone = ?";
 
         try (
@@ -104,21 +103,26 @@ public class MobileNumber {
 
             mobile = generateRandomMobileNumber(city);
 
-            ExtentTestListener.logStep("Checking mobile : " + mobile);
+            ExtentTestListener.logStep("Checking Mobile Number : " + mobile);
 
         } while (mobileExists(mobile));
 
         return mobile;
     }
 
+    /**
+     * Get OTP from database
+     */
     public String getOTP(String mobile) {
 
         String sql = "SELECT OTP FROM otpverification WHERE phno = ?";
 
         String otp = null;
 
-        try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
-             PreparedStatement ps = con.prepareStatement(sql)) {
+        try (
+                Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
+                PreparedStatement ps = con.prepareStatement(sql)
+        ) {
 
             ps.setString(1, mobile);
 
@@ -134,6 +138,4 @@ public class MobileNumber {
 
         return otp;
     }
-
-
 }

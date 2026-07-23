@@ -1,63 +1,116 @@
 package com.AndroidTest.BSmartSortRegistrationArabicFlow;
 
+import Base.ExtentTestListener;
 import Utility.MobileUtility;
+import com.AndroidTest.BSmartSortRegistrationArabicFlow.BMobileNumber;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import javax.swing.*;
+import java.time.Duration;
+import java.util.Map;
+import java.util.Scanner;
 
 public class ASignUpArabicPage {
 
     AndroidDriver driver;
     MobileUtility util;
+    WebDriverWait wait;
+    BMobileNumber mobileUtil;
 
-    // CONSTRUCTOR
+    // Constructor
     public ASignUpArabicPage(AndroidDriver driver) {
 
         this.driver = driver;
-        util = new MobileUtility(driver);
+        this.util = new MobileUtility(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        mobileUtil = new BMobileNumber();
     }
 
-    // SIGN UP FLOW
-    public void signUp() throws Exception {
+    // Wait until visible
+    private WebElement waitForElement(By locator) {
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
 
-        // WAIT FOR APP LOAD
-        Thread.sleep(5000);
+    // Wait and Click
+    private void waitAndClick(By locator) {
 
-        // CHANGE LANGUAGE ENGLISH TO ARABIC
-        WebElement languageBtn = driver.findElement(
-                AppiumBy.accessibilityId("EN"));
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator));
 
-        languageBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(element));
 
-        System.out.println("Language button clicked");
+        try {
+            element.click();
+        } catch (Exception e) {
+            clickGesture(element);
+        }
 
-        Thread.sleep(3000);
+    }
+    // Wait and SendKeys
+    private void waitAndSendKeys(By locator, String text) {
 
+        WebElement element = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(locator));
 
-        // SELECT ARABIC
-        WebElement arabicBtn = driver.findElement(
-                AppiumBy.xpath("//android.widget.Button[@content-desc='ع\nعربي']"));
-        arabicBtn.click();
+        element.click();
+        element.clear();
+        element.sendKeys(text);
+    }
 
-        System.out.println("Arabic language selected");
+    // Hide Keyboard
+    private void hideKeyboard() {
 
-        Thread.sleep(5000);
+        try {
+            driver.hideKeyboard();
+        } catch (Exception e) {
+            System.out.println("Keyboard already hidden");
+        }
+    }
 
+    // Click Gesture
+    private void clickGesture(WebElement element) {
 
-        // CLICK REGISTER BUTTON (ARABIC)
-        WebElement registerBtnHome = driver.findElement(
-                AppiumBy.accessibilityId("تسجيل"));
-
-        assert ((org.openqa.selenium.remote.RemoteWebElement) registerBtnHome).getId() != null;
         driver.executeScript(
                 "mobile: clickGesture",
-                java.util.Map.of(
+                Map.of(
                         "elementId",
-                        ((org.openqa.selenium.remote.RemoteWebElement) registerBtnHome).getId()));
+                        ((RemoteWebElement) element).getId()
+                )
+        );
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                AppiumBy.className("android.widget.EditText")));
 
-        System.out.println("Arabic Register button clicked");
+    }
 
-        Thread.sleep(3000);
+    public void signUp() throws Exception {
+        // ==========================
+        // LANGUAGE SELECTION
+        // ==========================
+
+        waitAndClick(AppiumBy.accessibilityId("EN"));
+        ExtentTestListener.logStep("Language button clicked");
+
+        waitAndClick(AppiumBy.xpath("//android.widget.Button[@content-desc='ع\nعربي']"));
+        ExtentTestListener.logStep("Arabic language selected");
+
+
+        // ==========================
+        // REGISTER BUTTON
+        // ==========================
+
+        WebElement registerBtnHome =
+                waitForElement(AppiumBy.accessibilityId("تسجيل"));
+
+        clickGesture(registerBtnHome);
+
+        ExtentTestListener.logStep("Arabic Register button clicked");
+
 
         // CLICK CITY DROPDOWN (ARABIC)
         WebElement selectCityDropdown = driver.findElement(
@@ -72,9 +125,9 @@ public class ASignUpArabicPage {
                         ((org.openqa.selenium.remote.RemoteWebElement)
                                 selectCityDropdown).getId()));
 
-        System.out.println("Arabic City dropdown clicked");
+        ExtentTestListener.logStep("Arabic City dropdown clicked");
 
-        Thread.sleep(2000);
+        wait.until(driver -> true);
 
 
         // SELECT BQAIQ (ARABIC)
@@ -90,9 +143,9 @@ public class ASignUpArabicPage {
                         ((org.openqa.selenium.remote.RemoteWebElement)
                                 cityName).getId()));
 
-        System.out.println("Arabic city selected successfully");
+        ExtentTestListener.logStep("Arabic city selected successfully");
+        wait.until(driver -> true);
 
-        Thread.sleep(2000);
 
         // CLICK REQUESTOR TYPE DROPDOWN (ARABIC)
         WebElement requestorTypeDropdown = driver.findElement(
@@ -107,9 +160,9 @@ public class ASignUpArabicPage {
                         ((org.openqa.selenium.remote.RemoteWebElement)
                                 requestorTypeDropdown).getId()));
 
-        System.out.println("Arabic Requestor Type dropdown clicked");
+        ExtentTestListener.logStep("Arabic Requestor Type dropdown clicked");
 
-        Thread.sleep(2000);
+        wait.until(driver -> true);
 
 
         // SELECT DOMESTIC REQUESTOR (ARABIC)
@@ -125,17 +178,20 @@ public class ASignUpArabicPage {
                         ((org.openqa.selenium.remote.RemoteWebElement)
                                 requestorType).getId()));
 
-        System.out.println("Arabic Domestic Requestor selected successfully");
+        ExtentTestListener.logStep("Arabic Domestic Requestor selected successfully");
 
 
         // WAIT AFTER REQUESTOR TYPE SELECTION
-        Thread.sleep(4000);
+        wait.until(driver -> true);
 
 
-        // SCROLL DOWN LITTLE
+        // ==========================
+        // SCROLL
+        // ==========================
+
         driver.executeScript(
                 "mobile: swipeGesture",
-                java.util.Map.of(
+                Map.of(
                         "left", 500,
                         "top", 1500,
                         "width", 300,
@@ -144,98 +200,79 @@ public class ASignUpArabicPage {
                         "percent", 0.75
                 )
         );
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                AppiumBy.className("android.widget.EditText")));
 
-        Thread.sleep(3000);
 
-        // ENTER FIRST NAME
-        WebElement firstName = driver.findElement(
+        // ==========================
+        // FIRST NAME
+        // ==========================
+
+        waitAndSendKeys(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.widget.EditText\").instance(0)"
-                )
+                ),
+                "رام"
         );
 
-        firstName.click();
-        firstName.sendKeys("رام");
+        ExtentTestListener.logStep("First Name entered");
 
-        System.out.println("Arabic First Name entered");
-
-        Thread.sleep(2000);
-
-        driver.hideKeyboard();
-
-        Thread.sleep(2000);
+        hideKeyboard();
 
 
-        // ENTER MIDDLE NAME
-        WebElement middleName = driver.findElement(
+        // ==========================
+        // MIDDLE NAME
+        // ==========================
+
+        waitAndSendKeys(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.widget.EditText\").instance(1)"
-                )
+                ),
+                "كومار"
         );
 
-        middleName.click();
-        middleName.sendKeys("كومار");
+        ExtentTestListener.logStep("Middle Name entered");
 
-        System.out.println("Arabic Middle Name entered");
-
-        Thread.sleep(2000);
-
-        driver.hideKeyboard();
-
-        Thread.sleep(2000);
+        hideKeyboard();
 
 
-        // ENTER LAST NAME
-        WebElement lastName = driver.findElement(
+        // ==========================
+        // LAST NAME
+        // ==========================
+
+        waitAndSendKeys(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.widget.EditText\").instance(2)"
-                )
+                ),
+                "آر آر"
         );
 
-        lastName.click();
-        lastName.sendKeys("آر آر");
+        ExtentTestListener.logStep("Last Name entered");
 
-        System.out.println("Arabic Last Name entered");
-
-        Thread.sleep(2000);
-
-        //Hide-Keyboard
-        try {
-            driver.hideKeyboard();
-        } catch (Exception e) {
-            System.out.println("Keyboard not visible");
-        }
-        Thread.sleep(2000);
+        hideKeyboard();
 
 
-        // CLICK GENDER DROPDOWN (ARABIC)
-        WebElement genderDropdown = driver.findElement(
-                AppiumBy.accessibilityId("الجنس")
-        );
+        // ==========================
+        // GENDER
+        // ==========================
 
-        genderDropdown.click();
+        waitAndClick(AppiumBy.accessibilityId("الجنس"));
 
-        System.out.println("Arabic Gender dropdown clicked");
-
-        Thread.sleep(2000);
+        ExtentTestListener.logStep("Gender dropdown clicked");
 
 
-        // SELECT MALE (ARABIC)
-        WebElement maleOption = driver.findElement(
-                AppiumBy.accessibilityId("ذكر")
-        );
+        waitAndClick(AppiumBy.accessibilityId("ذكر"));
 
-        maleOption.click();
-
-        System.out.println("Arabic Male selected successfully");
-
-        Thread.sleep(3000);
+        ExtentTestListener.logStep("Male selected");
 
 
-        // SCROLL DOWN TO MOBILE SECTION
+        // ==========================
+        // SCROLL TO MOBILE SECTION
+        // ==========================
+
         driver.executeScript(
                 "mobile: swipeGesture",
-                java.util.Map.of(
+                Map.of(
                         "left", 300,
                         "top", 1200,
                         "width", 400,
@@ -244,38 +281,34 @@ public class ASignUpArabicPage {
                         "percent", 0.80
                 )
         );
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                AppiumBy.className("android.widget.EditText")));
 
-        Thread.sleep(3000);
 
+        // ==========================
+        // MOBILE NUMBER
+        // ==========================
 
-        // ENTER MOBILE NUMBER
-        WebElement mobileNumber = driver.findElement(
-                AppiumBy.xpath("//android.widget.EditText[@hint='رقم الجوال']")
+        String mobile = mobileUtil.getUniqueMobileNumber("bqaiq");
+
+        waitAndSendKeys(
+                AppiumBy.xpath("//android.widget.EditText[@hint='رقم الجوال']"),
+                mobile
         );
 
-        mobileNumber.click();
+        ExtentTestListener.logStep("Generated Mobile Number : " + mobile);
+        ExtentTestListener.logStep("Arabic Mobile Number entered successfully");
 
-        Thread.sleep(1000);
-        // previous no used  0501020302, 0501020000
-        mobileNumber.sendKeys("0500020001");
+        hideKeyboard();
 
-        System.out.println("Arabic Mobile Number entered successfully");
 
-        Thread.sleep(2000);
+        // ==========================
+        // SCROLL TO PASSWORD SECTION
+        // ==========================
 
-        // HIDE KEYBOARD
-        try {
-            driver.hideKeyboard();
-        } catch (Exception e) {
-            System.out.println("Keyboard already hidden");
-        }
-
-        Thread.sleep(2000);
-
-        // SCROLL LITTLE MORE TO PASSWORD SECTION
         driver.executeScript(
                 "mobile: swipeGesture",
-                java.util.Map.of(
+                Map.of(
                         "left", 300,
                         "top", 1200,
                         "width", 400,
@@ -284,115 +317,99 @@ public class ASignUpArabicPage {
                         "percent", 0.40
                 )
         );
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                AppiumBy.className("android.widget.EditText")));
 
-        Thread.sleep(3000);
 
-        // PASSWORD FIELD
-        WebElement password = driver.findElement(
-                AppiumBy.xpath("//android.widget.EditText[@password='true'][1]")
+        // ==========================
+        // PASSWORD
+        // ==========================
+
+        waitAndSendKeys(
+                AppiumBy.xpath("(//android.widget.EditText[@password='true'])[1]"),
+                "Admin@194"
         );
 
-        password.click();
-        password.clear();
-        password.sendKeys("Admin@194");
+        ExtentTestListener.logStep("Password entered successfully");
 
-        System.out.println("Password entered successfully");
+        hideKeyboard();
 
-        Thread.sleep(2000);
 
-        // HIDE KEYBOARD
-        try {
-            driver.hideKeyboard();
-        } catch (Exception e) {
-            System.out.println("Keyboard already hidden");
-        }
+        // ==========================
+        // CONFIRM PASSWORD
+        // ==========================
 
-        Thread.sleep(2000);
-
-        // CONFIRM PASSWORD FIELD
-        WebElement confirmPassword = driver.findElement(
-                AppiumBy.xpath("(//android.widget.EditText[@password='true'])[2]")
+        waitAndSendKeys(
+                AppiumBy.xpath("(//android.widget.EditText[@password='true'])[2]"),
+                "Admin@194"
         );
 
-        confirmPassword.click();
-        confirmPassword.clear();
-        confirmPassword.sendKeys("Admin@194");
+        ExtentTestListener.logStep("Confirm Password entered successfully");
 
-        System.out.println("Confirm Password entered successfully");
+        hideKeyboard();
 
-        Thread.sleep(2000);
 
-        try {
-            driver.hideKeyboard();
-        } catch (Exception e) {
-            System.out.println("Keyboard already hidden");
-        }
+        // ==========================
+        // CHECKBOX
+        // ==========================
 
-        // CLICK CHECKBOX
-        WebElement checkBox = driver.findElement(
+        waitAndClick(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.view.View\").instance(9)"
                 )
         );
 
-        checkBox.click();
+        ExtentTestListener.logStep("Checkbox selected");
 
-        System.out.println("Checkbox selected");
 
-        Thread.sleep(2000);
+        // ==========================
+        // REGISTER BUTTON
+        // ==========================
 
-//        // CLICK REGISTER BUTTON
-//        WebElement registerBtn = driver.findElement(
-//                AppiumBy.accessibilityId("تسجيل")
-//        );
-//
-//        registerBtn.click();
-//
-//        System.out.println("Arabic Register button clicked successfully");
-//
-//
-//        Thread.sleep(5000);
-//
-//        // CLICK CONFIRMATION POPUP BUTTON
-//        WebElement confirmBtn = driver.findElement(
-//                AppiumBy.accessibilityId("تأكيد")
-//        );
-//
-//        confirmBtn.click();
-//
-//        System.out.println("Arabic Confirmation popup clicked successfully");
-//
-//        Thread.sleep(3000);
-//
-//        // WAIT 30 SECONDS FOR MANUAL OTP ENTRY
-//        System.out.println("Please enter OTP manually within 30 seconds");
-//
-//        Thread.sleep(30000);
-//
-//
-//        // CLICK OTP CONFIRM BUTTON
-//        WebElement otpConfirmBtn = driver.findElement(
-//                AppiumBy.accessibilityId("تأكيد")
-//        );
-//
-//        otpConfirmBtn.click();
-//
-//        System.out.println("OTP Confirm button clicked successfully");
-//
-//
-//        // WAIT FOR SUCCESS POPUP
-//        Thread.sleep(5000);
-//
-//
-//        // CLICK SUCCESS POPUP OK BUTTON
-//        WebElement successOkBtn = driver.findElement(
-//                AppiumBy.accessibilityId("تأكيد")
-//        );
-//
-//        successOkBtn.click();
-//
-//        System.out.println("Success popup OK button clicked successfully");
+        waitAndClick(AppiumBy.accessibilityId("تسجيل"));
 
+        ExtentTestListener.logStep("Arabic Register button clicked successfully");
+
+
+        // ==========================
+        // CONFIRM POPUP
+        // ==========================
+
+        waitAndClick(AppiumBy.accessibilityId("تأكيد"));
+
+        ExtentTestListener.logStep("Confirmation popup clicked successfully");
+        Thread.sleep(5000);
+        String otp = mobileUtil.getOTP(mobile);
+
+        ExtentTestListener.logStep("OTP from DB : " + otp);
+
+
+        Thread.sleep(5000);
+        // ==========================
+        // OTP CONFIRM
+        // ==========================
+
+        WebElement confirmButton = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("تأكيد")));
+
+        confirmButton.click();
+
+        ExtentTestListener.logStep("OTP Confirm button clicked");
         Thread.sleep(3000);
+
+        // ==========================
+        // SUCCESS POPUP
+        // ==========================
+
+        WebElement confirmBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("تأكيد")));
+
+        confirmBtn.click();
+
+        ExtentTestListener.logStep("Success popup Confirm button clicked");
+        ExtentTestListener.logStep("===============Registration completed successfully==============");
     }
 }
+

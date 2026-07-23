@@ -1,52 +1,61 @@
 package com.AndroidTest.CRequestorOrderPlacingFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import java.time.Duration;
+
 import java.util.List;
 import java.util.Map;
 
-import static org.testng.Reporter.log;
+public class DSlotPage extends BasePage {
 
-public class DSlotPage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public DSlotPage(AndroidDriver driver) {
-        this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        super(driver);
     }
 
-    public void selectSlot() throws InterruptedException {
-        // Wait for page to load
-        Thread.sleep(5000);
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        // Scroll until Select Slot is visible
-        driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiScrollable(new UiSelector().scrollable(true))" +
-                                ".scrollIntoView(new UiSelector().description(\"Select Slot\"))"));
+    private final By SELECT_SLOT =
+            AppiumBy.accessibilityId("Select Slot");
 
-        Thread.sleep(1000);
+    private final By CONTINUE =
+            AppiumBy.accessibilityId("Continue");
 
-        // Find Select Slot button
-        WebElement selectSlotBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.accessibilityId("Select Slot")));
+    private final By CONFIRM =
+            AppiumBy.accessibilityId("Confirm");
 
-        // Click using gesture
-        assert ((RemoteWebElement) selectSlotBtn).getId() != null;
+    private final By OK =
+            AppiumBy.accessibilityId("OK");
+
+    //=========================================================
+    // Select Slot
+    //=========================================================
+
+    public void selectSlot() {
+
+        // Scroll to Select Slot
+        utility.scrollToDescription("Select Slot");
+
+        // Click Select Slot
+        WebElement selectSlotBtn = getElement(SELECT_SLOT);
+
         driver.executeScript(
                 "mobile: clickGesture",
                 Map.of(
                         "elementId",
-                        ((RemoteWebElement) selectSlotBtn).getId()));
+                        ((RemoteWebElement) selectSlotBtn).getId()
+                )
+        );
 
         ExtentTestListener.logStep("Select Slot Clicked");
 
@@ -54,59 +63,94 @@ public class DSlotPage {
             ExtentTestListener.getTest().pass("Clicked Select Slot");
         }
 
-        Thread.sleep(3000);
-
-        //Get all time slots
-        List<WebElement> timeSlots = wait.until(
-                ExpectedConditions.presenceOfAllElementsLocatedBy(
-                        AppiumBy.xpath("//android.view.View[contains(@content-desc, 'PM') or contains(@content-desc, 'AM')]")));
-
-        //Click first available slot
-        if (!timeSlots.isEmpty()) {
-
-            // Filter visible + clickable slot
-            WebElement firstSlot = timeSlots.getFirst();
-
-            wait.until(ExpectedConditions.elementToBeClickable(firstSlot)).click();
-
-            log("First Time Slot Selected");
-
-        }
-        else
-        {
-            throw new RuntimeException("No Time Slots Available");
+        try {
+            Thread.sleep(3000);
+        } catch (Exception ignored) {
         }
 
-        WebElement continueBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Continue")));
+        boolean slotSelected = false;
 
-        continueBtn.click();
-        ExtentTestListener.getTest().pass("Clicked Continue");
+        for (int retry = 1; retry <= 5 && !slotSelected; retry++) {
 
-        WebElement confirmBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Confirm")));
+            List<WebElement> slots = driver.findElements(
+                    AppiumBy.xpath(
+                            "//android.view.View[contains(@content-desc,'AM') or contains(@content-desc,'PM')]"
+                    )
+            );
 
-        confirmBtn.click();
-        ExtentTestListener.getTest().pass("Clicked Confirm");
+            ExtentTestListener.logStep("Slots Found : " + slots.size());
 
-        Thread.sleep(2000);
+            for (WebElement slot : slots) {
 
+                try {
 
-        // CLICK FINAL OK BUTTON
-        WebElement finalOkBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("OK")));
+                    String slotName = slot.getAttribute("content-desc");
 
-        finalOkBtn.click();
+                    driver.executeScript(
+                            "mobile: clickGesture",
+                            Map.of(
+                                    "elementId",
+                                    ((RemoteWebElement) slot).getId()
+                            )
+                    );
+
+                    ExtentTestListener.logStep("Trying Slot : " + slotName);
+
+                    Thread.sleep(2500);
+
+                    List<WebElement> continueButtons =
+                            driver.findElements(CONTINUE);
+
+                    if (!continueButtons.isEmpty() &&
+                            continueButtons.get(0).isDisplayed() &&
+                            continueButtons.get(0).isEnabled()) {
+
+                        ExtentTestListener.logStep("Selected Slot : " + slotName);
+
+                        slotSelected = true;
+                        break;
+                    }
+
+                } catch (Exception e) {
+
+                    ExtentTestListener.logStep("Unable to select slot. Trying next.");
+
+                }
+            }
+
+            if (!slotSelected) {
+
+                ExtentTestListener.logStep("Retrying Slot Selection : " + retry);
+
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+
+        if (!slotSelected) {
+            throw new RuntimeException("No Available Slot Could Be Selected");
+        }
+
+        click(CONTINUE);
+
+        if (ExtentTestListener.getTest() != null) {
+            ExtentTestListener.getTest().pass("Clicked Continue");
+        }
+
+        click(CONFIRM);
+
+        if (ExtentTestListener.getTest() != null) {
+            ExtentTestListener.getTest().pass("Clicked Confirm");
+        }
+
+        click(OK);
 
         ExtentTestListener.logStep("Final OK Button Clicked");
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Final OK Button Clicked");
         }
-
-        Thread.sleep(3000);
     }
 }

@@ -23,9 +23,6 @@ public class CReschedulePage {
     }
 
     public void clickReschedule() throws Exception {
-
-        Thread.sleep(6000);
-
         boolean found = false;
 
         // Try scroll + search multiple times
@@ -74,7 +71,6 @@ public class CReschedulePage {
     // Click Order based on Order Number
     public void selectOrderToReschedule(String orderNumber) throws Exception {
 
-        Thread.sleep(5000);
 
         boolean found = false;
 
@@ -129,8 +125,6 @@ public class CReschedulePage {
     }
     public void clickRescheduleButton() throws Exception {
 
-        Thread.sleep(5000);
-
         // Scroll down a little
         driver.executeScript("mobile: swipeGesture",
                 java.util.Map.of(
@@ -150,10 +144,5 @@ public class CReschedulePage {
 
         ExtentTestListener.logStep("Reschedule button clicked");
 
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Clicked Reschedule button");
-        }
-
-        Thread.sleep(3000);
     }
 }

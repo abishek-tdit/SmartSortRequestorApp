@@ -1,61 +1,64 @@
 package Testcase;
 
-import Base.ExtentTestListener;
+import Base.BaseClassMobile;
 import com.AndroidTest.FRequestorRescheduleFlow.ALoginPage;
 import com.AndroidTest.FRequestorRescheduleFlow.BLocationPage;
 import com.AndroidTest.FRequestorRescheduleFlow.CReschedulePage;
 import com.AndroidTest.FRequestorRescheduleFlow.DSlotPage;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class FRequestorRescheduleFlowTest extends ExtentTestListener {
+import static com.sun.activation.registries.LogSupport.log;
+
+public class FRequestorRescheduleFlowTest extends BaseClassMobile {
 
     @Test
-    public void rescheduleFlow() {
+    public void rescheduleFlow() throws Exception {
 
-        try {
+        log("========== REQUESTOR RESCHEDULE FLOW STARTED ==========");
 
-            //Abishek rtr      - 0500098765 Dom (RO)
-            //Jamuna           - 0500445566 Dom (NON RO)
 
-//            //LOGIN:
-//            ALoginPage loginPage = new ALoginPage(driver);
-//            loginPage.login("0500445566",
-//                         "Admin@194");
-//            Thread.sleep(3000);
-//            //LOCATION:
-//            BLocationPage locationPage = new BLocationPage(driver);
-//            locationPage.selectLocation();
-            Thread.sleep(3000);
+//        // Login
+//        ALoginPage loginPage = new ALoginPage(driver);
+//        loginPage.login(
+//                "0500000055",
+//                "Admin@194");
+//
+//        log("Login Completed Successfully");
 
-            //RESCHEDULE:
-            CReschedulePage reschedule = new CReschedulePage(driver);
-            reschedule.clickReschedule();
-//================================================================================//
-//================================================================================//
-                      // Change order no before RUN:
-            reschedule.selectOrderToReschedule("AB-RO-62004");
-//================================================================================//
-//================================================================================//
-            reschedule.clickRescheduleButton();
+        //=========================================================
+        // Select Location
+        //=========================================================
+        Thread.sleep(4000);
+        BLocationPage locationPage = new BLocationPage(driver);
+        locationPage.selectLocation();
 
-            //SLOT PAGE:
-            DSlotPage slotPage = new DSlotPage(driver);
+        log("Location Selected Successfully");
 
-            slotPage.selectSlotTiming();
-            slotPage.confirmReschedule();
+        //=========================================================
+        // Pending Order
+        //=========================================================
+        CReschedulePage reschedulePage = new CReschedulePage(driver);
+        // Click Pending Orders
+        reschedulePage.clickReschedule();
+        // Change Order Number Before Execution
+        reschedulePage.selectOrderToReschedule("AB-RO-62056");
+        log("Order Selected Successfully");
 
-            ExtentTestListener.logStep("SmartSort Reschedule Flow Completed Successfully");
+        //=========================================================
+        // Click Reschedule
+        //=========================================================
 
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
+        reschedulePage.clickRescheduleButton();
+        log("Reschedule Button Clicked");
 
-            //Screenshot
-            takeScreenshot("rescheduleFlow");
+        //=========================================================
+        // Slot Selection
+        //=========================================================
 
-            Assert.fail("SmartSort Reschedule Flow Failed : " + e.getMessage());
-        }
+        DSlotPage slotPage = new DSlotPage(driver);
+        slotPage.selectSlotTiming();
+        slotPage.confirmReschedule();
+        log("Slot Selected Successfully");
+        log("========== REQUESTOR RESCHEDULE FLOW COMPLETED ==========");
     }
 }
