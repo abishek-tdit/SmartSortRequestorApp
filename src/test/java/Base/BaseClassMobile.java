@@ -42,7 +42,7 @@ public class BaseClassMobile {
         //=====================================================
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("automationName", "UiAutomator2");
-        capabilities.setCapability("deviceName", "HA69Z5PJ8PROEYHA");
+        capabilities.setCapability("deviceName", "cef4f2618db0");
 
         //=====================================================
         // Application

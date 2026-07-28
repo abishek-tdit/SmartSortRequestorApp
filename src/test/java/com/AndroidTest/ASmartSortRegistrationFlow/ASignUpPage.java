@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
 import org.openqa.selenium.WebElement;
 
 public class ASignUpPage {
@@ -15,6 +16,8 @@ public class ASignUpPage {
     AndroidDriver driver;
     MobileUtility util;
     private final WebDriverWait wait;
+
+    public int isMail;
 
     // CONSTRUCTOR
     public ASignUpPage(AndroidDriver driver) {
@@ -80,11 +83,7 @@ public class ASignUpPage {
 //        util.delay(1);
 
         // ENTER FIRST NAME
-        WebElement firstName = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.androidUIAutomator(
-                                "new UiSelector().className(\"android.widget.EditText\").instance(0)")
-                ));
+        WebElement firstName = wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.EditText\").instance(0)")));
 
         util.click(firstName);
         firstName.sendKeys("Kiran");
@@ -95,11 +94,7 @@ public class ASignUpPage {
         driver.hideKeyboard();
 
         // ENTER LAST NAME
-        WebElement lastName = driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.widget.EditText\").instance(2)"
-                )
-        );
+        WebElement lastName = driver.findElement(AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.EditText\").instance(2)"));
         util.click(lastName);
 
         lastName.sendKeys("Khan");
@@ -107,7 +102,10 @@ public class ASignUpPage {
         ExtentTestListener.logStep("Last Name entered successfully");
 
         // HIDE KEYBOARD
-        try { driver.hideKeyboard(); } catch (Exception ignored) {}
+        try {
+            driver.hideKeyboard();
+        } catch (Exception ignored) {
+        }
 
         // CLICK GENDER DROPDOWN
         util.click(util.waitForAccessibilityId("Select Gender"));
@@ -121,36 +119,26 @@ public class ASignUpPage {
 
         // ENTER EMAIL ADDRESS (Optional)
         try {
-            WebElement email = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.widget.EditText[4]")
-                    ));
+            WebElement email = wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.widget.EditText[4]")));
 
             util.click(email);
             email.sendKeys("abishek251295@gmail.com");
 
-            try { driver.hideKeyboard(); } catch (Exception ignored) {}
+            try {
+                driver.hideKeyboard();
+            } catch (Exception ignored) {
+            }
 
             ExtentTestListener.logStep("Email Address entered successfully");
+            isMail = 1;
 
         } catch (Exception ignored) {
             ExtentTestListener.logStep("Email field not available. Skipping...");
+            isMail = 0;
         }
 
-        ExtentTestListener.logStep("Email Address entered successfully");
-
         // SCROLL LITTLE DOWN
-        driver.executeScript(
-                "mobile: swipeGesture",
-                java.util.Map.of(
-                        "left", 300,
-                        "top", 1200,
-                        "width", 400,
-                        "height", 600,
-                        "direction", "up",
-                        "percent", 0.50
-                )
-        );
+        driver.executeScript("mobile: swipeGesture", java.util.Map.of("left", 300, "top", 1200, "width", 400, "height", 600, "direction", "up", "percent", 0.50));
 
         BMobileNumber mobileUtil = new BMobileNumber();
 
@@ -158,80 +146,168 @@ public class ASignUpPage {
 
         ExtentTestListener.logStep("Generated Mobile Number : " + mobile);
 
-        // ENTER MOBILE NUMBER
-        WebElement mobileNumber = driver.findElement(
-                AppiumBy.xpath("(//android.widget.EditText)[4]")
-        );
-        util.waitForElement(mobileNumber);
+        if (isMail == 1) {
+            // ENTER MOBILE NUMBER
+            WebElement mobileNumber = driver.findElement(AppiumBy.xpath("(//android.widget.EditText)[3]"));
+            util.waitForElement(mobileNumber);
 
-        util.click(mobileNumber);
+            util.click(mobileNumber);
+            mobileNumber.sendKeys(mobile);
 
-        mobileNumber.sendKeys(mobile);
-        try { driver.hideKeyboard(); } catch (Exception ignored) {}
-        ExtentTestListener.logStep("Mobile Number entered successfully");
+            try {
+                driver.hideKeyboard();
+            } catch (Exception ignored) {
+            }
+            ExtentTestListener.logStep("Mobile Number entered successfully");
 
-        wait.until(driver -> true);
-        // PRESS TAB / NEXT
-        driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
-                io.appium.java_client.android.nativekey.AndroidKey.TAB));
+            // CLICK PASSWORD DIRECTLY
+            WebElement password = driver.findElement(AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[4]"));
 
-        wait.until(driver -> true);
+            password.click();
+            wait.until(driver -> true);
 
-        // ENTER PASSWORD
-        driver.switchTo().activeElement().sendKeys("Admin@194");
+            // ENTER PASSWORD
+            password.sendKeys("Admin@194");
 
-        ExtentTestListener.logStep("Password entered successfully");
-        wait.until(driver -> true);
+            ExtentTestListener.logStep(" Password entered successfully");
 
-        // PRESS TAB / NEXT
-        driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
-                io.appium.java_client.android.nativekey.AndroidKey.TAB));
+            // CLICK CONFIRM PASSWORD DIRECTLY
+            WebElement confirmPassword = driver.findElement(AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[5]"));
 
-        wait.until(driver -> true);
+            confirmPassword.click();
+            wait.until(driver -> true);
 
-        // SCROLL DOWN (ENSURE FIELD IS VISIBLE)
-        driver.executeScript(
-                "mobile: scrollGesture",
-                java.util.Map.of(
-                        "left", 100,
-                        "top", 300,
-                        "width", 600,
-                        "height", 900,
-                        "direction", "down",
-                        "percent", 0.6));
+            // ENTER CONFIRM PASSWORD
+            confirmPassword.sendKeys("Admin@194");
 
-        wait.until(driver -> true);
+            ExtentTestListener.logStep("Confirm Password entered successfully");
+            try {
+                driver.hideKeyboard();
+            } catch (Exception ignored) {
+            }
 
-        // CLICK CONFIRM PASSWORD DIRECTLY
-        WebElement confirmPassword = driver.findElement(
-                AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[4]"));
+            // CLICK TERMS CHECKBOX
+            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.view.View[6]")));
 
-        confirmPassword.click();
-        wait.until(driver -> true);
+            checkbox.click();
 
-        // ENTER CONFIRM PASSWORD
-        confirmPassword.sendKeys("Admin@194");
+            ExtentTestListener.logStep("Terms checkbox selected successfully");
 
-        ExtentTestListener.logStep("Confirm Password entered successfully");
-        wait.until(driver -> true);
+        } else {
+            // ENTER MOBILE NUMBER
+            WebElement mobileNumber = driver.findElement(AppiumBy.xpath("(//android.widget.EditText)[4]"));
+            util.waitForElement(mobileNumber);
 
-        try { driver.hideKeyboard(); } catch (Exception ignored) {}
+            util.click(mobileNumber);
+            mobileNumber.sendKeys(mobile);
 
-        // CLICK TERMS CHECKBOX
-        WebElement checkbox = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.view.View[5]")));
+            try {
+                driver.hideKeyboard();
+            } catch (Exception ignored) {
+            }
+            ExtentTestListener.logStep("Mobile Number entered successfully");
 
-        checkbox.click();
+            // CLICK PASSWORD DIRECTLY
+            WebElement password = driver.findElement(AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[5]"));
 
-        ExtentTestListener.logStep("Terms checkbox selected successfully");
+            password.click();
+            wait.until(driver -> true);
 
+            // ENTER PASSWORD
+            password.sendKeys("Admin@194");
+
+            ExtentTestListener.logStep(" Password entered successfully");
+
+
+            // CLICK CONFIRM PASSWORD DIRECTLY
+            WebElement confirmPassword = driver.findElement(AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[6]"));
+
+            confirmPassword.click();
+            wait.until(driver -> true);
+
+            // ENTER CONFIRM PASSWORD
+            confirmPassword.sendKeys("Admin@194");
+
+            ExtentTestListener.logStep("Confirm Password entered successfully");
+            try {
+                driver.hideKeyboard();
+            } catch (Exception ignored) {
+            }
+
+            // CLICK TERMS CHECKBOX
+            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.view.View[7]")));
+
+            checkbox.click();
+
+            ExtentTestListener.logStep("Terms checkbox selected successfully");
+        }
+
+//        try {
+//            driver.hideKeyboard();
+//        } catch (Exception ignored) {
+//        }
+//        ExtentTestListener.logStep("Mobile Number entered successfully");
+
+//        wait.until(driver -> true);
+//        // PRESS TAB / NEXT
+//        driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
+//                io.appium.java_client.android.nativekey.AndroidKey.TAB));
+//
+//        wait.until(driver -> true);
+//
+//        // ENTER PASSWORD
+//        driver.switchTo().activeElement().sendKeys("Admin@194");
+//
+//        ExtentTestListener.logStep("Password entered successfully");
+//        wait.until(driver -> true);
+//
+//        // PRESS TAB / NEXT
+//        driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
+//                io.appium.java_client.android.nativekey.AndroidKey.TAB));
+//
+//        wait.until(driver -> true);
+//
+//        // SCROLL DOWN (ENSURE FIELD IS VISIBLE)
+//        driver.executeScript(
+//                "mobile: scrollGesture",
+//                java.util.Map.of(
+//                        "left", 100,
+//                        "top", 300,
+//                        "width", 600,
+//                        "height", 900,
+//                        "direction", "down",
+//                        "percent", 0.6));
+//
+//        wait.until(driver -> true);
+//
+//        // CLICK CONFIRM PASSWORD DIRECTLY
+//        WebElement confirmPassword = driver.findElement(
+//                AppiumBy.xpath("//android.widget.ScrollView//android.widget.EditText[4]"));
+//
+//        confirmPassword.click();
+//        wait.until(driver -> true);
+//
+//        // ENTER CONFIRM PASSWORD
+//        confirmPassword.sendKeys("Admin@194");
+//
+//        ExtentTestListener.logStep("Confirm Password entered successfully");
+//        wait.until(driver -> true);
+
+//        try {
+//            driver.hideKeyboard();
+//        } catch (Exception ignored) {
+//        }
+//
+//        // CLICK TERMS CHECKBOX
+//        WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.view.View[5]")));
+//
+//        checkbox.click();
+//
+//        ExtentTestListener.logStep("Terms checkbox selected successfully");
 
 
         // CLICK REGISTER BUTTON
-        WebElement registerBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.accessibilityId("Register")));
+        WebElement registerBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("Register")));
 
         wait.until(ExpectedConditions.elementToBeClickable(registerBtn));
 
@@ -242,9 +318,7 @@ public class ASignUpPage {
 
 
         //CLICK OK BUTTON
-        WebElement okBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.accessibilityId("OK")));
+        WebElement okBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("OK")));
 
         okBtn.click();
 
@@ -257,10 +331,7 @@ public class ASignUpPage {
         ExtentTestListener.logStep("Please enter OTP");
 
         Thread.sleep(6000);
-        WebElement confirmBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Confirm")
-                ));
+        WebElement confirmBtn = wait.until(ExpectedConditions.elementToBeClickable(AppiumBy.accessibilityId("Confirm")));
 
         confirmBtn.click();
 
@@ -272,9 +343,7 @@ public class ASignUpPage {
 
 
         // CLICK SUCCESS OK BUTTON
-        WebElement successOkBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.accessibilityId("OK")));
+        WebElement successOkBtn = wait.until(ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("OK")));
 
         successOkBtn.click();
 
