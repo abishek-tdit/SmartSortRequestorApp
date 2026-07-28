@@ -8,19 +8,15 @@ import org.openqa.selenium.By;
 
 public class ALoginPage extends BasePage {
 
-    //=========================================================
-    // Constructor
-    //=========================================================
 
+    // Constructor
     public ALoginPage(AndroidDriver driver) {
 
         super(driver);
     }
 
-    //=========================================================
-    // Locators
-    //=========================================================
 
+    // Locators
     private final By LOGIN_HOME =
             AppiumBy.accessibilityId("Log in");
 
@@ -33,10 +29,8 @@ public class ALoginPage extends BasePage {
     private final By LOGIN =
             AppiumBy.accessibilityId("LOGIN");
 
-    //=========================================================
-    // Login
-    //=========================================================
 
+    // Login
     public void login(String mobileNo, String passwordText) {
 
         click(LOGIN_HOME);

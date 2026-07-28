@@ -89,10 +89,8 @@ public class ASignUpArabicPage {
     }
 
     public void signUp() throws Exception {
-        // ==========================
-        // LANGUAGE SELECTION
-        // ==========================
 
+        // LANGUAGE SELECTION
         waitAndClick(AppiumBy.accessibilityId("EN"));
         ExtentTestListener.logStep("Language button clicked");
 
@@ -100,11 +98,8 @@ public class ASignUpArabicPage {
         ExtentTestListener.logStep("Arabic language selected");
 
 
-        // ==========================
-        // REGISTER BUTTON
-        // ==========================
 
-        // Arabic "Don't have an account? Register New" button
+        // SIGN-UP BUTTON
         WebElement registerBtnHome = waitForElement(
                 AppiumBy.accessibilityId("ليس لديك حساب؟ تسجيل جديد"));
 
@@ -186,10 +181,8 @@ public class ASignUpArabicPage {
         wait.until(driver -> true);
 
 
-        // ==========================
-        // SCROLL
-        // ==========================
 
+        // SCROLL
         driver.executeScript(
                 "mobile: swipeGesture",
                 Map.of(
@@ -205,10 +198,8 @@ public class ASignUpArabicPage {
                 AppiumBy.className("android.widget.EditText")));
 
 
-        // ==========================
-        // FIRST NAME
-        // ==========================
 
+        // FIRST NAME
         waitAndSendKeys(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.widget.EditText\").instance(0)"
@@ -221,10 +212,8 @@ public class ASignUpArabicPage {
         hideKeyboard();
 
 
-        // ==========================
-        // MIDDLE NAME
-        // ==========================
 
+        // MIDDLE NAME
         waitAndSendKeys(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.widget.EditText\").instance(1)"
@@ -237,10 +226,8 @@ public class ASignUpArabicPage {
         hideKeyboard();
 
 
-        // ==========================
-        // LAST NAME
-        // ==========================
 
+        // LAST NAME
         waitAndSendKeys(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.widget.EditText\").instance(2)"
@@ -253,10 +240,8 @@ public class ASignUpArabicPage {
         hideKeyboard();
 
 
-        // ==========================
-        // GENDER
-        // ==========================
 
+        // GENDER
         waitAndClick(AppiumBy.accessibilityId("الجنس"));
 
         ExtentTestListener.logStep("Gender dropdown clicked");
@@ -287,10 +272,8 @@ public class ASignUpArabicPage {
             ExtentTestListener.logStep("Email field not present. Continuing...");
         }
 
-        // ==========================
-        // SCROLL TO MOBILE SECTION
-        // ==========================
 
+        // SCROLL TO MOBILE SECTION
         driver.executeScript(
                 "mobile: swipeGesture",
                 Map.of(
@@ -306,10 +289,8 @@ public class ASignUpArabicPage {
                 AppiumBy.className("android.widget.EditText")));
 
 
-        // ==========================
-        // MOBILE NUMBER
-        // ==========================
 
+        // MOBILE NUMBER
         String mobile = mobileUtil.getUniqueMobileNumber("bqaiq");
 
         waitAndSendKeys(
@@ -323,10 +304,8 @@ public class ASignUpArabicPage {
         hideKeyboard();
 
 
-        // ==========================
-        // SCROLL TO PASSWORD SECTION
-        // ==========================
 
+        // SCROLL TO PASSWORD SECTION
         driver.executeScript(
                 "mobile: swipeGesture",
                 Map.of(
@@ -342,10 +321,8 @@ public class ASignUpArabicPage {
                 AppiumBy.className("android.widget.EditText")));
 
 
-        // ==========================
-        // PASSWORD
-        // ==========================
 
+        // PASSWORD
         waitAndSendKeys(
                 AppiumBy.xpath("(//android.widget.EditText[@password='true'])[1]"),
                 "Admin@194"
@@ -356,10 +333,8 @@ public class ASignUpArabicPage {
         hideKeyboard();
 
 
-        // ==========================
-        // CONFIRM PASSWORD
-        // ==========================
 
+        // CONFIRM PASSWORD
         waitAndSendKeys(
                 AppiumBy.xpath("(//android.widget.EditText[@password='true'])[2]"),
                 "Admin@194"
@@ -370,10 +345,8 @@ public class ASignUpArabicPage {
         hideKeyboard();
 
 
-        // ==========================
-        // CHECKBOX
-        // ==========================
 
+        // CHECKBOX
         waitAndClick(
                 AppiumBy.androidUIAutomator(
                         "new UiSelector().className(\"android.view.View\").instance(9)"
@@ -383,19 +356,15 @@ public class ASignUpArabicPage {
         ExtentTestListener.logStep("Checkbox selected");
 
 
-        // ==========================
-        // REGISTER BUTTON
-        // ==========================
 
+        // REGISTER BUTTON
         waitAndClick(AppiumBy.accessibilityId("تسجيل"));
 
         ExtentTestListener.logStep("Arabic Register button clicked successfully");
 
 
-        // ==========================
-        // CONFIRM POPUP
-        // ==========================
 
+        // CONFIRM POPUP
         waitAndClick(AppiumBy.accessibilityId("تأكيد"));
 
         ExtentTestListener.logStep("Confirmation popup clicked successfully");
@@ -406,10 +375,8 @@ public class ASignUpArabicPage {
 
 
         Thread.sleep(5000);
-        // ==========================
-        // OTP CONFIRM
-        // ==========================
 
+        // OTP CONFIRM
         WebElement confirmButton = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.accessibilityId("تأكيد")));
@@ -419,10 +386,8 @@ public class ASignUpArabicPage {
         ExtentTestListener.logStep("OTP Confirm button clicked");
         Thread.sleep(3000);
 
-        // ==========================
-        // SUCCESS POPUP
-        // ==========================
 
+        // SUCCESS POPUP
         WebElement confirmBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.accessibilityId("تأكيد")));

@@ -42,8 +42,6 @@ public class CDoorPickupPage {
         ExtentTestListener.logStep("Door Pickup Clicked");
 
 
-
-
         // CLICK "SELECT YOUR PICKUP LOCATION ON MAP"
         WebElement pickupLocation = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
@@ -64,10 +62,9 @@ public class CDoorPickupPage {
                                 "//android.view.View[contains(@content-desc,'Buqayq')]")
                 )
         );
-
         savedAddress.click();
 
-
+        ExtentTestListener.logStep("Saved Address Clicked ");
 
 
         // WAIT FOR OK POPUP
