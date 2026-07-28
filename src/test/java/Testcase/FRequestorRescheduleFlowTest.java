@@ -11,7 +11,7 @@ import static com.sun.activation.registries.LogSupport.log;
 
 public class FRequestorRescheduleFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 2)
     public void rescheduleFlow() throws Exception {
 
         log("========== REQUESTOR RESCHEDULE FLOW STARTED ==========");
@@ -41,7 +41,7 @@ public class FRequestorRescheduleFlowTest extends BaseClassMobile {
         // Click Pending Orders
         reschedulePage.clickReschedule();
         // Change Order Number Before Execution
-        reschedulePage.selectOrderToReschedule("AB-RO-62056");
+        reschedulePage.selectOrderToReschedule("AB-RO-62176");
         log("Order Selected Successfully");
 
         //=========================================================

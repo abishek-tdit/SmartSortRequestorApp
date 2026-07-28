@@ -1,6 +1,7 @@
 package Testcase;
 
 import Base.BaseClassMobile;
+import Base.ExtentTestListener;
 import com.AndroidTest.CRequestorOrderPlacingFlow.ALoginPage;
 import com.AndroidTest.CRequestorOrderPlacingFlow.BLocationPage;
 import com.AndroidTest.CRequestorOrderPlacingFlow.CDoorPickupPage;
@@ -9,16 +10,14 @@ import org.testng.annotations.Test;
 
 public class CRequestorOrderPlacingFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 1)
     public void smartSortOrderFlow() throws Exception {
 
 
         // Login
-//        ALoginPage loginPage = new ALoginPage(driver);
-//
-//        loginPage.login(
-//                "0500000055",
-//                "Admin@194");
+        ALoginPage loginPage = new ALoginPage(driver);
+        loginPage.login("0500000055",
+                     "Admin@194");
         Thread.sleep(5000);
 
         //=====================================================
@@ -26,6 +25,7 @@ public class CRequestorOrderPlacingFlowTest extends BaseClassMobile {
         //=====================================================
         BLocationPage locationPage = new BLocationPage(driver);
         locationPage.selectLocation();
+        Thread.sleep(5000);
 
         //=====================================================
         // Door Pickup
@@ -39,6 +39,6 @@ public class CRequestorOrderPlacingFlowTest extends BaseClassMobile {
         DSlotPage slotPage = new DSlotPage(driver);
         slotPage.selectSlot();
 
-        System.out.println("Smart Sort Flow Completed");
+        ExtentTestListener.logStep("Smart Sort Flow Completed");
     }
 }

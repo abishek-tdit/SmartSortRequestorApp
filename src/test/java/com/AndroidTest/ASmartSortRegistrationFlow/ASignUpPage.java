@@ -46,7 +46,7 @@ public class ASignUpPage {
         util.click(util.waitForAccessibilityId("Select City"));
 
         ExtentTestListener.logStep("Select City dropdown clicked");
-        String city = "Chennai";
+        String city = "Bqaiq";
 
         util.click(util.waitForAccessibilityId(city));
 
@@ -61,8 +61,7 @@ public class ASignUpPage {
         ExtentTestListener.logStep("Requestor Type selected successfully");
 
 //		WebElement requestorType =
-//        util.waitForAccessibilityId("Corporate Requestor");
-
+//      util.waitForAccessibilityId("Corporate Requestor");
 //		util.click(requestorType);
 
 //      ExtentTestListener.logStep("Requestor Type selected successfully");
@@ -88,7 +87,7 @@ public class ASignUpPage {
                 ));
 
         util.click(firstName);
-        firstName.sendKeys("kareem");
+        firstName.sendKeys("Kiran");
 
         ExtentTestListener.logStep("First Name entered successfully");
 
@@ -103,17 +102,12 @@ public class ASignUpPage {
         );
         util.click(lastName);
 
-        lastName.sendKeys("Krishnan");
+        lastName.sendKeys("Khan");
 
         ExtentTestListener.logStep("Last Name entered successfully");
 
         // HIDE KEYBOARD
-        try {
-            driver.hideKeyboard();
-        } catch (Exception e) {
-            ExtentTestListener.logStep("Keyboard not visible");
-        }
-
+        try { driver.hideKeyboard(); } catch (Exception ignored) {}
 
         // CLICK GENDER DROPDOWN
         util.click(util.waitForAccessibilityId("Select Gender"));
@@ -124,6 +118,26 @@ public class ASignUpPage {
         util.click(util.waitForAccessibilityId("Male"));
 
         ExtentTestListener.logStep("Male selected successfully");
+
+        // ENTER EMAIL ADDRESS (Optional)
+        try {
+            WebElement email = wait.until(
+                    ExpectedConditions.visibilityOfElementLocated(
+                            AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.widget.EditText[4]")
+                    ));
+
+            util.click(email);
+            email.sendKeys("abishek251295@gmail.com");
+
+            try { driver.hideKeyboard(); } catch (Exception ignored) {}
+
+            ExtentTestListener.logStep("Email Address entered successfully");
+
+        } catch (Exception ignored) {
+            ExtentTestListener.logStep("Email field not available. Skipping...");
+        }
+
+        ExtentTestListener.logStep("Email Address entered successfully");
 
         // SCROLL LITTLE DOWN
         driver.executeScript(
@@ -153,11 +167,7 @@ public class ASignUpPage {
         util.click(mobileNumber);
 
         mobileNumber.sendKeys(mobile);
-        try {
-            driver.hideKeyboard();
-        } catch (Exception ignored) {
-        }
-
+        try { driver.hideKeyboard(); } catch (Exception ignored) {}
         ExtentTestListener.logStep("Mobile Number entered successfully");
 
         wait.until(driver -> true);
@@ -205,34 +215,27 @@ public class ASignUpPage {
         ExtentTestListener.logStep("Confirm Password entered successfully");
         wait.until(driver -> true);
 
-        try {
-            driver.hideKeyboard();
-        }
-        catch (Exception e)
-        {
-            ExtentTestListener.logStep("Keyboard not visible");
-        }
-
+        try { driver.hideKeyboard(); } catch (Exception ignored) {}
 
         // CLICK TERMS CHECKBOX
         WebElement checkbox = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.androidUIAutomator(
-                                "new UiSelector().className(\"android.view.View\").instance(10)"
-                        )));
+                        AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.view.View[5]")));
 
         checkbox.click();
 
         ExtentTestListener.logStep("Terms checkbox selected successfully");
 
 
+
         // CLICK REGISTER BUTTON
-        WebElement registerBtn = driver.findElement(
-                AppiumBy.accessibilityId("Register")
-        );
+        WebElement registerBtn = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.accessibilityId("Register")));
+
+        wait.until(ExpectedConditions.elementToBeClickable(registerBtn));
 
         registerBtn.click();
-
         ExtentTestListener.logStep("Register button clicked successfully");
 
         wait.until(driver -> true);

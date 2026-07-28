@@ -23,8 +23,6 @@ public class CDoorPickupPage {
 
     public void selectPickup() throws Exception {
 
-
-        Thread.sleep(3000);
         // Scroll to Door Pickup
         driver.findElement(
                 AppiumBy.androidUIAutomator(

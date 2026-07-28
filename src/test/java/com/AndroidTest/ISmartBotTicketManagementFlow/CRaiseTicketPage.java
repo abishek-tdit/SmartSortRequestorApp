@@ -81,7 +81,7 @@ public class CRaiseTicketPage extends BasePage {
 
         wait.until(ExpectedConditions.elementToBeClickable(okButton))
                 .click();
-
+        wait.until(driver -> true);
         ExtentTestListener.logStep("Ticket Raised Successfully");
 
         wait.until(ExpectedConditions.elementToBeClickable(backButton))

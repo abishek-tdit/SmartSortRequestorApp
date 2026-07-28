@@ -104,12 +104,13 @@ public class ASignUpArabicPage {
         // REGISTER BUTTON
         // ==========================
 
-        WebElement registerBtnHome =
-                waitForElement(AppiumBy.accessibilityId("تسجيل"));
+        // Arabic "Don't have an account? Register New" button
+        WebElement registerBtnHome = waitForElement(
+                AppiumBy.accessibilityId("ليس لديك حساب؟ تسجيل جديد"));
 
         clickGesture(registerBtnHome);
 
-        ExtentTestListener.logStep("Arabic Register button clicked");
+        ExtentTestListener.logStep("Arabic 'Sign Up' button clicked");
 
 
         // CLICK CITY DROPDOWN (ARABIC)
@@ -266,6 +267,26 @@ public class ASignUpArabicPage {
         ExtentTestListener.logStep("Male selected");
 
 
+        // ENTER EMAIL ADDRESS (Optional)
+        try {
+            WebElement email = new WebDriverWait(driver, Duration.ofSeconds(2))
+                    .until(ExpectedConditions.presenceOfElementLocated(
+                            AppiumBy.xpath("//android.widget.ScrollView/android.view.View/android.widget.EditText[4]")
+                    ));
+
+            if (email.isDisplayed()) {
+                util.click(email);
+                email.sendKeys("abishek251295@gmail.com");
+
+                try { driver.hideKeyboard(); } catch (Exception ignored) {}
+
+                ExtentTestListener.logStep("Email Address entered successfully");
+            }
+
+        } catch (Exception ignored) {
+            ExtentTestListener.logStep("Email field not present. Continuing...");
+        }
+
         // ==========================
         // SCROLL TO MOBILE SECTION
         // ==========================
@@ -409,7 +430,8 @@ public class ASignUpArabicPage {
         confirmBtn.click();
 
         ExtentTestListener.logStep("Success popup Confirm button clicked");
-        ExtentTestListener.logStep("===============Registration completed successfully==============");
+
+        ExtentTestListener.logStep("======Arabic Registration Flow completed successfully======");
     }
 }
 

@@ -8,7 +8,8 @@ import org.testng.annotations.Test;
 
 public class MOrderDetailsFlowTest extends BaseClassMobile {
 
-    @Test public void testOrderDetailsFlow() throws Exception {
+    @Test(priority = 9)
+    public void testOrderDetailsFlow() throws Exception {
 
         //Abiram abi      - 0500000055 Dom
 

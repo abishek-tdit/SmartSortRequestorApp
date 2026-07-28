@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class ISmartBotTicketManagementFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 5)
     public void smartBotTicketManagementFlow() {
 
         //=========================================================

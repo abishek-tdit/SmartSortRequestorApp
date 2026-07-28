@@ -11,12 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class DScheduleDatePage {
+public class CScheduleDatePage {
 
     AndroidDriver driver;
     WebDriverWait wait;
 
-    public DScheduleDatePage(AndroidDriver driver) {
+    public CScheduleDatePage(AndroidDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }

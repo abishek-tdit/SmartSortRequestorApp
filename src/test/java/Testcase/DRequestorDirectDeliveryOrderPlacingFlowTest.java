@@ -1,49 +1,28 @@
 package Testcase;
 
 import Base.BaseClassMobile;
-import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.ALoginPage;
-import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.BLocationPage;
-import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.CDirectDeliveryPage;
-import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.DScheduleDatePage;
+import Base.ExtentTestListener;
+import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.ALocationPage;
+import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.BDirectDeliveryPage;
+import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.CScheduleDatePage;
 import org.testng.annotations.Test;
 
 public class DRequestorDirectDeliveryOrderPlacingFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 2)
     public void smartSortDirectDeliveryOrderFlow() throws Exception {
 
-        //=====================================================
-        // Login
-        //=====================================================
+        Thread.sleep(5000);
+        // Location
+        ALocationPage locationPage = new ALocationPage(driver);
+        locationPage.selectLocation();
 
-//        ALoginPage loginPage = new ALoginPage(driver);
-//
-//        loginPage.login(
-//                "0500000055",
-//                "Admin@194");
-//        Thread.sleep(5000);
-//
-//        //=====================================================
-//        // Location
-//        //=====================================================
-//        BLocationPage locationPage = new BLocationPage(driver);
-//
-//        locationPage.selectLocation();
-
-        //=====================================================
         // Direct Delivery
-        //=====================================================
-
-        CDirectDeliveryPage directDeliveryPage = new CDirectDeliveryPage(driver);
-
+        BDirectDeliveryPage directDeliveryPage = new BDirectDeliveryPage(driver);
         directDeliveryPage.clickDirectDelivery();
 
-        //=====================================================
         // Schedule Date & Time
-        //=====================================================
-
-        DScheduleDatePage schedulePage = new DScheduleDatePage(driver);
-
+        CScheduleDatePage schedulePage = new CScheduleDatePage(driver);
         schedulePage.clickScheduleDate();
         schedulePage.selectTodayDateAndClickOK();
         schedulePage.clickScheduleTime();
@@ -51,6 +30,6 @@ public class DRequestorDirectDeliveryOrderPlacingFlowTest extends BaseClassMobil
         schedulePage.clickContinue();
         schedulePage.clickConfirmAndOK();
 
-        System.out.println("Smart Sort Direct Delivery Order Flow Completed");
+        ExtentTestListener.logStep("Smart Sort Direct Delivery Order Flow Completed");
     }
 }

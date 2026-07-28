@@ -7,7 +7,8 @@ import com.AndroidTest.LNotificationsFlow.BNotificationPage;
 import org.testng.annotations.Test;
 
 public class LNotificationsFlowTest extends BaseClassMobile {
-    @Test
+
+    @Test(priority = 8)
     public void testNotificationFlow() throws Exception {
 
         //Abiram abi      - 0500000055 Dom

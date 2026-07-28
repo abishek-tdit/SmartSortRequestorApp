@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class HSmartBotChatFlowTest extends BaseClassMobile {
 
-    @Test(priority = 1)
+    @Test(priority = 4)
     public void smartBotFlow() throws InterruptedException {
 
         ExtentTestListener.logStep("========== SMARTBOT TEST STARTED ==========");

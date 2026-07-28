@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class JProfileViewBasicFeaturesFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 6)
     public void profileViewBasicFeaturesFlow() throws Exception {
 
         //Login

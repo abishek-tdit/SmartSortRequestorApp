@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class KCustomerCareServicesFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 7)
     public void CustomerCareServicesFlow() throws Exception {
 
         //Abiram abi      - 0500000055 Dom

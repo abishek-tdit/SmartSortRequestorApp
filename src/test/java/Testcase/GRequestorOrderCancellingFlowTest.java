@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class GRequestorOrderCancellingFlowTest extends ExtentTestListener {
 
-    @Test
+    @Test(priority = 3)
     public void cancelFlowTest() {
 
         try {
@@ -41,7 +41,7 @@ public class GRequestorOrderCancellingFlowTest extends ExtentTestListener {
             // Change Order Number Before Execution
             //=========================================================
 
-            cancelPage.selectOrderToCancel("AB-RO-62055");
+            cancelPage.selectOrderToCancel("AB-RO-62175");
 
             //=========================================================
             // Cancel Order

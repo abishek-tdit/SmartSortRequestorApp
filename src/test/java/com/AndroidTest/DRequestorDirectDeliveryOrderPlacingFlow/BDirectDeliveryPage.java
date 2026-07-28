@@ -6,7 +6,6 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
 
@@ -14,13 +13,13 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 
-public class CDirectDeliveryPage extends BasePage {
+public class BDirectDeliveryPage extends BasePage {
 
     //=========================================================
     // Constructor
     //=========================================================
 
-    public CDirectDeliveryPage(AndroidDriver driver) {
+    public BDirectDeliveryPage(AndroidDriver driver) {
         super(driver);
     }
 
