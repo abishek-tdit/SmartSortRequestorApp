@@ -3,97 +3,107 @@ package Testcase;
 import Base.BaseClassMobile;
 import Base.ExtentTestListener;
 import com.AndroidTest.ERequestorRedeemFlow.*;
-import com.AndroidTest.ERequestorRedeemFlow.ELocationPage2;
-import com.AndroidTest.ERequestorRedeemFlow.FRedeemCashItOutPage2;
 import org.testng.annotations.Test;
 
 public class ERequestorRedeemFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 1)
     public void redeemFlow() throws Exception {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
+        ExtentTestListener.logStep("========== REQUESTOR REDEEM FLOW STARTED ==========");
 
-        //LOGIN:
+        //=========================================================
+        // Login
+        //=========================================================
+
         ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login("0500445566",
-                     "Admin@194");
+        loginPage.login("0500000055",
+                "Admin@194");
 
-        ExtentTestListener.logStep("Login completed successfully");
-        Thread.sleep(3000);
+        ExtentTestListener.logStep("Login Completed Successfully");
+        Thread.sleep(4000);
+        //=========================================================
+        // Location 1
+        //=========================================================
 
-        //LOCATION SELECTION:
-        BLocationPage1 locationPage = new BLocationPage1(driver);
-        locationPage.selectLocation1();
+        BLocationPage1 locationPage1 = new BLocationPage1(driver);
+        locationPage1.selectLocation1();
 
-        ExtentTestListener.logStep("Location selected successfully");
+        ExtentTestListener.logStep("Location 1 Selected Successfully");
+        Thread.sleep(4000);
 
+        //=========================================================
+        // Redeem & Cash Out
+        //=========================================================
+        CRedeemCashItOutPage1 redeemPage1 = new CRedeemCashItOutPage1(driver);
+        redeemPage1.redeemPoints1();
 
-        //REDEEM CASH OUT:
-        CRedeemCashItOutPage1 redeemPage = new CRedeemCashItOutPage1(driver);
-        redeemPage.redeemPoints1();
+        ExtentTestListener.logStep("Redeem & Cash Out Completed");
 
-        ExtentTestListener.logStep("Redeem Cash Out completed successfully");
+        //=========================================================
+        // Partner Store
+        //=========================================================
 
-        //PARTNER STORE:
-        DProcessRedeemPointsPartnerStorePage proceedPage =
+        DProcessRedeemPointsPartnerStorePage partnerStorePage =
                 new DProcessRedeemPointsPartnerStorePage(driver);
-        proceedPage.proceedRedeem();
 
-        ExtentTestListener.logStep("Partner store redeem completed successfully");
+        partnerStorePage.proceedRedeem();
 
-        //LOCATION SELECTION:
+        ExtentTestListener.logStep("Partner Store Redeem Completed");
+        Thread.sleep(5000);
+        //=========================================================
+        // Location 2
+        //=========================================================
+
         ELocationPage2 locationPage2 = new ELocationPage2(driver);
         locationPage2.selectLocation2();
 
-        ExtentTestListener.logStep("Location selected successfully");
+        ExtentTestListener.logStep("Location 2 Selected Successfully");
 
-        //REDEEM CASH OUT:
+        //=========================================================
+        // Redeem & Cash Out
+        //=========================================================
+
         FRedeemCashItOutPage2 redeemPage2 = new FRedeemCashItOutPage2(driver);
         redeemPage2.redeemPoints2();
 
-        ExtentTestListener.logStep("Redeem Cash Out completed successfully");
+        ExtentTestListener.logStep("Redeem & Cash Out Completed");
 
-        //CONVERT TO CASH:
+        //=========================================================
+        // Convert To Cash
+        //=========================================================
+
         GProcessRedeemPointsConvertToCashPage convertPage =
                 new GProcessRedeemPointsConvertToCashPage(driver);
+
         convertPage.proceedToRedeemPointsAndSelectCheckbox();
         convertPage.clickConvertToCash();
         convertPage.selectSAR10Points();
         convertPage.selectBankTransfer();
-      //convertPage.enterMiddleName("Raman");
         convertPage.clickProceed();
         convertPage.clickConfirm();
         convertPage.clickOkPopup();
 
-        ExtentTestListener.logStep("Convert to Cash flow completed");
-        Thread.sleep(3000);
-        //Voucher:
+        ExtentTestListener.logStep("Convert To Cash Completed");
+        Thread.sleep(5000);
+        //=========================================================
+        // Voucher
+        //=========================================================
+
         HVoucherPage voucherPage = new HVoucherPage(driver);
         voucherPage.clickExploreLocations();
-        Thread.sleep(5000);
-        voucherPage.selectAsyutLocation();
-        Thread.sleep(8000);
-        voucherPage.scrollDown();
-        Thread.sleep(3000);
-        voucherPage.clickRedeemCashOut();
-        Thread.sleep(3000);
+        voucherPage.selectBqaiqLocation();
+        voucherPage.scrollAndClickRedeemCashOut();
         voucherPage.clickProceedToRedeemPoints();
-        Thread.sleep(3000);
         voucherPage.clickVoucher();
-        Thread.sleep(2000);
         voucherPage.clickCheckbox();
-        Thread.sleep(2000);
         voucherPage.enterPoints("1000");
-        Thread.sleep(2000);
         voucherPage.hideKeyboardIfVisible();
-        Thread.sleep(2000);
         voucherPage.clickRedeemVoucher();
-        Thread.sleep(2000);
         voucherPage.clickOkPopup();
 
-        ExtentTestListener.logStep("FULL FLOW COMPLETED SUCCESSFULLY");
-        Thread.sleep(3000);
+        ExtentTestListener.logStep("Voucher Redeemed Successfully");
+
+        ExtentTestListener.logStep("========== REQUESTOR REDEEM FLOW COMPLETED ==========");
     }
 }

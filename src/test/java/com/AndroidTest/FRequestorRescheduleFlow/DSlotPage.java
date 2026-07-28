@@ -60,7 +60,7 @@ public class DSlotPage {
 
                 List<WebElement> slots = wait.until(
                         ExpectedConditions.visibilityOfAllElementsLocatedBy(
-                                AppiumBy.xpath("//android.view.View[contains(@content-desc,' - ')]")
+                                AppiumBy.xpath("//android.view.View[contains(@content-desc,'AM') or contains(@content-desc,'PM')]")
                         )
                 );
 
@@ -73,13 +73,13 @@ public class DSlotPage {
                 ExtentTestListener.logStep("Selecting Slot : "
                         + firstSlot.getAttribute("content-desc"));
 
+                wait.until(ExpectedConditions.elementToBeClickable(firstSlot));
+
                 firstSlot.click();
 
-                ExtentTestListener.logStep("Tomorrow date and first slot selected successfully.");
+                Thread.sleep(1000);
 
-                if (ExtentTestListener.getTest() != null) {
-                    ExtentTestListener.getTest().pass("Tomorrow date and first slot selected");
-                }
+                ExtentTestListener.logStep("Tomorrow date and first slot selected successfully.");
 
                 clicked = true;
                 break;
@@ -106,12 +106,8 @@ public class DSlotPage {
         if (!clicked) {
             throw new RuntimeException("Unable to select tomorrow's date or slot timing.");
         }
-
-        Thread.sleep(3000);
     }
     public void confirmReschedule() throws Exception {
-
-        Thread.sleep(4000);
 
         // CLICK CONFIRM BUTTON
         WebElement confirmBtn = wait.until(
@@ -124,12 +120,6 @@ public class DSlotPage {
 
         ExtentTestListener.logStep("Confirm button clicked");
 
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Clicked Confirm button");
-        }
-
-        Thread.sleep(3000);
-
         // CLICK OK POPUP
         WebElement okBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
@@ -140,11 +130,5 @@ public class DSlotPage {
         okBtn.click();
 
         ExtentTestListener.logStep("OK popup clicked");
-
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Clicked OK popup");
-        }
-
-        Thread.sleep(3000);
     }
 }

@@ -1,33 +1,28 @@
 package Testcase;
 
 import Base.BaseClassMobile;
-import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.*;
+import Base.ExtentTestListener;
+import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.ALocationPage;
+import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.BDirectDeliveryPage;
+import com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow.CScheduleDatePage;
 import org.testng.annotations.Test;
 
 public class DRequestorDirectDeliveryOrderPlacingFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 2)
     public void smartSortDirectDeliveryOrderFlow() throws Exception {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
+        Thread.sleep(5000);
+        // Location
+        ALocationPage locationPage = new ALocationPage(driver);
+        locationPage.selectLocation();
 
-        //Login:
-        ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login(
-                "0500098765",
-                "Admin@194");
+        // Direct Delivery
+        BDirectDeliveryPage directDeliveryPage = new BDirectDeliveryPage(driver);
+        directDeliveryPage.clickDirectDelivery();
 
-        //Location:
-        BLocationPage homePage = new BLocationPage(driver);
-        homePage.selectLocation();
-
-        //Direct Delivery:
-        CDirectDeliveryPage pickupPage = new CDirectDeliveryPage(driver);
-        pickupPage.clickDirectDelivery();
-
-        //Schedule Date:
-        DScheduleDatePage schedulePage = new DScheduleDatePage(driver);
+        // Schedule Date & Time
+        CScheduleDatePage schedulePage = new CScheduleDatePage(driver);
         schedulePage.clickScheduleDate();
         schedulePage.selectTodayDateAndClickOK();
         schedulePage.clickScheduleTime();
@@ -35,6 +30,6 @@ public class DRequestorDirectDeliveryOrderPlacingFlowTest extends BaseClassMobil
         schedulePage.clickContinue();
         schedulePage.clickConfirmAndOK();
 
-        System.out.println("Smart Sort Direct Delivery Order Flow Completed");
+        ExtentTestListener.logStep("Smart Sort Direct Delivery Order Flow Completed");
     }
 }

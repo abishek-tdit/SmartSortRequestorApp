@@ -1,61 +1,52 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
-import Base.ExtentTestListener;
+import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
-import java.time.Duration;
-public class ELocationPage2 {
+public class ELocationPage2 extends BasePage {
 
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public ELocationPage2(AndroidDriver driver) {
-
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        super(driver);
     }
 
-    public void selectLocation2() throws Exception {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        // WAIT HOME PAGE LOAD
-        Thread.sleep(10000);
+    private final By exploreOtherLocationsButton =
+            AppiumBy.accessibilityId("Explore Other Locations");
 
+    private final By bqaiqLocation =
+            AppiumBy.accessibilityId("Bqaiq");
 
-        // Explore Other Locations Button
-        WebElement exploreBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Explore Other Locations")
-                )
-        );
+    //=========================================================
+    // Select Location
+    //=========================================================
 
+    public void selectLocation2() {
 
-        // Click Button
-        exploreBtn.click();
+        log("========== LOCATION 2 SELECTION STARTED ==========");
 
-        ExtentTestListener.logStep("Explore Other Locations clicked");
+        // Wait until Home Page is Ready
+        waitVisible(exploreOtherLocationsButton);
 
+        // Click Explore Other Locations
+        click(exploreOtherLocationsButton);
+        log("Clicked 'Explore Other Locations'");
 
-        // Wait After Explore Other Locations Click
-        Thread.sleep(5000);
+        // Wait until Location List Appears
+        waitVisible(bqaiqLocation);
 
+        // Select Bqaiq
+        click(bqaiqLocation);
+        log("Selected Location : Bqaiq");
 
-        // SELECT LOCATION - Bqaiq
-        WebElement locationBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Bqaiq")
-                )
-        );
-
-        locationBtn.click();
-
-        ExtentTestListener.logStep("Bqaiq location selected");
-
-
-        // Wait After Location Selection
-        Thread.sleep(8000);
+        log("========== LOCATION 2 SELECTION COMPLETED ==========");
     }
 }

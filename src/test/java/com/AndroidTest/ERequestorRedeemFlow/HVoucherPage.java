@@ -1,202 +1,212 @@
 package com.AndroidTest.ERequestorRedeemFlow;
 
-import Base.ExtentTestListener;
+import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.PointerInput;
 import org.openqa.selenium.interactions.Sequence;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
 
-public class HVoucherPage {
+public class HVoucherPage extends BasePage {
 
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public HVoucherPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        super(driver);
     }
 
-    // STEP 1: Click Explore Other Locations
+    //=========================================================
+    // Locators
+    //=========================================================
+
+    private final By exploreLocationsBtn =
+            AppiumBy.accessibilityId("Explore Other Locations");
+
+    private final By bqaiqLocation =
+            AppiumBy.accessibilityId("Bqaiq");
+
+    private final By redeemCashOutBtn =
+            AppiumBy.xpath("//android.view.View[@content-desc='Redeem & cash it out']/android.widget.Button");
+
+    private final By proceedRedeemBtn =
+            AppiumBy.accessibilityId("Proceed to Redeem Points");
+
+    private final By voucherBtn =
+            AppiumBy.accessibilityId("Voucher");
+
+    private final By checkBox =
+            AppiumBy.className("android.widget.CheckBox");
+
+    private final By pointsField =
+            AppiumBy.className("android.widget.EditText");
+
+    private final By redeemVoucherBtn =
+            AppiumBy.accessibilityId("Redeem Voucher");
+
+    private final By okBtn =
+            AppiumBy.accessibilityId("OK");
+
+    //=========================================================
+    // Explore Other Locations
+    //=========================================================
 
     public void clickExploreLocations() {
 
-        WebElement exploreBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Explore Other Locations")
-                )
-        );
+        click(exploreLocationsBtn);
 
-        exploreBtn.click();
-        ExtentTestListener.logStep("Explore Other Locations clicked");
-
+        log("Clicked Explore Other Locations");
     }
 
-    // STEP 2: Select Bqaiq Location
-    public void selectAsyutLocation() {
+    //=========================================================
+    // Select Bqaiq
+    //=========================================================
 
-        WebElement locationBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Asyut")
-                )
-        );
+    public void selectBqaiqLocation() {
 
-        locationBtn.click();
-        ExtentTestListener.logStep("Asyut location selected");
+        click(bqaiqLocation);
+
+        log("Selected Bqaiq Location");
+
+        // Wait until Home page loads
+        utility.delay(8);
     }
 
-    // STEP 3: Custom Scroll Method
-    public void scrollDown() throws InterruptedException {
+    //=========================================================
+    // Scroll & Click Redeem Cash Out
+    //=========================================================
 
-        // GET MOBILE SCREEN SIZE
+    public void scrollAndClickRedeemCashOut() {
+
+        log("Scrolling to Redeem & Cash It Out");
+
         Dimension size = driver.manage().window().getSize();
 
         int startX = size.width / 2;
-
         int startY = (int) (size.height * 0.80);
-
         int endY = (int) (size.height * 0.30);
 
-
-        // SWIPE CODE
-        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+        PointerInput finger =
+                new PointerInput(PointerInput.Kind.TOUCH, "finger");
 
         Sequence swipe = new Sequence(finger, 1);
 
-        swipe.addAction(finger.createPointerMove(Duration.ZERO,
-                PointerInput.Origin.viewport(), startX, startY));
+        swipe.addAction(
+                finger.createPointerMove(
+                        Duration.ZERO,
+                        PointerInput.Origin.viewport(),
+                        startX,
+                        startY));
 
-        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
+        swipe.addAction(
+                finger.createPointerDown(
+                        PointerInput.MouseButton.LEFT.asArg()));
 
-        swipe.addAction(finger.createPointerMove(Duration.ofMillis(1000),
-                PointerInput.Origin.viewport(), startX, endY));
+        swipe.addAction(
+                finger.createPointerMove(
+                        Duration.ofMillis(1000),
+                        PointerInput.Origin.viewport(),
+                        startX,
+                        endY));
 
-        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        swipe.addAction(
+                finger.createPointerUp(
+                        PointerInput.MouseButton.LEFT.asArg()));
 
         driver.perform(List.of(swipe));
 
-        ExtentTestListener.logStep("Page scrolled manually");
+        log("Page Scrolled");
 
-        Thread.sleep(3000);
+        utility.delay(3);
+
+        waitClickable(redeemCashOutBtn);
+
+        click(redeemCashOutBtn);
+
+        log("Clicked Redeem & Cash It Out");
     }
 
-    // STEP 4: Click Redeem & Cash it out
-    public void clickRedeemCashOut() {
+    //=========================================================
+    // Proceed To Redeem Points
+    //=========================================================
 
-        WebElement redeemBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.view.View[@content-desc=\"Redeem & cash it out\"]/android.widget.Button")
-                )
-        );
-
-        redeemBtn.click();
-        ExtentTestListener.logStep("Redeem & Cash it out clicked");
-    }
-
-
-    //    //  Reusable Wait Method (instead of Thread.sleep directly)
-//    public void waitForSeconds(int seconds) {
-//        try {
-//            Thread.sleep(seconds * 1000L);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
-    // STEP 5: Click Proceed to Redeem Points
     public void clickProceedToRedeemPoints() {
 
-        WebElement proceedRedeemBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Proceed to Redeem Points")
-                )
-        );
+        click(proceedRedeemBtn);
 
-        proceedRedeemBtn.click();
-        ExtentTestListener.logStep("Proceed to Redeem Points clicked");
+        log("Clicked Proceed To Redeem Points");
     }
 
+    //=========================================================
+    // Voucher
+    //=========================================================
 
-    // STEP 6: Click Voucher Option
     public void clickVoucher() {
 
-        WebElement voucherBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Voucher")
-                )
-        );
+        click(voucherBtn);
 
-        voucherBtn.click();
-        ExtentTestListener.logStep("Voucher selected");
+        log("Selected Voucher");
     }
 
+    //=========================================================
+    // Checkbox
+    //=========================================================
 
-    //  STEP 7: Click Checkbox
     public void clickCheckbox() {
 
-        WebElement checkbox = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.className("android.widget.CheckBox")
-                )
-        );
+        click(checkBox);
 
-        checkbox.click();
-        ExtentTestListener.logStep("Checkbox selected");
+        log("Checkbox Selected");
     }
 
-    public void enterPoints(String pointsValue) {
+    //=========================================================
+    // Enter Points
+    //=========================================================
 
-        WebElement pointsField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.className("android.widget.EditText")
-                )
-        );
+    public void enterPoints(String points) {
 
-        pointsField.click();
-        pointsField.clear();
-        pointsField.sendKeys(pointsValue);
+        sendKeys(pointsField, points);
 
-        ExtentTestListener.logStep("Points entered: " + pointsValue);
+        log("Entered Points : " + points);
     }
+
+    //=========================================================
+    // Hide Keyboard
+    //=========================================================
 
     public void hideKeyboardIfVisible() {
 
-        try {
-            driver.hideKeyboard();
-            ExtentTestListener.logStep("Keyboard hidden");
-        } catch (Exception e) {
-            System.out.println("Keyboard not visible");
-        }
+        hideKeyboard();
+
+        log("Keyboard Hidden");
     }
+
+    //=========================================================
+    // Redeem Voucher
+    //=========================================================
 
     public void clickRedeemVoucher() {
 
-        WebElement redeemVoucherBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Redeem Voucher")
-                )
-        );
+        click(redeemVoucherBtn);
 
-        redeemVoucherBtn.click();
-        ExtentTestListener.logStep("Redeem Voucher clicked");
+        log("Clicked Redeem Voucher");
     }
 
-    // ✅ STEP 11: Click OK Popup
+    //=========================================================
+    // OK Popup
+    //=========================================================
+
     public void clickOkPopup() {
 
-        WebElement okBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("OK")
-                )
-        );
+        click(okBtn);
 
-        okBtn.click();
-        ExtentTestListener.logStep("✅ OK popup clicked");
+        log("Clicked OK Popup");
 
+        log("========== VOUCHER FLOW COMPLETED ==========");
     }
 }

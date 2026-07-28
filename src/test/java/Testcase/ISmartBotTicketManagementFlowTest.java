@@ -10,32 +10,40 @@ import org.testng.annotations.Test;
 
 public class ISmartBotTicketManagementFlowTest extends BaseClassMobile {
 
-    @Test
-    public void smartBotTicketManagementFlow() throws Exception {
+    @Test(priority = 5)
+    public void smartBotTicketManagementFlow() {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
-
-        //LOGIN FLOW:
+        //=========================================================
+        // LOGIN
+        //=========================================================
+//
 //        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500445566",
-//                     "Admin@194");
+//        loginPage.login("0500000055", "Admin@194");
 //
 //        ExtentTestListener.logStep("Login completed successfully");
-//
-//        // OPEN SMART-BOT & START CHAT:
-//        BSmartBotPage smartBotPage = new BSmartBotPage(driver);
-//        smartBotPage.openSmartBotAndStartChat();
-//
-//        ExtentTestListener.logStep("SmartBot opened successfully");
 
-        // RAISE TICKET FLOW:
+        //=========================================================
+        // OPEN SMART-BOT
+        //=========================================================
+
+        BSmartBotPage smartBotPage = new BSmartBotPage(driver);
+        smartBotPage.openSmartBotAndStartChat();
+
+        ExtentTestListener.logStep("SmartBot opened successfully");
+
+        //=========================================================
+        // RAISE TICKET
+        //=========================================================
+
         CRaiseTicketPage raiseTicketPage = new CRaiseTicketPage(driver);
         raiseTicketPage.raiseTicket();
 
         ExtentTestListener.logStep("Ticket raised successfully");
 
-        //TICKET MANAGEMENT FLOW:
+        //=========================================================
+        // TICKET HISTORY
+        //=========================================================
+
         DTicketHistoryPage ticketHistoryPage = new DTicketHistoryPage(driver);
         ticketHistoryPage.viewTicketHistory();
 

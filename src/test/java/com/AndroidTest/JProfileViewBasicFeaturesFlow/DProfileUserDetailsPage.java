@@ -1,160 +1,158 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.WebElement;
+
 import java.time.Duration;
 import java.util.List;
 
-public class DProfileUserDetailsPage {
+public class DProfileUserDetailsPage extends BasePage {
 
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public DProfileUserDetailsPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        super(driver);
     }
 
-    public void updateUserDetails() throws InterruptedException {
+    //=========================================================
+    // Locators
+    //=========================================================
 
-        // Profile Icon Page
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath(
-                        "//android.widget.FrameLayout[@resource-id='android:id/content']" +
-                                "/android.widget.FrameLayout/android.widget.FrameLayout" +
-                                "/android.view.View/android.view.View/android.view.View" +
-                                "/android.view.View/android.view.View[1]" +
-                                "/android.view.View/android.widget.ImageView[1]"
-                )
-        )).click();
+    private final By profileIcon = AppiumBy.xpath(
+            "//android.widget.FrameLayout[@resource-id='android:id/content']" +
+                    "/android.widget.FrameLayout/android.widget.FrameLayout" +
+                    "/android.view.View/android.view.View/android.view.View" +
+                    "/android.view.View/android.view.View[1]" +
+                    "/android.view.View/android.widget.ImageView[1]"
+    );
 
+    private final By viewProfile =
+            AppiumBy.accessibilityId("View Profile");
+
+    private final By userNameEditIcon =
+            AppiumBy.androidUIAutomator(
+                    "new UiSelector().className(\"android.view.View\").instance(8)");
+
+    private final By editText =
+            AppiumBy.className("android.widget.EditText");
+
+    private final By updateButton =
+            AppiumBy.accessibilityId("Update");
+
+    private final By emailEditIcon =
+            AppiumBy.xpath("//android.widget.ScrollView/android.view.View[7]");
+
+    private final By sendOtpButton =
+            AppiumBy.accessibilityId("Send OTP");
+
+    private final By okButton =
+            AppiumBy.accessibilityId("OK");
+
+    private final By verifyOtpButton =
+            AppiumBy.accessibilityId("Verify OTP");
+
+    //=========================================================
+    // Update User Details
+    //=========================================================
+
+    public void updateUserDetails() throws Exception {
+
+        // Profile
+        wait.until(ExpectedConditions.elementToBeClickable(profileIcon)).click();
         ExtentTestListener.logStep("Profile Icon Clicked");
 
-        Thread.sleep(5000);
-
-
-        // Click View Profile
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("View Profile")
-        )).click();
-
+        // View Profile
+        wait.until(ExpectedConditions.elementToBeClickable(viewProfile)).click();
         ExtentTestListener.logStep("View Profile Clicked");
 
-        Thread.sleep(5000);
+        // Username Edit
+        WebElement editIcon = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.xpath(
+                                "//android.view.View[@bounds='[588,453][620,485]']")
+                )
+        );
 
-
-        // Click Username Edit Icon
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath("//android.widget.ScrollView/android.view.View[3]")
-        )).click();
-
-        ExtentTestListener.logStep("User Name Edit Icon Clicked");
-
-        Thread.sleep(5000);
+        editIcon.click();
+        ExtentTestListener.logStep("Username Edit Icon Clicked");
 
         List<WebElement> fields =
-                driver.findElements(
-                        AppiumBy.className("android.widget.EditText"));
+                wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(editText, 1));
 
-        ExtentTestListener.logStep("Total Fields = " + fields.size());
+        ExtentTestListener.logStep("Total Fields : " + fields.size());
 
         // First Name
         fields.getFirst().clear();
-        fields.get(0).sendKeys("Abishek");
-
+        fields.get(0).sendKeys("Abiram");
         ExtentTestListener.logStep("First Name Updated");
 
         // Last Name
         fields.get(1).clear();
-        fields.get(1).sendKeys("DD");
-
+        fields.get(1).sendKeys("abi");
         ExtentTestListener.logStep("Last Name Updated");
 
-        Thread.sleep(2000);
-
-
-        // Update Button
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Update")
-        )).click();
-
+        // Update
+        wait.until(ExpectedConditions.elementToBeClickable(updateButton)).click();
         ExtentTestListener.logStep("Update Button Clicked");
 
-        Thread.sleep(5000);
-
-
-        // Email Edit Icon
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath("//android.widget.ScrollView/android.view.View[7]")
-        )).click();
+        // Email Edit
+        wait.until(ExpectedConditions.elementToBeClickable(emailEditIcon)).click();
 
         ExtentTestListener.logStep("Email Edit Icon Clicked");
 
-        Thread.sleep(3000);
 
+        // Wait for email input field
         WebElement emailField = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.className("android.widget.EditText")
-                ));
+                ExpectedConditions.elementToBeClickable(editText)
+        );
 
         emailField.click();
         emailField.clear();
-        Thread.sleep(1000);
-
         emailField.sendKeys("abishek251295@gmail.com");
 
-        Thread.sleep(2000);
-
-        ExtentTestListener.logStep("Email Value = " + emailField.getText());
-
-        Thread.sleep(2000);
+        ExtentTestListener.logStep("Email Updated");
 
 
         // Send OTP
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Send OTP")
-        )).click();
+        wait.until(
+                ExpectedConditions.elementToBeClickable(sendOtpButton)
+        ).click();
 
         ExtentTestListener.logStep("Send OTP Clicked");
 
-        Thread.sleep(3000);
 
-
-        // OK Popup
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("OK")
-        )).click();
+        // OTP Sent Popup OK
+        wait.until(
+                ExpectedConditions.elementToBeClickable(okButton)
+        ).click();
 
         ExtentTestListener.logStep("OTP Sent Popup OK Clicked");
 
-        ExtentTestListener.logStep("Waiting 30 seconds for OTP entry...");
 
-        Thread.sleep(20000);
-
+        // Manual OTP Entry
+        ExtentTestListener.logStep("Please enter OTP manually...");
+        Thread.sleep(15000);
 
         // Verify OTP
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Verify OTP")
-        )).click();
-
+        wait.until(ExpectedConditions.elementToBeClickable(verifyOtpButton)).click();
         ExtentTestListener.logStep("Verify OTP Clicked");
 
-        Thread.sleep(5000);
-
-
-        // Success OK
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("OK")
-        )).click();
-
+        // Success Popup
+        wait.until(ExpectedConditions.elementToBeClickable(okButton)).click();
         ExtentTestListener.logStep("Success Popup OK Clicked");
 
-        Thread.sleep(3000);
-
         ExtentTestListener.logStep("User Details Updated Successfully");
+
+        if (ExtentTestListener.getTest() != null) {
+            ExtentTestListener.getTest().pass("User Details Updated Successfully");
+        }
     }
 }

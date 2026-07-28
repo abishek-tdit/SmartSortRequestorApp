@@ -1,24 +1,26 @@
 package Testcase;
 
 import Base.BaseClassMobile;
+import Base.ExtentTestListener;
 import com.AndroidTest.BSmartSortRegistrationArabicFlow.ASignUpArabicPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class BSmartSortRegistrationArabicFlowTest extends BaseClassMobile {
 
-    @Test(priority = 1)
+    @Test(priority = 2)
     public void registrationArabicFlow() {
 
         try {
 
-            System.out.println("Arabic Registration Flow Started");
+            Thread.sleep(5000);
+            ExtentTestListener.logStep("Arabic Registration Flow Started");
 
             //Arabic Sign Up:
             ASignUpArabicPage signUpPage = new ASignUpArabicPage(driver);
             signUpPage.signUp();
 
-            System.out.println("Arabic Registration Flow Completed Successfully");
+            ExtentTestListener.logStep("Arabic Registration Flow Completed Successfully");
 
             Assert.assertTrue(true,"Arabic Registration completed successfully");
         }

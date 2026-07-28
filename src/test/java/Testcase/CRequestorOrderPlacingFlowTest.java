@@ -1,36 +1,44 @@
 package Testcase;
 
 import Base.BaseClassMobile;
-import com.AndroidTest.CRequestorOrderPlacingFlow.*;
+import Base.ExtentTestListener;
+import com.AndroidTest.CRequestorOrderPlacingFlow.ALoginPage;
+import com.AndroidTest.CRequestorOrderPlacingFlow.BLocationPage;
+import com.AndroidTest.CRequestorOrderPlacingFlow.CDoorPickupPage;
+import com.AndroidTest.CRequestorOrderPlacingFlow.DSlotPage;
 import org.testng.annotations.Test;
 
 public class CRequestorOrderPlacingFlowTest extends BaseClassMobile {
 
-    @Test
+    @Test(priority = 1)
     public void smartSortOrderFlow() throws Exception {
 
-        //Abishek Rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
 
-        //Login:
+        // Login
         ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login(
-                "0500445566",
-                "Admin@194");
-        Thread.sleep(4000);
+        loginPage.login("0500000055",
+                     "Admin@194");
+        Thread.sleep(5000);
 
-        //Location:
-        BLocationPage homePage = new BLocationPage(driver);
-        homePage.selectLocation();
+        //=====================================================
+        // Location
+        //=====================================================
+        BLocationPage locationPage = new BLocationPage(driver);
+        locationPage.selectLocation();
+        Thread.sleep(5000);
 
-        //Door Pickup:
+        //=====================================================
+        // Door Pickup
+        //=====================================================
         CDoorPickupPage pickupPage = new CDoorPickupPage(driver);
         pickupPage.selectPickup();
 
-        //Slot:
+        //=====================================================
+        // Slot
+        //=====================================================
         DSlotPage slotPage = new DSlotPage(driver);
         slotPage.selectSlot();
 
-        System.out.println("Smart Sort Flow Completed");
+        ExtentTestListener.logStep("Smart Sort Flow Completed");
     }
 }

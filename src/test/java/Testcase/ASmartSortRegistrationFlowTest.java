@@ -1,6 +1,7 @@
 package Testcase;
 
 import Base.BaseClassMobile;
+import Base.ExtentTestListener;
 import com.AndroidTest.ASmartSortRegistrationFlow.ASignUpPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -12,13 +13,13 @@ public class ASmartSortRegistrationFlowTest extends BaseClassMobile {
 
         try {
 
-            System.out.println("Registration Flow Started");
+            ExtentTestListener.logStep("Registration Flow Started");
 
             //Sign Up:
             ASignUpPage signUpPage = new ASignUpPage(driver);
             signUpPage.signUp();
 
-            System.out.println("Registration Flow Completed Successfully");
+            ExtentTestListener.logStep("Registration Flow Completed Successfully");
 
             Assert.assertTrue(true, "Registration completed successfully");
         }

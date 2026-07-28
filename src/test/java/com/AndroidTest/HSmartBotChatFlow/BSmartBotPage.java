@@ -1,44 +1,79 @@
 package com.AndroidTest.HSmartBotChatFlow;
 
-import Base.ExtentTestListener;
+import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.By;
 
-import java.time.Duration;
+public class BSmartBotPage extends BasePage {
 
-public class BSmartBotPage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public BSmartBotPage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        super(driver);
     }
 
-    public void openSmartBotAndStartChat() throws InterruptedException {
+    //=========================================================
+    // Locators
+    //=========================================================
 
+    private final By smartBotIcon = AppiumBy.xpath(
+            "//android.widget.FrameLayout[@resource-id='android:id/content']" +
+                    "/android.widget.FrameLayout" +
+                    "/android.widget.FrameLayout" +
+                    "/android.view.View" +
+                    "/android.view.View" +
+                    "/android.view.View" +
+                    "/android.view.View" +
+                    "/android.widget.ImageView[2]"
+    );
 
-        // Click SmartBot Icon
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath(
-                        "//android.widget.FrameLayout[@resource-id='android:id/content']/android.widget.FrameLayout/android.widget.FrameLayout/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.ImageView[2]"
-                ))).click();
+    private final By startNewChat =
+            AppiumBy.accessibilityId("Start new chat");
 
-        ExtentTestListener.logStep("Clicked SmartBot");
+    //=========================================================
+    // Open SmartBot
+    //=========================================================
 
-        Thread.sleep(4000);
+    public void openSmartBot() {
 
+        log("========== OPEN SMARTBOT ==========");
 
-        // Click Start New Chat
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Start new chat")
-        )).click();
+        click(smartBotIcon);
 
-        ExtentTestListener.logStep("Clicked Start New Chat");
+        log("Clicked SmartBot Icon");
 
-        Thread.sleep(2000);
+        waitVisible(startNewChat);
+
+        log("SmartBot Screen Opened");
     }
+
+    //=========================================================
+    // Start New Chat
+    //=========================================================
+
+    public void startNewChat() {
+
+        click(startNewChat);
+
+        log("Clicked Start New Chat");
+
+        delay(2);
+    }
+
+    //=========================================================
+    // Combined Method
+    //=========================================================
+
+    public void openSmartBotAndStartChat() {
+
+        openSmartBot();
+
+        startNewChat();
+
+        log("New Chat Started Successfully");
+    }
+
 }

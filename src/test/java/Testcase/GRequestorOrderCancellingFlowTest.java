@@ -9,44 +9,61 @@ import org.testng.annotations.Test;
 
 public class GRequestorOrderCancellingFlowTest extends ExtentTestListener {
 
-    @Test
+    @Test(priority = 3)
     public void cancelFlowTest() {
 
         try {
 
-            //Abishek rtr      - 0500098765 Dom (RO)
-            //Jamuna           - 0500445566 Dom (NON RO)
-
-            //LOGIN:
+            // LOGIN
 //            ALoginPage loginPage = new ALoginPage(driver);
-//            loginPage.login("0500445566",
-//                         "Admin@194");
-//            Thread.sleep(3000);
-//            //LOCATION:
-//            BLocationPage locationPage = new BLocationPage(driver);
-//            locationPage.selectLocation();
-            Thread.sleep(3000);
+//            loginPage.login(
+//                    "0500000055",
+//                    "Admin@194");
+            Thread.sleep(5000);
 
-            //CANCEL:
+            //=========================================================
+            // LOCATION
+            //=========================================================
+
+            BLocationPage locationPage = new BLocationPage(driver);
+            locationPage.selectLocation();
+            Thread.sleep(4000);
+
+            //=========================================================
+            // CANCEL FLOW
+            //=========================================================
+
             CCancelPage cancelPage = new CCancelPage(driver);
+
             cancelPage.openPendingOrders();
-//================================================================================//
-//================================================================================//
-                      // Change order no before RUN:
-            cancelPage.selectOrderToCancel("AB-RO-62003");
-//================================================================================//
-//================================================================================//
+
+            //=========================================================
+            // Change Order Number Before Execution
+            //=========================================================
+
+            cancelPage.selectOrderToCancel("AB-RO-62175");
+
+            //=========================================================
+            // Cancel Order
+            //=========================================================
+
             cancelPage.clickCancelButton();
             cancelPage.selectCancelReason();
             cancelPage.clickSubmit();
             cancelPage.clickOkPopup();
-            ExtentTestListener.logStep("Cancel Flow Login → Location → Pending Order Completed Successfully");
-        }
-        catch (Exception e)
-        {
+
+            ExtentTestListener.logStep(
+                    "Cancel Flow Completed Successfully");
+
+        } catch (Exception e) {
+
             e.printStackTrace();
-            takeScreenshot("cancelFlow_LoginLocation");
-            Assert.fail("Cancel Flow (Login + Location) Failed : " + e.getMessage());
+
+            takeScreenshot("CancelFlow");
+
+            Assert.fail(
+                    "Cancel Flow Failed : " + e.getMessage()
+            );
         }
     }
 }

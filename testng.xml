@@ -7,19 +7,22 @@
 
     <test name="SmartSortFlowTest">
         <classes>
+<!--REGISTRATION FLOW -->
 <!--            <class name="Testcase.ASmartSortRegistrationFlowTest"/>-->
 <!--            <class name="Testcase.BSmartSortRegistrationArabicFlowTest"/>-->
+<!--ORDER FLOW-->
 <!--            <class name="Testcase.CRequestorOrderPlacingFlowTest"/>-->
 <!--            <class name="Testcase.DRequestorDirectDeliveryOrderPlacingFlowTest"/>-->
-<!--            <class name="Testcase.ERequestorRedeemFlowTest"/>-->
-<!--            <class name="Testcase.FRequestorRescheduleFlowTest"/>-->
-<!--            <class name="Testcase.GRequestorOrderCancellingFlowTest"/>-->
-<!--            <class name="Testcase.HSmartBotChatFlowTest"/>-->
-<!--            <class name="Testcase.ISmartBotTicketManagementFlowTest"/>-->
-<!--            <class name="Testcase.JProfileViewBasicFeaturesFlowTest"/>-->
-<!--            <class name="Testcase.KCustomerCareServicesFlowTest"/>-->
-<!--            <class name="Testcase.LNotificationsFlowTest"/>-->
-<!--            <class name="Testcase.MOrderDetailsFlowTest"/>-->
+<!--REQUESTOR FLOW-->
+            <class name="Testcase.ERequestorRedeemFlowTest"/>
+            <class name="Testcase.FRequestorRescheduleFlowTest"/>
+            <class name="Testcase.GRequestorOrderCancellingFlowTest"/>
+            <class name="Testcase.HSmartBotChatFlowTest"/>
+            <class name="Testcase.ISmartBotTicketManagementFlowTest"/>
+            <class name="Testcase.JProfileViewBasicFeaturesFlowTest"/>
+            <class name="Testcase.KCustomerCareServicesFlowTest"/>
+            <class name="Testcase.LNotificationsFlowTest"/>
+            <class name="Testcase.MOrderDetailsFlowTest"/>
         </classes>
     </test>
 </suite>

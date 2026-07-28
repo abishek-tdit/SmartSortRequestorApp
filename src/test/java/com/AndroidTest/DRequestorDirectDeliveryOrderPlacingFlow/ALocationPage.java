@@ -6,47 +6,40 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
-public class BLocationPage {
+public class ALocationPage {
 
     AndroidDriver driver;
     WebDriverWait wait;
 
-    public BLocationPage(AndroidDriver driver) {
+    public ALocationPage(AndroidDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(40));
     }
 
     public void selectLocation() throws Exception {
 
-        Thread.sleep(3000);
 
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+
+        //LOCATION
         WebElement exploreBtn = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(
-                        AppiumBy.accessibilityId("Explore Other Locations")
-                )
-        );
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Explore Other Locations")));
 
         exploreBtn.click();
 
-        Thread.sleep(2000);
+        ExtentTestListener.logStep("Explore Other Locations clicked");
 
+
+        //BQAIQ
         WebElement locationBtn = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.accessibilityId("Bqaiq")
-                )
-        );
+                        AppiumBy.accessibilityId("Bqaiq")));
 
         locationBtn.click();
 
-        System.out.println("Location Selected : Bqaiq");
-
-        if (ExtentTestListener.getTest() != null) {
-            ExtentTestListener.getTest().pass("Selected Location: Bqaiq");
-        }
-
-        Thread.sleep(3000);
+        ExtentTestListener.logStep("Location Selected : Bqaiq");
     }
 }

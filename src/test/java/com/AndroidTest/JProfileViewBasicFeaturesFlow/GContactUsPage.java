@@ -28,7 +28,7 @@ public class GContactUsPage {
 
         ExtentTestListener.logStep("Contact Us Clicked");
 
-        Thread.sleep(3000);
+
 
         // Name
         WebElement nameField = wait.until(
@@ -43,7 +43,6 @@ public class GContactUsPage {
 
         ExtentTestListener.logStep("Name Entered");
 
-        Thread.sleep(1000);
 
         // Email
         WebElement emailField = wait.until(
@@ -58,7 +57,6 @@ public class GContactUsPage {
 
         ExtentTestListener.logStep("Email Entered");
 
-        Thread.sleep(1000);
 
         // Mobile Number
         WebElement mobileField = wait.until(
@@ -73,7 +71,6 @@ public class GContactUsPage {
 
         ExtentTestListener.logStep("Mobile Number Entered");
 
-        Thread.sleep(1000);
 
         // Message
         WebElement messageField = wait.until(
@@ -88,7 +85,6 @@ public class GContactUsPage {
 
         ExtentTestListener.logStep("Message Entered");
 
-        Thread.sleep(2000);
 
         // Close Keyboard
         try {
@@ -108,7 +104,7 @@ public class GContactUsPage {
 
         ExtentTestListener.logStep("Send Button Clicked");
 
-        Thread.sleep(7000);
+
 
         // Click OK Popup
         wait.until(ExpectedConditions.elementToBeClickable(
@@ -117,6 +113,5 @@ public class GContactUsPage {
 
         ExtentTestListener.logStep("OK Popup Clicked");
 
-        Thread.sleep(3000);
     }
 }

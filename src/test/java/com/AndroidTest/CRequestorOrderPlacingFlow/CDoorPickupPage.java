@@ -23,8 +23,6 @@ public class CDoorPickupPage {
 
     public void selectPickup() throws Exception {
 
-        Thread.sleep(3000);
-
         // Scroll to Door Pickup
         driver.findElement(
                 AppiumBy.androidUIAutomator(
@@ -33,7 +31,7 @@ public class CDoorPickupPage {
 
         ExtentTestListener.logStep("Scrolled to Door Pickup");
 
-        Thread.sleep(3000);
+
 
         // Click Door Pickup directly
         WebElement doorPickup = driver.findElement(
@@ -42,8 +40,6 @@ public class CDoorPickupPage {
         doorPickup.click();
 
         ExtentTestListener.logStep("Door Pickup Clicked");
-
-        Thread.sleep(3000);
 
 
         // CLICK "SELECT YOUR PICKUP LOCATION ON MAP"
@@ -56,35 +52,19 @@ public class CDoorPickupPage {
         ExtentTestListener.logStep("Pickup Location Clicked");
 
         ExtentTestListener.getTest().pass("Clicked Select Pickup Location On Map");
-        Thread.sleep(5000);
 
 
-//         //Click Saved Address
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-//
-//        WebElement savedAddress = new WebDriverWait(driver, Duration.ofSeconds(20))
-//                .until(ExpectedConditions.elementToBeClickable(
-//                        AppiumBy.xpath("//android.view.View[contains(@content-desc,'WJPM+72')]")
-//                ));
-//
-//        savedAddress.click();
-//
-//        System.out.println("Saved Address Selected");
 
         // Click Saved Address
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-
         WebElement savedAddress = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.view.View[contains(@content-desc,'FBPA4143')]")
+                        AppiumBy.xpath(
+                                "//android.view.View[contains(@content-desc,'Buqayq')]")
                 )
         );
-
         savedAddress.click();
 
-        ExtentTestListener.logStep("Saved Address Selected");
-
-
+        ExtentTestListener.logStep("Saved Address Clicked ");
 
 
         // WAIT FOR OK POPUP
@@ -97,7 +77,7 @@ public class CDoorPickupPage {
         ExtentTestListener.logStep("OK Popup Clicked");
         ExtentTestListener.getTest().pass("Clicked OK Popup");
 
-        Thread.sleep(3000);
+
 
         //Tic checkbox
         WebElement checkBox = wait.until(
@@ -114,6 +94,6 @@ public class CDoorPickupPage {
         ExtentTestListener.logStep("Checkbox Selected");
         ExtentTestListener.getTest().pass("Checkbox Selected");
 
-        Thread.sleep(2000);
+
     }
 }

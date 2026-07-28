@@ -1,70 +1,78 @@
 package com.AndroidTest.JProfileViewBasicFeaturesFlow;
 
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
+public class EViewQRCodePage extends BasePage {
 
-public class EViewQRCodePage {
-
-    AndroidDriver driver;
-    WebDriverWait wait;
+    //=========================================================
+    // Constructor
+    //=========================================================
 
     public EViewQRCodePage(AndroidDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        super(driver);
     }
+
+    //=========================================================
+    // Locators
+    //=========================================================
+
+    private final By profileIcon = AppiumBy.xpath(
+            "//android.widget.FrameLayout[@resource-id='android:id/content']" +
+                    "/android.widget.FrameLayout/android.widget.FrameLayout" +
+                    "/android.view.View/android.view.View/android.view.View" +
+                    "/android.view.View/android.view.View[1]" +
+                    "/android.view.View/android.widget.ImageView[1]"
+    );
+
+    private final By viewProfile =
+            AppiumBy.accessibilityId("View Profile");
+
+    private final By viewQRCode =
+            AppiumBy.accessibilityId("View QR Code");
+
+    private final By downloadQRButton =
+            AppiumBy.xpath("//android.widget.Button");
+
+    //=========================================================
+    // Verify QR Code Feature
+    //=========================================================
 
     public void verifyQRCodeFeature() throws InterruptedException {
 
-        // Navigate back to Profile Page
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.widget.ImageView\").instance(0)")
-        )).click();
-
+        // Profile
+        wait.until(ExpectedConditions.elementToBeClickable(profileIcon)).click();
         ExtentTestListener.logStep("Profile Icon Clicked");
 
-        Thread.sleep(5000);
-
-
-        // Click View Profile
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("View Profile")
-        )).click();
-
+        // View Profile
+        wait.until(ExpectedConditions.elementToBeClickable(viewProfile)).click();
         ExtentTestListener.logStep("View Profile Clicked");
 
-        Thread.sleep(5000);
-
         // Click View QR Code
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("View QR Code")
-        )).click();
+        wait.until(ExpectedConditions.elementToBeClickable(viewQRCode))
+                .click();
 
         ExtentTestListener.logStep("View QR Code Clicked");
-
-        Thread.sleep(5000);
+        Thread.sleep(2000);
 
         // Click Download QR
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.xpath("//android.widget.Button")
-        )).click();
+        wait.until(ExpectedConditions.elementToBeClickable(downloadQRButton))
+                .click();
 
         ExtentTestListener.logStep("Download QR Clicked");
+        Thread.sleep(2000);
 
-        Thread.sleep(5000);
-
-        // Go Back to Previous Screen
+        // Navigate Back
         driver.navigate().back();
 
         ExtentTestListener.logStep("Navigated Back");
 
-        Thread.sleep(3000);
-
-        System.out.println("QR Code Feature Completed Successfully");
+        if (ExtentTestListener.getTest() != null) {
+            ExtentTestListener.getTest().pass("QR Code Feature Verified Successfully");
+        }
     }
 }

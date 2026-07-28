@@ -7,18 +7,19 @@ import com.AndroidTest.LNotificationsFlow.BNotificationPage;
 import org.testng.annotations.Test;
 
 public class LNotificationsFlowTest extends BaseClassMobile {
-    @Test
+
+    @Test(priority = 8)
     public void testNotificationFlow() throws Exception {
 
-        //Abishek rtr      - 0500098765 Dom (RO)
-        //Jamuna           - 0500445566 Dom (NON RO)
+        //Abiram abi      - 0500000055 Dom
 
         //Login:
 //        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500445566",
+//        loginPage.login("0500000055",
 //                "Admin@194");
 //
 //        ExtentTestListener.logStep("Login completed");
+        Thread.sleep(3000);
 
         //NOTIFICATION PAGE:
         BNotificationPage page = new BNotificationPage(driver);
@@ -80,5 +81,6 @@ public class LNotificationsFlowTest extends BaseClassMobile {
         driver.navigate().back();
 
         ExtentTestListener.logStep("Navigated to Home screen");
+        Thread.sleep(5000);
     }
 }
