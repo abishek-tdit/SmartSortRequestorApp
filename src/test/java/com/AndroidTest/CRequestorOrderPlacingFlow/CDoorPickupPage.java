@@ -95,5 +95,85 @@ public class CDoorPickupPage {
         ExtentTestListener.getTest().pass("Checkbox Selected");
 
 
+        // Scroll down until "Pick up instructions" is visible
+        while (driver.findElements(AppiumBy.accessibilityId("Pick up instructions")).isEmpty()) {
+
+            driver.executeScript(
+                    "mobile: scrollGesture",
+                    Map.of(
+                            "left", 100,
+                            "top", 300,
+                            "width", 800,
+                            "height", 1200,
+                            "direction", "down",
+                            "percent", 0.8
+                    ));
+        }
+
+        // Pickup Instructions
+        WebElement pickupInstructions = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Pick up instructions")));
+
+        pickupInstructions.click();
+        ExtentTestListener.logStep("Pickup Instructions Opened");
+
+// Select "Dont ring bell"
+        WebElement dontRingBell = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Dont ring bell")));
+
+        dontRingBell.click();
+        ExtentTestListener.logStep("Instruction Selected : Don't ring bell");
+
+// Enter Note
+        WebElement noteTextBox = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.className("android.widget.EditText")));
+
+        noteTextBox.click();
+        noteTextBox.clear();
+        noteTextBox.sendKeys("Beware of dogs");
+
+        ExtentTestListener.logStep("Pickup Note Entered");
+
+// Start Recording
+        WebElement startRecording = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Start recording")));
+
+        driver.executeScript(
+                "mobile: clickGesture",
+                Map.of(
+                        "elementId",
+                        ((RemoteWebElement) startRecording).getId()));
+
+        ExtentTestListener.logStep("Audio Recording Started");
+
+// Record for 3 seconds
+        Thread.sleep(3000);
+
+// Stop Recording
+        WebElement stopRecording = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Recording in progress")));
+
+        driver.executeScript(
+                "mobile: clickGesture",
+                Map.of(
+                        "elementId",
+                        ((RemoteWebElement) stopRecording).getId()));
+
+        ExtentTestListener.logStep("Audio Recording Stopped");
+
+// Save
+        WebElement saveButton = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Save")));
+
+        saveButton.click();
+        ExtentTestListener.logStep("Pickup Instructions Saved");
+
+
     }
 }

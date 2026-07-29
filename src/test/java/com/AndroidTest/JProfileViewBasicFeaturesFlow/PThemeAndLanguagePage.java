@@ -7,9 +7,9 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class MThemeAndLanguagePage extends BasePage {
+public class PThemeAndLanguagePage extends BasePage {
 
-    public MThemeAndLanguagePage(AndroidDriver driver) {
+    public PThemeAndLanguagePage(AndroidDriver driver) {
         super(driver);
     }
 

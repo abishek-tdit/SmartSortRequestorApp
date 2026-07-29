@@ -46,7 +46,7 @@ public class ASignUpPage {
         util.click(util.waitForAccessibilityId("Select City"));
 
         ExtentTestListener.logStep("Select City dropdown clicked");
-        String city = "Bqaiq";
+        String city = "Chennai";
 
         util.click(util.waitForAccessibilityId(city));
 

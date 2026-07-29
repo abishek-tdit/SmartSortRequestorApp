@@ -14,15 +14,16 @@
 <!--            <class name="Testcase.CRequestorOrderPlacingFlowTest"/>-->
 <!--            <class name="Testcase.DRequestorDirectDeliveryOrderPlacingFlowTest"/>-->
 <!--REQUESTOR FLOW-->
-            <class name="Testcase.ERequestorRedeemFlowTest"/>
-            <class name="Testcase.FRequestorRescheduleFlowTest"/>
-            <class name="Testcase.GRequestorOrderCancellingFlowTest"/>
-            <class name="Testcase.HSmartBotChatFlowTest"/>
-            <class name="Testcase.ISmartBotTicketManagementFlowTest"/>
-            <class name="Testcase.JProfileViewBasicFeaturesFlowTest"/>
-            <class name="Testcase.KCustomerCareServicesFlowTest"/>
-            <class name="Testcase.LNotificationsFlowTest"/>
-            <class name="Testcase.MOrderDetailsFlowTest"/>
+<!--            <class name="Testcase.ERequestorRedeemFlowTest"/>-->
+<!--            <class name="Testcase.FRequestorRescheduleFlowTest"/>-->
+<!--            <class name="Testcase.GRequestorOrderCancellingFlowTest"/>-->
+<!--            <class name="Testcase.HSmartBotChatFlowTest"/>-->
+<!--            <class name="Testcase.ISmartBotTicketManagementFlowTest"/>-->
+<!--            <class name="Testcase.JProfileViewBasicFeaturesFlowTest"/>-->
+<!--            <class name="Testcase.KCustomerCareServicesFlowTest"/>-->
+<!--            <class name="Testcase.LNotificationsFlowTest"/>-->
+<!--            <class name="Testcase.MOrderDetailsFlowTest"/>-->
+            <class name="Testcase.NAccountDeleteFlowTest"/>
         </classes>
     </test>
 </suite>

@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Map;
 
-public class LWhatsNewPage extends BasePage {
+public class MWhatsNewPage extends BasePage {
 
-    public LWhatsNewPage(AndroidDriver driver) {
+    public MWhatsNewPage(AndroidDriver driver) {
         super(driver);
     }
 

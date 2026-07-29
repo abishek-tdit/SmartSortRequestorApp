@@ -67,12 +67,12 @@ public class JProfileViewBasicFeaturesFlowTest extends BaseClassMobile {
         ExtentTestListener.logStep("Free Up Space Completed Successfully");
 
         // What's New
-        LWhatsNewPage whatsNewPage = new LWhatsNewPage(driver);
+        MWhatsNewPage whatsNewPage = new MWhatsNewPage(driver);
         whatsNewPage.verifyWhatsNewFeature();
         ExtentTestListener.logStep("What's New Feature Completed Successfully");
 
         // Theme & Language
-        MThemeAndLanguagePage settingsPage = new MThemeAndLanguagePage(driver);
+        PThemeAndLanguagePage settingsPage = new PThemeAndLanguagePage(driver);
         settingsPage.verifySettingsFeatures();
         ExtentTestListener.logStep("Theme and Language Feature Completed Successfully");
     }

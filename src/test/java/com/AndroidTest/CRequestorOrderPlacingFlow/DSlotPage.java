@@ -41,8 +41,9 @@ public class DSlotPage extends BasePage {
     // Select Slot
     //=========================================================
 
-    public void selectSlot() {
+    public void selectSlot() throws InterruptedException {
 
+        Thread.sleep(5000);
         // Scroll to Select Slot
         utility.scrollToDescription("Select Slot");
 
