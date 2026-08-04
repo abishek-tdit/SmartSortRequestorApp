@@ -10,11 +10,11 @@ public class JProfileViewBasicFeaturesFlowTest extends BaseClassMobile {
     @Test(priority = 6)
     public void profileViewBasicFeaturesFlow() throws Exception {
 
-        //Login
-//        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500000055",
-//                        "Admin@194");
-//        ExtentTestListener.logStep("Login completed successfully");
+////        //Login
+////        ALoginPage loginPage = new ALoginPage(driver);
+////        loginPage.login("0500000055",
+////                        "Admin@194");
+////        ExtentTestListener.logStep("Login completed successfully");
 
         // Profile Icon
         BHomePage homePage = new BHomePage(driver);
@@ -34,44 +34,67 @@ public class JProfileViewBasicFeaturesFlowTest extends BaseClassMobile {
         ExtentTestListener.logStep("Profile User Details Updated Successfully");
         Thread.sleep(4000);
 
+        //Social Media URL
+        ESocialMediaURL socialMediaPage = new ESocialMediaURL();
+        socialMediaPage.openProfile();
+
         // QR Code
-        EViewQRCodePage qrCodePage = new EViewQRCodePage(driver);
+        FViewQRCodePage qrCodePage = new FViewQRCodePage(driver);
         qrCodePage.verifyQRCodeFeature();
         ExtentTestListener.logStep("QR Code Feature Completed Successfully");
 
         //Change Password
-        FChangePasswordPage passwordPage = new FChangePasswordPage(driver);
+        GChangePasswordPage passwordPage = new GChangePasswordPage(driver);
         passwordPage.changePassword();
         ExtentTestListener.logStep("Password Changed Successfully");
 
-        // Contact Us
-        GContactUsPage contactUsPage = new GContactUsPage(driver);
-        contactUsPage.submitContactUsForm();
-        ExtentTestListener.logStep("Contact Us Submitted Successfully");
 
-        driver.navigate().back();
 
         // Location
+        Thread.sleep(5000);
         HLocationPage locationPage = new HLocationPage(driver);
         locationPage.selectLocation();
         ExtentTestListener.logStep("Location Selected Successfully");
-        Thread.sleep(5000);
+        Thread.sleep(3000);
+
         // Address
         IYourAddressPage addressPage = new IYourAddressPage(driver);
         addressPage.validateYourAddressPage();
         ExtentTestListener.logStep("Address Feature Completed Successfully");
 
-        // Free Up Space
+        //Check Update
+        JCheckForUpdatePage checkForUpdatePage = new JCheckForUpdatePage(driver);
+        checkForUpdatePage.clickCheckForUpdate();
+
+        //Free Up Space
         KFreeUpSpacePage freeUpSpacePage = new KFreeUpSpacePage(driver);
         freeUpSpacePage.scrollAndOptimize();
         ExtentTestListener.logStep("Free Up Space Completed Successfully");
 
-        // What's New
+//        //Contact Us
+//        Thread.sleep(3000);
+//        LBContactUsPage contactUsPage = new LBContactUsPage(driver);
+//        contactUsPage.submitContactUsForm();
+//        ExtentTestListener.logStep("Contact Us Submitted Successfully");
+
+
+        //What's New
         MWhatsNewPage whatsNewPage = new MWhatsNewPage(driver);
         whatsNewPage.verifyWhatsNewFeature();
         ExtentTestListener.logStep("What's New Feature Completed Successfully");
 
-        // Theme & Language
+        // Privacy Policy
+        NPrivacyPolicyPage privacyPolicyPage = new NPrivacyPolicyPage(driver);
+        privacyPolicyPage.clickPrivacyPolicy();
+        ExtentTestListener.logStep("Privacy Policy Test Completed Successfully");
+
+        //About Us
+        OAboutUsPage aboutUsPage = new OAboutUsPage(driver);
+        aboutUsPage.clickAboutUs();
+
+        ExtentTestListener.logStep("About Us Test Completed Successfully");
+
+        //Theme & Language
         PThemeAndLanguagePage settingsPage = new PThemeAndLanguagePage(driver);
         settingsPage.verifySettingsFeatures();
         ExtentTestListener.logStep("Theme and Language Feature Completed Successfully");

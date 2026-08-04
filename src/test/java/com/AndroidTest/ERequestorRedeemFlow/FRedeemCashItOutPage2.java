@@ -4,12 +4,6 @@ import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
-
-import java.time.Duration;
-import java.util.List;
 
 public class FRedeemCashItOutPage2 extends BasePage {
 
@@ -25,74 +19,45 @@ public class FRedeemCashItOutPage2 extends BasePage {
     // Locators
     //=========================================================
 
-    private final By redeemCashOutButton =
-            AppiumBy.xpath(
-                    "//android.view.View[@content-desc='Redeem & cash it out']/android.widget.Button");
+    private final By REDEEM_CASH_OUT =
+            AppiumBy.accessibilityId("Redeem & cash it out");
 
     //=========================================================
     // Redeem Cash Out
     //=========================================================
 
-    public void redeemPoints2() {
+    public void redeemPoints2() throws InterruptedException {
 
         log("========== REDEEM CASH OUT STARTED ==========");
 
-        // Wait for page to load
-        utility.delay(5);
+       Thread.sleep(6000);
 
-        //=====================================================
-        // Manual Swipe
-        //=====================================================
+        // Scroll until Redeem & Cash Out is visible
+        boolean found = false;
 
-        Dimension size = driver.manage().window().getSize();
+        for (int i = 0; i < 8; i++) {
 
-        int startX = size.width / 2;
-        int startY = (int) (size.height * 0.80);
-        int endY = (int) (size.height * 0.30);
+            if (!driver.findElements(REDEEM_CASH_OUT).isEmpty()) {
+                found = true;
+                log("Redeem & Cash Out button found");
+                break;
+            }
 
-        PointerInput finger =
-                new PointerInput(PointerInput.Kind.TOUCH, "finger");
+            driver.findElement(
+                    AppiumBy.androidUIAutomator(
+                            "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
 
-        Sequence swipe = new Sequence(finger, 1);
+            log("Small scroll performed");
+        }
 
-        swipe.addAction(
-                finger.createPointerMove(
-                        Duration.ZERO,
-                        PointerInput.Origin.viewport(),
-                        startX,
-                        startY));
+        if (!found) {
+            throw new RuntimeException("Redeem & Cash Out button not found after scrolling.");
+        }
 
-        swipe.addAction(
-                finger.createPointerDown(
-                        PointerInput.MouseButton.LEFT.asArg()));
-
-        swipe.addAction(
-                finger.createPointerMove(
-                        Duration.ofMillis(1000),
-                        PointerInput.Origin.viewport(),
-                        startX,
-                        endY));
-
-        swipe.addAction(
-                finger.createPointerUp(
-                        PointerInput.MouseButton.LEFT.asArg()));
-
-        driver.perform(List.of(swipe));
-
-        log("Page Scrolled");
-
-        utility.delay(3);
-
-        //=====================================================
-        // Click Redeem & Cash It Out
-        //=====================================================
-
-        waitClickable(redeemCashOutButton);
-
-        click(redeemCashOutButton);
+        waitClickable(REDEEM_CASH_OUT);
+        click(REDEEM_CASH_OUT);
 
         log("Clicked 'Redeem & Cash It Out'");
-
         log("========== REDEEM CASH OUT COMPLETED ==========");
     }
 }

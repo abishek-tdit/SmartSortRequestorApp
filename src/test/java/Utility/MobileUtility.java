@@ -16,6 +16,9 @@ public class MobileUtility {
 
     private final AndroidDriver driver;
     private final WebDriverWait wait;
+    public static String referralCode = "";
+    public static String generatedMobileNumber = "";
+    public static String generatedPassword = "Admin@194";
 
     public MobileUtility(AndroidDriver driver) {
 

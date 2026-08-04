@@ -83,44 +83,11 @@ public class HVoucherPage extends BasePage {
 
     public void scrollAndClickRedeemCashOut() {
 
-        log("Scrolling to Redeem & Cash It Out");
+        //scroll down
+        scrollDown();
+        //scroll down
+        scrollDown();
 
-        Dimension size = driver.manage().window().getSize();
-
-        int startX = size.width / 2;
-        int startY = (int) (size.height * 0.80);
-        int endY = (int) (size.height * 0.30);
-
-        PointerInput finger =
-                new PointerInput(PointerInput.Kind.TOUCH, "finger");
-
-        Sequence swipe = new Sequence(finger, 1);
-
-        swipe.addAction(
-                finger.createPointerMove(
-                        Duration.ZERO,
-                        PointerInput.Origin.viewport(),
-                        startX,
-                        startY));
-
-        swipe.addAction(
-                finger.createPointerDown(
-                        PointerInput.MouseButton.LEFT.asArg()));
-
-        swipe.addAction(
-                finger.createPointerMove(
-                        Duration.ofMillis(1000),
-                        PointerInput.Origin.viewport(),
-                        startX,
-                        endY));
-
-        swipe.addAction(
-                finger.createPointerUp(
-                        PointerInput.MouseButton.LEFT.asArg()));
-
-        driver.perform(List.of(swipe));
-
-        log("Page Scrolled");
 
         utility.delay(3);
 

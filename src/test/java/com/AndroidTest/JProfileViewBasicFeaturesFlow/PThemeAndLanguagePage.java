@@ -18,7 +18,7 @@ public class PThemeAndLanguagePage extends BasePage {
         //===========================
         // DARK MODE ON
         //===========================
-
+        wait.until(driver -> true);
         wait.until(ExpectedConditions.elementToBeClickable(
                         AppiumBy.accessibilityId("Off")))
                 .click();
@@ -59,9 +59,11 @@ public class PThemeAndLanguagePage extends BasePage {
 
         ExtentTestListener.logStep("Language Option Clicked");
 
+        //
         WebElement arabicBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.widget.Button[@content-desc='ع\nعربي']")));
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.androidUIAutomator(
+                                "new UiSelector().descriptionContains(\"AR\")")));
 
         arabicBtn.click();
 
@@ -73,7 +75,8 @@ public class PThemeAndLanguagePage extends BasePage {
 
         WebElement arabicLanguageMenu = wait.until(
                 ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.widget.Button[@content-desc='ع\nاللغة']")));
+                        AppiumBy.androidUIAutomator(
+                                "new UiSelector().descriptionContains(\"AR\")")));
 
         arabicLanguageMenu.click();
 

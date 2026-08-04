@@ -22,12 +22,16 @@ public class BSmartBotPage extends BasePage {
     // Locators
     //=========================================================
 
-    private final By smartBotIcon = AppiumBy.xpath(
-            "//android.widget.FrameLayout[@resource-id='android:id/content']" +
-                    "/android.widget.FrameLayout/android.widget.FrameLayout" +
-                    "/android.view.View/android.view.View/android.view.View" +
-                    "/android.view.View/android.widget.ImageView[2]"
-    );
+    private final By smartBotIcon =
+            AppiumBy.xpath(
+                    "//android.widget.FrameLayout[@resource-id='android:id/content']" +
+                            "/android.widget.FrameLayout" +
+                            "/android.widget.FrameLayout" +
+                            "/android.view.View" +
+                            "/android.view.View" +
+                            "/android.view.View[2]" +
+                            "/android.widget.ImageView"
+            );
 
     private final By startNewChatButton =
             AppiumBy.accessibilityId("Start new chat");

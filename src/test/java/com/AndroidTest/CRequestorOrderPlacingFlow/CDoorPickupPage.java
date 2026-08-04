@@ -1,17 +1,20 @@
 package com.AndroidTest.CRequestorOrderPlacingFlow;
 
+import Base.BaseClassMobile;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+
 import java.util.Map;
 
-public class CDoorPickupPage {
+public class CDoorPickupPage extends BaseClassMobile {
 
     AndroidDriver driver;
     WebDriverWait wait;
@@ -23,19 +26,12 @@ public class CDoorPickupPage {
 
     public void selectPickup() throws Exception {
 
-        // Scroll to Door Pickup
-        driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiScrollable(new UiSelector().scrollable(true))"
-                                + ".scrollIntoView(new UiSelector().descriptionContains(\"Door Pickup\"))"));
-
-        ExtentTestListener.logStep("Scrolled to Door Pickup");
-
-
-
-        // Click Door Pickup directly
-        WebElement doorPickup = driver.findElement(
-                By.xpath("//android.widget.ImageView[contains(@content-desc,'Door Pickup')]"));
+        // Click Door Pickup
+        WebElement doorPickup = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Door Pickup")
+                )
+        );
 
         doorPickup.click();
 
@@ -78,6 +74,8 @@ public class CDoorPickupPage {
         ExtentTestListener.getTest().pass("Clicked OK Popup");
 
 
+        //scroll down
+        scrollDown();
 
         //Tic checkbox
         WebElement checkBox = wait.until(
@@ -117,8 +115,10 @@ public class CDoorPickupPage {
 
         pickupInstructions.click();
         ExtentTestListener.logStep("Pickup Instructions Opened");
+        wait.until(driver -> true);
 
-// Select "Dont ring bell"
+
+        // Select " Don't ring bell "
         WebElement dontRingBell = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.accessibilityId("Dont ring bell")));
@@ -126,7 +126,8 @@ public class CDoorPickupPage {
         dontRingBell.click();
         ExtentTestListener.logStep("Instruction Selected : Don't ring bell");
 
-// Enter Note
+
+        // Enter Note
         WebElement noteTextBox = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.className("android.widget.EditText")));
@@ -136,8 +137,10 @@ public class CDoorPickupPage {
         noteTextBox.sendKeys("Beware of dogs");
 
         ExtentTestListener.logStep("Pickup Note Entered");
+        driver.navigate().back();
 
-// Start Recording
+
+        // Start Recording
         WebElement startRecording = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.accessibilityId("Start recording")));
@@ -150,10 +153,10 @@ public class CDoorPickupPage {
 
         ExtentTestListener.logStep("Audio Recording Started");
 
-// Record for 3 seconds
         Thread.sleep(3000);
 
-// Stop Recording
+
+        // Stop Recording
         WebElement stopRecording = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.accessibilityId("Recording in progress")));
@@ -165,8 +168,10 @@ public class CDoorPickupPage {
                         ((RemoteWebElement) stopRecording).getId()));
 
         ExtentTestListener.logStep("Audio Recording Stopped");
+        wait.until(driver -> true);
 
-// Save
+
+        // Save
         WebElement saveButton = wait.until(
                 ExpectedConditions.elementToBeClickable(
                         AppiumBy.accessibilityId("Save")));

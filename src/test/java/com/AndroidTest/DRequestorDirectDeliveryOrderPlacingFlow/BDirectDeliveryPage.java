@@ -38,7 +38,7 @@ public class BDirectDeliveryPage extends BasePage {
                     "new UiSelector().descriptionContains(\"TTFVaasan\")");
 
     private final By MIXED_MATERIALS =
-            AppiumBy.accessibilityId("Mixed Materials *");
+            AppiumBy.xpath("//android.widget.CheckBox[@content-desc='Mixed Materials *']");
 
     private final By CONFIRM_CHECKBOX =
             AppiumBy.accessibilityId(
@@ -112,12 +112,8 @@ public class BDirectDeliveryPage extends BasePage {
 
             ExtentTestListener.logStep("TTFVaasan Selected");
 
-            // Scroll Down
-            driver.findElement(
-                    AppiumBy.androidUIAutomator(
-                            "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
-
-            ExtentTestListener.logStep("Page Scrolled");
+            //scroll down
+            scrollDown();
 
             // Mixed Materials
             click(MIXED_MATERIALS);

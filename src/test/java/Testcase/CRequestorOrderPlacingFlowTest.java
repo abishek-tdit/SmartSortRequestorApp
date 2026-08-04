@@ -14,11 +14,11 @@ public class CRequestorOrderPlacingFlowTest extends BaseClassMobile {
     public void smartSortOrderFlow() throws Exception {
 
 
-        // Login
-        ALoginPage loginPage = new ALoginPage(driver);
-        loginPage.login("0500000055",
-                     "Admin@194");
-        Thread.sleep(5000);
+//        // Login
+//        ALoginPage loginPage = new ALoginPage(driver);
+//        loginPage.login("0500000055",
+//                     "Admin@194");
+//        Thread.sleep(10000);
 
         //=====================================================
         // Location

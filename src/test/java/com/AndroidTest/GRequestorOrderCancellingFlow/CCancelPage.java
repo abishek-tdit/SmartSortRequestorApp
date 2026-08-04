@@ -85,12 +85,12 @@ public class CCancelPage extends BasePage {
     // Select Order
     //=========================================================
 
-    public void selectOrderToCancel(String orderNumber) {
+    public void selectOrderToCancel(String orderNumberCancel ) {
 
         boolean found = false;
 
         By orderXpath = By.xpath(
-                "//android.widget.ImageView[contains(@content-desc,'" + orderNumber + "')]");
+                "//android.widget.ImageView[contains(@content-desc,'" + orderNumberCancel  + "')]");
 
         for (int i = 0; i < 8; i++) {
 
@@ -107,11 +107,11 @@ public class CCancelPage extends BasePage {
                 order.click();
 
                 ExtentTestListener.logStep(
-                        "Order Clicked Successfully : " + orderNumber);
+                        "Order Clicked Successfully : " + orderNumberCancel );
 
                 if (ExtentTestListener.getTest() != null) {
                     ExtentTestListener.getTest().pass(
-                            "Selected Order : " + orderNumber);
+                            "Selected Order : " + orderNumberCancel );
                 }
 
                 found = true;
@@ -125,7 +125,7 @@ public class CCancelPage extends BasePage {
 
         if (!found) {
             throw new RuntimeException(
-                    "Order not found : " + orderNumber);
+                    "Order not found : " + orderNumberCancel );
         }
     }
 
@@ -133,8 +133,11 @@ public class CCancelPage extends BasePage {
     // Click Cancel Button
     //=========================================================
 
+
     public void clickCancelButton() {
 
+        //scroll down
+        scrollDown();
         wait.until(ExpectedConditions.elementToBeClickable(cancelButton))
                 .click();
 

@@ -37,7 +37,7 @@ public class DTicketHistoryPage extends BasePage {
             AppiumBy.xpath("//android.view.View[contains(@content-desc,'TCK-')]");
 
     private final By createdDate =
-            AppiumBy.xpath("//android.view.View[contains(@content-desc,'July')]");
+            AppiumBy.xpath("//android.view.View[contains(@content-desc,'August')]");
 
     private final By backButtonInsideTicket =
             AppiumBy.xpath("(//android.widget.Button[@content-desc='Back'])[2]");
@@ -54,7 +54,10 @@ public class DTicketHistoryPage extends BasePage {
 
     public void viewTicketHistory() {
 
-        scrollTillEnd(0.80);
+        //scroll down
+        scrollDown();
+        //scroll down
+        scrollDown();
 
         wait.until(ExpectedConditions.elementToBeClickable(ticketHistoryButton))
                 .click();

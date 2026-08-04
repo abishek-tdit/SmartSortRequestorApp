@@ -1,5 +1,7 @@
 package com.AndroidTest.DRequestorDirectDeliveryOrderPlacingFlow;
 
+import Base.BaseClassMobile;
+import Base.BasePage;
 import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
@@ -11,7 +13,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.time.LocalDate;
 
-public class CScheduleDatePage {
+public class CScheduleDatePage extends BaseClassMobile {
 
     AndroidDriver driver;
     WebDriverWait wait;
@@ -52,11 +54,12 @@ public class CScheduleDatePage {
                         AppiumBy.accessibilityId("OK")));
 
         ok.click();
+        ExtentTestListener.logStep("Schedule Date clicked");
     }
 
 
     public void clickScheduleTime() {
-
+        scrollDown();
         WebElement timeField = wait.until(
                 ExpectedConditions.presenceOfElementLocated(
                         AppiumBy.xpath("//android.view.View[@hint='Schedule Time *']")));
@@ -70,8 +73,6 @@ public class CScheduleDatePage {
     public void selectScheduleTime() throws InterruptedException {
 
         try {
-
-
 
             // Check if keyboard icon exists
             if (!driver.findElements(
@@ -130,20 +131,14 @@ public class CScheduleDatePage {
 
             System.out.println("Time Picker not displayed");
             e.printStackTrace();
+            scrollDown();
         }
     }
 
-    public void clickContinue() {
+    public void clickContinue() throws InterruptedException {
 
-        try {
-
-        } catch (Exception ignored){
-        }
-
-        // Scroll down once
-        driver.findElement(AppiumBy.androidUIAutomator(
-                "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
-
+        Thread.sleep(2000);
+        scrollDown();
         // Wait for Continue
         WebElement continueBtn = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
@@ -152,7 +147,7 @@ public class CScheduleDatePage {
         // Click Continue
         continueBtn.click();
 
-        System.out.println("Continue clicked");
+        ExtentTestListener.logStep("Continue clicked");
     }
 
     public void clickConfirmAndOK() {
@@ -181,6 +176,6 @@ public class CScheduleDatePage {
                         AppiumBy.accessibilityId("OK"))
                 .click();
 
-        System.out.println("Ok Popup clicked");
+        ExtentTestListener.logStep("Ok Popup clicked");
     }
 }

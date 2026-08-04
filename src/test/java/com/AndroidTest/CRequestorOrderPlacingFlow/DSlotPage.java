@@ -7,6 +7,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 import java.util.Map;
@@ -43,13 +44,18 @@ public class DSlotPage extends BasePage {
 
     public void selectSlot() throws InterruptedException {
 
-        Thread.sleep(5000);
-        // Scroll to Select Slot
-        utility.scrollToDescription("Select Slot");
+        Thread.sleep(3000);
 
-        // Click Select Slot
-        WebElement selectSlotBtn = getElement(SELECT_SLOT);
+        // Wait for Select Slot button
+        scrollDown();
+        WebElement selectSlotBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.accessibilityId("Select Slot")
+                )
+        );
 
+
+        // Click using clickGesture
         driver.executeScript(
                 "mobile: clickGesture",
                 Map.of(

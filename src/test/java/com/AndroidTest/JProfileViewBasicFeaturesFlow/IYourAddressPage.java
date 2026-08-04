@@ -18,6 +18,7 @@ public class IYourAddressPage extends BasePage {
     public void validateYourAddressPage() {
 
         // Profile Icon
+        wait.until(driver -> true);
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.xpath(
                         "//android.widget.FrameLayout[@resource-id='android:id/content']" +
@@ -30,6 +31,7 @@ public class IYourAddressPage extends BasePage {
         ExtentTestListener.logStep("Profile Icon Clicked");
 
         // View Profile
+        wait.until(driver -> true);
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("View Profile"))).click();
 
@@ -123,11 +125,10 @@ public class IYourAddressPage extends BasePage {
 
         ExtentTestListener.logStep("Again Your Address Clicked");
 
-        // Scroll to Bottom
-        driver.findElement(
-                AppiumBy.androidUIAutomator(
-                        "new UiScrollable(new UiSelector().scrollable(true)).scrollToEnd(5)")
-        );
+        //scroll down
+        scrollDown();
+        //scroll down
+        scrollDown();
 
         // Delete Buttons
         List<WebElement> deleteButtons = driver.findElements(
@@ -145,19 +146,19 @@ public class IYourAddressPage extends BasePage {
 
         ExtentTestListener.logStep("Last Address Deleted Successfully");
 
-        // First OK
+        //First OK
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("OK"))).click();
 
         ExtentTestListener.logStep("First OK Popup Clicked");
 
-        // Second OK
+        //Second OK
         wait.until(ExpectedConditions.elementToBeClickable(
                 AppiumBy.accessibilityId("OK"))).click();
 
         ExtentTestListener.logStep("Second OK Popup Clicked");
 
-        // Back
+        //Back
         driver.navigate().back();
 
         ExtentTestListener.logStep("Navigated Back");

@@ -94,7 +94,10 @@ public class ASignUpArabicPage {
         waitAndClick(AppiumBy.accessibilityId("EN"));
         ExtentTestListener.logStep("Language button clicked");
 
-        waitAndClick(AppiumBy.xpath("//android.widget.Button[@content-desc='ع\nعربي']"));
+        driver.findElement(
+                        AppiumBy.androidUIAutomator(
+                                "new UiSelector().descriptionContains(\"AR\")"))
+                .click();
         ExtentTestListener.logStep("Arabic language selected");
 
 
@@ -229,9 +232,7 @@ public class ASignUpArabicPage {
 
         // LAST NAME
         waitAndSendKeys(
-                AppiumBy.androidUIAutomator(
-                        "new UiSelector().className(\"android.widget.EditText\").instance(2)"
-                ),
+                AppiumBy.xpath("//android.widget.EditText[@hint='اسم العائلة']"),
                 "آر آر"
         );
 
@@ -374,7 +375,7 @@ public class ASignUpArabicPage {
         ExtentTestListener.logStep("OTP from DB : " + otp);
 
 
-        Thread.sleep(5000);
+        Thread.sleep(6000);
 
         // OTP CONFIRM
         WebElement confirmButton = wait.until(
@@ -384,7 +385,7 @@ public class ASignUpArabicPage {
         confirmButton.click();
 
         ExtentTestListener.logStep("OTP Confirm button clicked");
-        Thread.sleep(3000);
+        Thread.sleep(6000);
 
 
         // SUCCESS POPUP

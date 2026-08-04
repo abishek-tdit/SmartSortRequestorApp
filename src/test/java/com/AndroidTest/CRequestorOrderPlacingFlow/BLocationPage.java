@@ -20,14 +20,16 @@ public class BLocationPage {
 
     public void selectLocation() throws Exception {
 
-
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
-
-        //LOCATION
+        // Wait until the element is visible
         WebElement exploreBtn = wait.until(
-                ExpectedConditions.elementToBeClickable(
+                ExpectedConditions.visibilityOfElementLocated(
                         AppiumBy.accessibilityId("Explore Other Locations")));
 
+        // Wait until it is clickable
+        wait.until(ExpectedConditions.elementToBeClickable(exploreBtn));
+
+        // Click
         exploreBtn.click();
 
         ExtentTestListener.logStep("Explore Other Locations clicked");

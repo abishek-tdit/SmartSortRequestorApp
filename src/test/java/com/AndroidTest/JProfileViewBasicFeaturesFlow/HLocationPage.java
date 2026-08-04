@@ -52,6 +52,8 @@ public class HLocationPage extends BasePage {
 
         if (ExtentTestListener.getTest() != null) {
             ExtentTestListener.getTest().pass("Selected Location : Bqaiq");
+
+            wait.until(driver -> true);
         }
     }
 }

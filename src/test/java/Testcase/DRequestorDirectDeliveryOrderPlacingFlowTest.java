@@ -12,10 +12,11 @@ public class DRequestorDirectDeliveryOrderPlacingFlowTest extends BaseClassMobil
     @Test(priority = 2)
     public void smartSortDirectDeliveryOrderFlow() throws Exception {
 
-        Thread.sleep(5000);
+        Thread.sleep(6000);
         // Location
         ALocationPage locationPage = new ALocationPage(driver);
         locationPage.selectLocation();
+
 
         // Direct Delivery
         BDirectDeliveryPage directDeliveryPage = new BDirectDeliveryPage(driver);

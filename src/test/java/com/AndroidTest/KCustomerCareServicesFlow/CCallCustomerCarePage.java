@@ -38,15 +38,17 @@ public class CCallCustomerCarePage {
 
             WebElement callIcon = wait.until(
                     ExpectedConditions.elementToBeClickable(
-                            AppiumBy.androidUIAutomator(
-                                    "new UiSelector().className(\"android.widget.ImageView\").instance(7)")));
+                            AppiumBy.xpath(
+                                    "//android.widget.FrameLayout[@resource-id='android:id/content']" +
+                                            "/android.widget.FrameLayout/android.widget.FrameLayout" +
+                                            "/android.view.View/android.view.View/android.widget.ImageView"
+                            )));
 
             callIcon.click();
             ExtentTestListener.logStep("Call Icon Clicked Successfully");
 
         } catch (Exception e) {
-            ExtentTestListener.logStep(
-                    "Failed to click Call Icon : " + e.getMessage());
+            ExtentTestListener.logStep("Failed to click Call Icon : " + e.getMessage());
             throw e;
         }
     }

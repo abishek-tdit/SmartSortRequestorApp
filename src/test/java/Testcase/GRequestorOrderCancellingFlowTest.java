@@ -1,6 +1,8 @@
 package Testcase;
 
 import Base.ExtentTestListener;
+import Utility.OrderData;
+import Utility.OrderNumber;
 import com.AndroidTest.GRequestorOrderCancellingFlow.ALoginPage;
 import com.AndroidTest.GRequestorOrderCancellingFlow.BLocationPage;
 import com.AndroidTest.GRequestorOrderCancellingFlow.CCancelPage;
@@ -41,7 +43,7 @@ public class GRequestorOrderCancellingFlowTest extends ExtentTestListener {
             // Change Order Number Before Execution
             //=========================================================
 
-            cancelPage.selectOrderToCancel("AB-RO-62175");
+            cancelPage.selectOrderToCancel(OrderNumber.orderNumberCancel);
 
             //=========================================================
             // Cancel Order

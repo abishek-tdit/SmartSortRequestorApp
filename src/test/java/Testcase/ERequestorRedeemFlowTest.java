@@ -12,38 +12,33 @@ public class ERequestorRedeemFlowTest extends BaseClassMobile {
 
         ExtentTestListener.logStep("========== REQUESTOR REDEEM FLOW STARTED ==========");
 
-        //=========================================================
-        // Login
-        //=========================================================
-
+        //Login
         ALoginPage loginPage = new ALoginPage(driver);
         loginPage.login("0500000055",
                 "Admin@194");
 
         ExtentTestListener.logStep("Login Completed Successfully");
         Thread.sleep(4000);
-        //=========================================================
-        // Location 1
-        //=========================================================
 
-        BLocationPage1 locationPage1 = new BLocationPage1(driver);
+        // Location 1
+        BALocationPage1 locationPage1 = new BALocationPage1(driver);
         locationPage1.selectLocation1();
 
         ExtentTestListener.logStep("Location 1 Selected Successfully");
         Thread.sleep(4000);
 
-        //=========================================================
-        // Redeem & Cash Out
-        //=========================================================
-        CRedeemCashItOutPage1 redeemPage1 = new CRedeemCashItOutPage1(driver);
-        redeemPage1.redeemPoints1();
+        //Available Points
+        BBAvailablePointsForRedeemPage page = new BBAvailablePointsForRedeemPage(driver);
+        page.redeemPoints1();
 
-        ExtentTestListener.logStep("Redeem & Cash Out Completed");
 
-        //=========================================================
+        // Business Point History
+        CBusinessPointHistoryPage businessPointHistoryPage = new CBusinessPointHistoryPage(driver);
+        businessPointHistoryPage.openBusinessPointHistory();
+        businessPointHistoryPage.filterBusinessHistory();
+
+
         // Partner Store
-        //=========================================================
-
         DProcessRedeemPointsPartnerStorePage partnerStorePage =
                 new DProcessRedeemPointsPartnerStorePage(driver);
 

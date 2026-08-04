@@ -65,5 +65,6 @@ public class MWhatsNewPage extends BasePage {
                 .click();
 
         ExtentTestListener.logStep("Back Button Clicked");
+        wait.until(driver -> true);
     }
 }
