@@ -144,15 +144,18 @@ public class BaseClassMobile {
     }
 
 
-    // Swipe Up
-    public void swipeUp() {
+//=========================================================
+// Scroll Up
+//=========================================================
+
+    public void scrollUp() {
 
         driver.executeScript("mobile: scrollGesture", Map.of(
-                "left", 100,
+                "left", 300,
                 "top", 300,
-                "width", 500,
+                "width", 200,
                 "height", 1000,
-                "direction", "down",
+                "direction", "up",
                 "percent", 0.8
         ));
     }

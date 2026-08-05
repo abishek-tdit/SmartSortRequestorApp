@@ -2,9 +2,9 @@ package Testcase;
 
 import Base.BaseClassMobile;
 import Base.ExtentTestListener;
-import com.AndroidTest.O3VerifyReferralPointsFlow.ARequestorLoginPage;
-import com.AndroidTest.O3VerifyReferralPointsFlow.BLocationPage;
-import com.AndroidTest.O3VerifyReferralPointsFlow.CApprovedReferralUsersPage;
+import com.AndroidTest.N3VerifyReferralPointsFlow.ARequestorLoginPage;
+import com.AndroidTest.N3VerifyReferralPointsFlow.BLocationPage;
+import com.AndroidTest.N3VerifyReferralPointsFlow.CApprovedReferralUsersPage;
 import org.testng.annotations.Test;
 
 public class O3VerifyReferralPointsFlowTest extends BaseClassMobile {

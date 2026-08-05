@@ -2,7 +2,7 @@ package Testcase;
 
 import Base.BaseClassMobile;
 import Base.ExtentTestListener;
-import com.AndroidTest.O2CollectorUtilityOrderCompleteFlow.*;
+import com.AndroidTest.N2CollectorUtilityOrderCompleteFlow.*;
 import org.testng.annotations.Test;
 
 public class O2CollectorUtilityOrderCompleteFlowTest extends BaseClassMobile {

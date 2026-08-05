@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Map;
 
 public class BasePage {
 
@@ -18,128 +19,194 @@ public class BasePage {
     protected WebDriverWait wait;
     protected MobileUtility utility;
 
+    //=========================================================
     // Constructor
+    //=========================================================
+
     public BasePage(AndroidDriver driver) {
 
         this.driver = driver;
         this.wait = BaseClassMobile.wait;
         this.utility = new MobileUtility(driver);
     }
+
+    //=========================================================
+    // Scroll Down (Finger Swipes Up)
+    //=========================================================
+
     public void scrollDown() {
 
         Dimension size = driver.manage().window().getSize();
 
         int x = size.width / 2;
-        int startY = (int) (size.height * 0.75);
-        int endY = (int) (size.height * 0.35);
+        int startY = (int) (size.height * 0.80);
+        int endY = (int) (size.height * 0.20);
 
         PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
         Sequence swipe = new Sequence(finger, 1);
 
-        swipe.addAction(finger.createPointerMove(Duration.ZERO,
-                PointerInput.Origin.viewport(), x, startY));
-        swipe.addAction(finger.createPointerDown(PointerInput.MouseButton.LEFT.asArg()));
-        swipe.addAction(finger.createPointerMove(Duration.ofMillis(500),
-                PointerInput.Origin.viewport(), x, endY));
-        swipe.addAction(finger.createPointerUp(PointerInput.MouseButton.LEFT.asArg()));
+        swipe.addAction(finger.createPointerMove(
+                Duration.ZERO,
+                PointerInput.Origin.viewport(),
+                x,
+                startY));
+
+        swipe.addAction(finger.createPointerDown(
+                PointerInput.MouseButton.LEFT.asArg()));
+
+        swipe.addAction(finger.createPointerMove(
+                Duration.ofMillis(700),
+                PointerInput.Origin.viewport(),
+                x,
+                endY));
+
+        swipe.addAction(finger.createPointerUp(
+                PointerInput.MouseButton.LEFT.asArg()));
 
         driver.perform(Collections.singletonList(swipe));
     }
 
+    //=========================================================
+// Scroll Up
+//=========================================================
 
+    public void scrollUp() {
+
+        Dimension size = driver.manage().window().getSize();
+
+        boolean canScroll = true;
+
+        while (canScroll) {
+
+            canScroll = (Boolean) driver.executeScript("mobile: swipeGesture", Map.of(
+                    "left", 0,
+                    "top", 0,
+                    "width", size.width,
+                    "height", size.height,
+                    "direction", "down",
+                    "percent", 0.90
+            ));
+
+            System.out.println("Can Scroll More : " + canScroll);
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+
+            if (!canScroll) {
+                break;
+            }
+        }
+    }
+
+    //=========================================================
     // Click
-    protected void click(By locator) {
+    //=========================================================
 
+    protected void click(By locator) {
         utility.click(locator);
     }
 
-
+    //=========================================================
     // Mobile Click
-    protected void mobileClick(By locator) {
+    //=========================================================
 
+    protected void mobileClick(By locator) {
         utility.mobileClick(locator);
     }
 
-
+    //=========================================================
     // Send Keys
-    protected void sendKeys(By locator, String value) {
+    //=========================================================
 
+    protected void sendKeys(By locator, String value) {
         utility.sendKeys(locator, value);
     }
 
-
+    //=========================================================
     // Hide Keyboard
-    protected void hideKeyboard() {
+    //=========================================================
 
+    protected void hideKeyboard() {
         utility.hideKeyboard();
     }
 
-
+    //=========================================================
     // Wait Visible
-    protected void waitVisible(By locator) {
+    //=========================================================
 
+    protected void waitVisible(By locator) {
         utility.waitForVisible(locator);
     }
 
-
+    //=========================================================
     // Wait Clickable
-    protected void waitClickable(By locator) {
+    //=========================================================
 
+    protected void waitClickable(By locator) {
         utility.waitForClickable(locator);
     }
 
-
+    //=========================================================
     // Get Visible Element
-    protected WebElement getElement(By locator) {
+    //=========================================================
 
+    protected WebElement getElement(By locator) {
         return utility.waitForVisible(locator);
     }
 
-
+    //=========================================================
     // Get Clickable Element
-    protected WebElement getClickableElement(By locator) {
+    //=========================================================
 
+    protected WebElement getClickableElement(By locator) {
         return utility.waitForClickable(locator);
     }
 
+    //=========================================================
     // Is Displayed
+    //=========================================================
+
     protected boolean isDisplayed(By locator) {
 
         try {
-
             return utility.waitForVisible(locator).isDisplayed();
-
         } catch (Exception e) {
-
             return false;
         }
     }
 
+    //=========================================================
     // Get Text
-    protected String getText(By locator) {
+    //=========================================================
 
+    protected String getText(By locator) {
         return utility.waitForVisible(locator).getText();
     }
 
-
+    //=========================================================
     // Clear
-    protected void clear(By locator) {
+    //=========================================================
 
+    protected void clear(By locator) {
         utility.waitForVisible(locator).clear();
     }
 
-
+    //=========================================================
     // Delay
-    protected void delay(int seconds) {
+    //=========================================================
 
+    protected void delay(int seconds) {
         utility.delay(seconds);
     }
 
-
+    //=========================================================
     // Log
-    protected void log(String message) {
+    //=========================================================
 
+    protected void log(String message) {
         ExtentTestListener.logStep(message);
     }
-
 }

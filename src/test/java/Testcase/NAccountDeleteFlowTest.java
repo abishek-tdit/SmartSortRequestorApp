@@ -3,7 +3,7 @@ package Testcase;
 
 import Base.BaseClassMobile;
 import Base.ExtentTestListener;
-import com.AndroidTest.NAccountDeleteFlow.ADeleteAccountPage;
+import com.AndroidTest.MAccountDeleteFlow.ADeleteAccountPage;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;

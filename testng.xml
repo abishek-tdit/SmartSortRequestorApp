@@ -11,20 +11,27 @@
 <!--            <class name="Testcase.ASmartSortRegistrationFlowTest"/>-->
 <!--            <class name="Testcase.BSmartSortRegistrationArabicFlowTest"/>-->
 
-<!--ORDER FLOW-->
-            <class name="Testcase.CRequestorOrderPlacingFlowTest"/>
-            <class name="Testcase.DRequestorDirectDeliveryOrderPlacingFlowTest"/>
+<!--DOOR PICKUP & DIRECT DELIVERY FULL ORDER PLACING & COMPLETION FLOW-->
+<!--            <class name="Testcase.C1RequestorOrderPlacingFlowTest"/>-->
+<!--            <class name="Testcase.C2RequestorDirectDeliveryOrderPlacingFlowTest"/>-->
+<!--            <class name="Testcase.C3CollectorUtilityOrderCompleteFlowTest"/>-->
+<!--            <class name="Testcase.C4CollectionCenterAcceptOrderFlowTest"/>-->
+<!--            <class name="Testcase.C5CollectorNavigateToCollectionCenterFlowTest"/>-->
+<!--            <class name="Testcase.C6CollectionCenterUpdateQuantityFlowTest"/>-->
+<!--            <class name="Testcase.C7CollectionCenterDirectDeliveryOrderFlowTest"/>-->
 
 <!--REQUESTOR FLOW-->
-<!--            <class name="Testcase.ERequestorRedeemFlowTest"/>-->
-<!--            <class name="Testcase.FRequestorRescheduleFlowTest"/>-->
-<!--            <class name="Testcase.GRequestorOrderCancellingFlowTest"/>-->
-<!--            <class name="Testcase.HSmartBotChatFlowTest"/>-->
-<!--            <class name="Testcase.ISmartBotTicketManagementFlowTest"/>-->
-<!--            <class name="Testcase.JProfileViewBasicFeaturesFlowTest"/>-->
-<!--            <class name="Testcase.KCustomerCareServicesFlowTest"/>-->
-<!--            <class name="Testcase.LNotificationsFlowTest"/>-->
-<!--            <class name="Testcase.MOrderDetailsFlowTest"/>-->
+<!--            <class name="Testcase.DRequestorRedeemFlowTest"/>-->
+            <class name="Testcase.E1PlaceOrderForRescheduleFlowTest"/>
+            <class name="Testcase.E2RequestorRescheduleFlowTest"/>
+            <class name="Testcase.F1PlaceOrderForCancelFlowTest"/>
+            <class name="Testcase.F2RequestorOrderCancellingFlowTest"/>
+<!--            <class name="Testcase.GSmartBotChatFlowTest"/>-->
+<!--            <class name="Testcase.HSmartBotTicketManagementFlowTest"/>-->
+<!--            <class name="Testcase.IProfileViewBasicFeaturesFlowTest"/>-->
+<!--            <class name="Testcase.JCustomerCareServicesFlowTest"/>-->
+<!--            <class name="Testcase.KNotificationsFlowTest"/>-->
+<!--            <class name="Testcase.LOrderDetailsFlowTest"/>-->
 <!--            <class name="Testcase.NAccountDeleteFlowTest"/>-->
 
 <!--REFER AND EARN FLOW-->

@@ -3,7 +3,7 @@ package Testcase;
 import Base.BaseClassMobile;
 import Base.ExtentTestListener;
 import Utility.MobileUtility;
-import com.AndroidTest.O1ReferAndEarnFlow.*;
+import com.AndroidTest.N1ReferAndEarnFlow.*;
 import org.testng.annotations.Test;
 
 public class O1ReferAndEarnFlowTest extends BaseClassMobile {
