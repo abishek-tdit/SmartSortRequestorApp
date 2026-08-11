@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class F1PlaceOrderForCancelFlowTest extends BaseClassMobile {
 
-    @Test(priority = 1)
+    @Test(priority = 13)
     public void placeOrderForCancelFlow() throws Exception {
 
         //=========================================================

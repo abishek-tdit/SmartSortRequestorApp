@@ -14,77 +14,103 @@ public class KNotificationsFlowTest extends BaseClassMobile {
 
         ANotificationPage page = new ANotificationPage(driver);
 
-        // CLICK NOTIFICATION ICON
-        ExtentTestListener.getTest().info("Clicking notification icon");
+        //=========================================================
+        // Click Notification Icon
+        //=========================================================
+        ExtentTestListener.getTest().info("Clicking Notification Icon");
+
         page.clickNotificationIcon();
 
-        // VERIFY NOTIFICATION SCREEN
+        //=========================================================
+        // Verify Notification Screen
+        //=========================================================
         if (!page.isNotificationScreenDisplayed()) {
+
             ExtentTestListener.getTest().fail("Notification screen failed");
+
             throw new RuntimeException("Notification screen failed");
         }
 
-        ExtentTestListener.getTest().pass("Notification screen opened");
+        ExtentTestListener.getTest().pass("Notification screen opened successfully");
 
-        // PRINT ALL NOTIFICATIONS
+        //=========================================================
+        // Print All Notifications
+        //=========================================================
         page.printAllNotifications();
 
+        //=========================================================
+        // Save First Notification
+        //=========================================================
         String before = page.getFirstNotificationText();
 
-        // CLICK FIRST NOTIFICATION
-        ExtentTestListener.getTest().info("Clicking first notification");
+        //=========================================================
+        // Click First Notification
+        //=========================================================
+        ExtentTestListener.getTest().info("Clicking First Notification");
+
         page.clickFirstNotification();
 
         if (page.isStillOnNotificationScreen()) {
 
-            ExtentTestListener.logStep("Notification clicked but stayed on Notification screen");
+            ExtentTestListener.logStep(
+                    "Notification clicked but stayed on Notification screen");
 
         } else {
 
-            ExtentTestListener.logStep("Notification opened another screen");
+            ExtentTestListener.logStep(
+                    "Notification opened another screen");
 
-            driver.navigate().back();
-
-            Thread.sleep(1500);
-
-            if (!page.isNotificationScreenDisplayed()) {
-                throw new RuntimeException("Unable to return to Notification screen");
-            }
+            page.goBack();
         }
 
         ExtentTestListener.getTest().pass("Notification click validated");
 
-        // VALIDATE READ STATUS
+        //=========================================================
+        // Validate Read Status
+        //=========================================================
         String after = page.getFirstNotificationText();
+
         page.validateNotificationRead(before, after);
 
         ExtentTestListener.getTest().pass("Read validation completed");
 
-        // SCROLL
+        //=========================================================
+        // Scroll Down
+        //=========================================================
         int beforeScroll = page.getNotificationCount();
-        ExtentTestListener.getTest().info("Visible notifications before scroll : " + beforeScroll);
+
+        ExtentTestListener.getTest().info(
+                "Visible notifications before scroll : " + beforeScroll);
 
         page.scrollDown();
 
         int afterScroll = page.getNotificationCount();
-        ExtentTestListener.getTest().info("Visible notifications after scroll : " + afterScroll);
+
+        ExtentTestListener.getTest().info(
+                "Visible notifications after scroll : " + afterScroll);
 
         ExtentTestListener.getTest().pass("Scroll validated");
 
-        // VERIFY ALL NOTIFICATIONS
+        //=========================================================
+        // Validate Every Notification
+        //=========================================================
         page.verifyAllNotifications();
 
         ExtentTestListener.getTest().pass("All notifications validated");
 
-        // DELETE LAST NOTIFICATION
+        //=========================================================
+        // Delete Last Notification
+        //=========================================================
         page.deleteLastNotification();
 
         ExtentTestListener.getTest().pass("Last notification deleted");
 
-        // RETURN HOME
+        //=========================================================
+        // Return Home
+        //=========================================================
         page.goToHomeFromNotification();
 
-        ExtentTestListener.getTest().pass("Returned to Home screen");
+        ExtentTestListener.getTest().pass("Returned to Home Screen");
 
         Thread.sleep(3000);
     }

@@ -71,7 +71,7 @@ public class ASignUpPage {
         );
 
         firstName.click();
-        firstName.sendKeys("Kiran");
+        firstName.sendKeys("Vijay");
 
         ExtentTestListener.logStep("First Name entered successfully");
 
@@ -86,7 +86,7 @@ public class ASignUpPage {
         );
 
         lastName.click();
-        lastName.sendKeys("Khan");
+        lastName.sendKeys("JD");
 
         ExtentTestListener.logStep("Last Name entered successfully");
 
@@ -161,12 +161,7 @@ public class ASignUpPage {
 
         ExtentTestListener.logStep("Mobile Number entered successfully");
         wait.until(driver -> true);
-//
-//        // PRESS TAB / NEXT
-//        driver.pressKey(new io.appium.java_client.android.nativekey.KeyEvent(
-//                io.appium.java_client.android.nativekey.AndroidKey.TAB));
-//
-//        wait.until(driver -> true);
+
 
 
         // PASSWORD
@@ -252,7 +247,6 @@ public class ASignUpPage {
 
         registerBtn.click();
         ExtentTestListener.logStep("Register button clicked successfully");
-
         wait.until(driver -> true);
 
 
@@ -284,8 +278,6 @@ public class ASignUpPage {
 
         // WAIT FOR REGISTRATION SUCCESS POPUP
         wait.until(driver -> true);
-
-
         // CLICK SUCCESS OK BUTTON
         WebElement successOkBtn = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(
@@ -294,6 +286,7 @@ public class ASignUpPage {
         successOkBtn.click();
 
         ExtentTestListener.logStep("Registration Success OK button clicked");
+
 
     }
 }

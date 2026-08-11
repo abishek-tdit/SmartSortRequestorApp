@@ -5,8 +5,6 @@ import Base.ExtentTestListener;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Map;
 
@@ -18,7 +16,7 @@ public class HLogoutPage extends BaseClassMobile {
         this.driver = driver;
     }
 
-    public void clearStorage() throws Exception {
+    public void logout() throws Exception {
 
         // Click PROFILE
         WebElement profile = waitUntilClickable(

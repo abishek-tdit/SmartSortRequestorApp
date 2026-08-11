@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class C3CollectorUtilityOrderCompleteFlowTest extends BaseClassMobile {
 
-    @Test(priority = 3)
+    @Test(priority = 5)
     public void collectorUtilityOrderCompleteFlow() throws Exception {
 
         //=========================================================
@@ -27,6 +27,7 @@ public class C3CollectorUtilityOrderCompleteFlowTest extends BaseClassMobile {
         loginPage.login("0500055447",
                 "Admin@194");
 
+        Thread.sleep(4000);
         // Open Request Order
         BRequestOrderROPage1 requestOrderPage = new BRequestOrderROPage1();
         requestOrderPage.openLatestRequestOrder();
@@ -55,7 +56,7 @@ public class C3CollectorUtilityOrderCompleteFlowTest extends BaseClassMobile {
 
         //Logout Page:
         HLogoutPage logoutPage = new HLogoutPage(driver);
-        logoutPage.clearStorage();
+        logoutPage.logout();
 
         ExtentTestListener.logStep("Collector  Order 1st  Flow Completed Successfully");
     }

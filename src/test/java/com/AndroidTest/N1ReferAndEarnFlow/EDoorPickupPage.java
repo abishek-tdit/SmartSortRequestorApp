@@ -1,5 +1,7 @@
 package com.AndroidTest.N1ReferAndEarnFlow;
 
+import Base.BaseClassMobile;
+import Base.BasePage;
 import Base.ExtentTestListener;
 import Utility.DOrderDataReferEarn;
 import io.appium.java_client.AppiumBy;
@@ -15,7 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class EDoorPickupPage {
+public class EDoorPickupPage extends BaseClassMobile {
 
     AndroidDriver driver;
     WebDriverWait wait;
@@ -123,48 +125,58 @@ public class EDoorPickupPage {
 //
 //        ExtentTestListener.logStep("OK Popup Clicked");
 //        ExtentTestListener.getTest().pass("Clicked OK Popup");
-//
 
-         //Checkbox
-        WebElement checkbox = wait.until(
-                ExpectedConditions.elementToBeClickable(
-                        AppiumBy.xpath("//android.widget.CheckBox[@content-desc='I confirm that my request contains only the accepted materials and meets the above conditions *']")));
+        // ==========================================================
+        // Scroll Down
+        // ==========================================================
+        scrollDown();
+        Thread.sleep(4000);
+        // ==========================================================
+        // Click Confirmation Checkbox
+        // ==========================================================
+        WebElement checkBox = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.accessibilityId(
+                                "I confirm that my request contains only the accepted materials and meets the above conditions *")));
 
-        driver.executeScript(
-                "mobile: clickGesture",
-                Map.of(
-                        "elementId",
-                        ((RemoteWebElement) checkbox).getId()));
+        wait.until(ExpectedConditions.elementToBeClickable(checkBox));
 
-        ExtentTestListener.logStep("Checkbox Selected");
-
-
-        // Scroll until Select Slot
-        while (driver.findElements(AppiumBy.accessibilityId("Select Slot")).isEmpty()) {
-
+        try {
+            checkBox.click();
+        } catch (Exception e) {
+            // Fallback if normal click fails
             driver.executeScript(
-                    "mobile: scrollGesture",
-                    Map.of(
-                            "left", 100,
-                            "top", 300,
-                            "width", 800,
-                            "height", 1200,
-                            "direction", "down",
-                            "percent", 0.8
-                    ));
+                    "mobile: clickGesture",
+                    Map.of("elementId", ((RemoteWebElement) checkBox).getId()));
         }
 
-        // ==========================================================
-        // Select Slot
-        // ==========================================================
+        ExtentTestListener.logStep("Confirmation Checkbox Selected");
+        ExtentTestListener.getTest().pass("Confirmation Checkbox Selected");
 
+
+
+        // Scroll Down Again
+        scrollDown();
+        Thread.sleep(2000);
+
+
+        // Click Select Slot
         WebElement selectSlot = wait.until(
-                ExpectedConditions.elementToBeClickable(
+                ExpectedConditions.visibilityOfElementLocated(
                         AppiumBy.accessibilityId("Select Slot")));
 
-        selectSlot.click();
+        wait.until(ExpectedConditions.elementToBeClickable(selectSlot));
+
+        try {
+            selectSlot.click();
+        } catch (Exception e) {
+            driver.executeScript(
+                    "mobile: clickGesture",
+                    Map.of("elementId", ((RemoteWebElement) selectSlot).getId()));
+        }
 
         ExtentTestListener.logStep("Select Slot Clicked");
+        ExtentTestListener.getTest().pass("Select Slot Clicked");
 
 
         // ==========================================================

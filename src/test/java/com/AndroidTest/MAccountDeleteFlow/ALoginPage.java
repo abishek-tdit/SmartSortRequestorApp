@@ -1,4 +1,4 @@
-package com.AndroidTest.C1RequestorOrderPlacingFlow;
+package com.AndroidTest.MAccountDeleteFlow;
 
 import Base.BasePage;
 import Base.ExtentTestListener;
@@ -17,8 +17,8 @@ public class ALoginPage extends BasePage {
 
 
     // Locators
-//    private final By LOGIN_HOME =
-//            AppiumBy.accessibilityId("Log in");
+    private final By LOGIN_HOME =
+            AppiumBy.accessibilityId("Log in");
 
     private final By MOBILE =
             By.xpath("(//android.widget.EditText)[1]");
@@ -33,13 +33,13 @@ public class ALoginPage extends BasePage {
     // Login
     public void login(String mobileNo, String passwordText) {
 
-//        click(LOGIN_HOME);
-//
-//        ExtentTestListener.logStep("Log In Button Clicked");
-//
-//        if (ExtentTestListener.getTest() != null) {
-//            ExtentTestListener.getTest().pass("Log in button clicked");
-//        }
+        click(LOGIN_HOME);
+
+        ExtentTestListener.logStep("Log In Button Clicked");
+
+        if (ExtentTestListener.getTest() != null) {
+            ExtentTestListener.getTest().pass("Log in button clicked");
+        }
 
         sendKeys(MOBILE, mobileNo);
 

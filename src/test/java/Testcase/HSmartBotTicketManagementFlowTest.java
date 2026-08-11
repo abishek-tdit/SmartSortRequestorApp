@@ -2,42 +2,56 @@ package Testcase;
 
 import Base.BaseClassMobile;
 import Base.ExtentTestListener;
-import com.AndroidTest.HSmartBotTicketManagementFlow.BSmartBotPage;
-import com.AndroidTest.HSmartBotTicketManagementFlow.CRaiseTicketPage;
+import Utility.EOrderDataTicketManagement;
+import com.AndroidTest.HSmartBotTicketManagementFlow.ASmartBotPage;
+import com.AndroidTest.HSmartBotTicketManagementFlow.BRaiseTicketPage;
+import com.AndroidTest.HSmartBotTicketManagementFlow.CLoginWebExecutivePage;
 import com.AndroidTest.HSmartBotTicketManagementFlow.DTicketHistoryPage;
 import org.testng.annotations.Test;
 
 public class HSmartBotTicketManagementFlowTest extends BaseClassMobile {
 
-    @Test(priority = 5)
-    public void smartBotTicketManagementFlow() {
-
-        //=========================================================
-        // LOGIN
-        //=========================================================
-
-//        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500000055", "Admin@194");
-//
-//        ExtentTestListener.logStep("Login completed successfully");
+    @Test(priority = 16)
+    public void smartBotTicketManagementFlow() throws InterruptedException {
 
         //=========================================================
         // OPEN SMART-BOT
         //=========================================================
 
-        BSmartBotPage smartBotPage = new BSmartBotPage(driver);
+        ASmartBotPage smartBotPage = new ASmartBotPage(driver);
         smartBotPage.openSmartBotAndStartChat();
 
         ExtentTestListener.logStep("SmartBot opened successfully");
 
+
         //=========================================================
-        // RAISE TICKET
+        // Raise Ticket
         //=========================================================
 
-        CRaiseTicketPage raiseTicketPage = new CRaiseTicketPage(driver);
+        BRaiseTicketPage raiseTicketPage = new BRaiseTicketPage(driver);
         raiseTicketPage.raiseTicket();
 
-        ExtentTestListener.logStep("Ticket raised successfully");
+        ExtentTestListener.logStep(
+                "Raise Ticket flow completed successfully");
+
+
+        //=========================================================
+        // Verify Saved Ticket ID
+        //=========================================================
+
+        System.out.println("==============================================");
+        System.out.println("SAVED TICKET DATA");
+        System.out.println("==============================================");
+        System.out.println("Ticket ID : "
+                + EOrderDataTicketManagement.ticketIDNo);
+        System.out.println("==============================================");
+
+
+        // Launch Chrome
+        CLoginWebExecutivePage executiveLogin = new CLoginWebExecutivePage();
+        executiveLogin.loginExecutive(
+                "SOEQA",
+                "SOEQA");
 
         //=========================================================
         // TICKET HISTORY

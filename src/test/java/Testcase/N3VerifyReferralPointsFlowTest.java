@@ -7,7 +7,7 @@ import com.AndroidTest.N3VerifyReferralPointsFlow.BLocationPage;
 import com.AndroidTest.N3VerifyReferralPointsFlow.CApprovedReferralUsersPage;
 import org.testng.annotations.Test;
 
-public class O3VerifyReferralPointsFlowTest extends BaseClassMobile {
+public class N3VerifyReferralPointsFlowTest extends BaseClassMobile {
 
     @Test(priority = 3)
     public void verifyReferralPointsFlow() throws Exception {
@@ -15,30 +15,28 @@ public class O3VerifyReferralPointsFlowTest extends BaseClassMobile {
         //=========================================================
         // Launch SmartSort App
         //=========================================================
-
         driver.activateApp("com.abqaiq.smartsort");
         ExtentTestListener.logStep("Smart Sort App Launched Successfully");
         Thread.sleep(5000);
 
-        // Logout from Requestor App
+
+        //Logout from Requestor App
         ARequestorLoginPage requestorLoginPage = new ARequestorLoginPage(driver);
 
         requestorLoginPage.logoutAndLogin(
                 "0500000055",
-                "Admin@194"
-        );
+                "Admin@194");
+
         ExtentTestListener.logStep("Login Completed");
 
-        //
+        //Location Page
         BLocationPage locationPage = new BLocationPage(driver);
         locationPage.selectLocation();
         Thread.sleep(8000);
 
 
-        //=========================================================
-        // Approved Referral Users
-        //=========================================================
 
+        // Approved Referral Users
         CApprovedReferralUsersPage approvedReferralUsersPage =
                 new CApprovedReferralUsersPage(driver);
 

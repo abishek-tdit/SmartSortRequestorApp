@@ -15,13 +15,13 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Map;
 
-public class ADeleteAccountPage extends BasePage {
+public class BDeleteAccountPage extends BasePage {
 
     //=========================================================
     // Constructor
     //=========================================================
 
-    public ADeleteAccountPage(AndroidDriver driver) {
+    public BDeleteAccountPage(AndroidDriver driver) {
         super(driver);
     }
 

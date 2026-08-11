@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 public class C6CollectionCenterUpdateQuantityFlowTest extends BaseClassMobile {
 
-    @Test(priority = 6)
+    @Test(priority = 8)
     public void collectionCenterQuantityUpdateTest() throws Exception {
 
         //TTFVaasan : 0500123001

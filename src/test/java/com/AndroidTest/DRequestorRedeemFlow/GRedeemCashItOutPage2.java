@@ -4,6 +4,12 @@ import Base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.interactions.PointerInput;
+import org.openqa.selenium.interactions.Sequence;
+
+import java.time.Duration;
+import java.util.Collections;
 
 public class GRedeemCashItOutPage2 extends BasePage {
 
@@ -26,32 +32,26 @@ public class GRedeemCashItOutPage2 extends BasePage {
     // Redeem Cash Out
     //=========================================================
 
-    public void redeemPoints2() throws InterruptedException {
+    public void redeemPoints2() {
 
         log("========== REDEEM CASH OUT STARTED ==========");
 
-       Thread.sleep(6000);
-
-        // Scroll until Redeem & Cash Out is visible
         boolean found = false;
 
-        for (int i = 0; i < 8; i++) {
+        // Check current screen first
+        if (!driver.findElements(REDEEM_CASH_OUT).isEmpty()) {
+            found = true;
+        }
+
+        // Swipe until found
+        while (!found) {
+
+            swipeUp();
 
             if (!driver.findElements(REDEEM_CASH_OUT).isEmpty()) {
                 found = true;
-                log("Redeem & Cash Out button found");
                 break;
             }
-
-            driver.findElement(
-                    AppiumBy.androidUIAutomator(
-                            "new UiScrollable(new UiSelector().scrollable(true)).scrollForward()"));
-
-            log("Small scroll performed");
-        }
-
-        if (!found) {
-            throw new RuntimeException("Redeem & Cash Out button not found after scrolling.");
         }
 
         waitClickable(REDEEM_CASH_OUT);
@@ -59,5 +59,42 @@ public class GRedeemCashItOutPage2 extends BasePage {
 
         log("Clicked 'Redeem & Cash It Out'");
         log("========== REDEEM CASH OUT COMPLETED ==========");
+    }
+
+    //=========================================================
+    // Swipe Up
+    //=========================================================
+
+    private void swipeUp() {
+
+        Dimension size = driver.manage().window().getSize();
+
+        int startX = size.width / 2;
+        int startY = (int) (size.height * 0.80);
+        int endY = (int) (size.height * 0.30);
+
+        PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "finger");
+
+        Sequence swipe = new Sequence(finger, 1);
+
+        swipe.addAction(finger.createPointerMove(
+                Duration.ZERO,
+                PointerInput.Origin.viewport(),
+                startX,
+                startY));
+
+        swipe.addAction(finger.createPointerDown(
+                PointerInput.MouseButton.LEFT.asArg()));
+
+        swipe.addAction(finger.createPointerMove(
+                Duration.ofMillis(500),
+                PointerInput.Origin.viewport(),
+                startX,
+                endY));
+
+        swipe.addAction(finger.createPointerUp(
+                PointerInput.MouseButton.LEFT.asArg()));
+
+        driver.perform(Collections.singletonList(swipe));
     }
 }

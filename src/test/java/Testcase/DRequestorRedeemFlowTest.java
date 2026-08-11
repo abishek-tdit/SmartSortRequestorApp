@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 public class DRequestorRedeemFlowTest extends BaseClassMobile {
 
-    @Test(priority = 8)
+    @Test(priority = 10)
     public void redeemFlow() throws Exception {
 
         ExtentTestListener.logStep("========== REQUESTOR REDEEM FLOW STARTED ==========");
@@ -17,14 +17,13 @@ public class DRequestorRedeemFlowTest extends BaseClassMobile {
         //=========================================================
         driver.activateApp("com.abqaiq.smartsort");
         ExtentTestListener.logStep("Smart Sort App Launched Successfully");
-        Thread.sleep(4000);
+        Thread.sleep(8000);
 
         // Location 1
         ALocationPage1 locationPage1 = new ALocationPage1(driver);
         locationPage1.selectLocation();
 
         ExtentTestListener.logStep("Location 1 Selected Successfully");
-        Thread.sleep(4000);
 
 
         //=========================================================
@@ -104,7 +103,6 @@ public class DRequestorRedeemFlowTest extends BaseClassMobile {
 
         // Voucher
         KVoucherPage voucherPage = new KVoucherPage(driver);
-        voucherPage.scrollAndClickRedeemCashOut();
         voucherPage.clickProceedToRedeemPoints();
         voucherPage.clickVoucher();
         voucherPage.clickCheckbox();

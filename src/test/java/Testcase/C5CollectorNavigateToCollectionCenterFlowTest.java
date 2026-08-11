@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class C5CollectorNavigateToCollectionCenterFlowTest extends BaseClassMobile {
 
-    @Test(priority = 5)
+    @Test(priority = 7)
     public void collectorNavigateToCollectionCenterTest() throws Exception {
 
         //Rahul  : 0500055447

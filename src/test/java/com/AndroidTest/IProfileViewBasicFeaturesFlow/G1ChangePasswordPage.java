@@ -9,12 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class GChangePasswordPage {
+public class G1ChangePasswordPage {
 
     AndroidDriver driver;
     WebDriverWait wait;
 
-    public GChangePasswordPage(AndroidDriver driver) {
+    public G1ChangePasswordPage(AndroidDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }

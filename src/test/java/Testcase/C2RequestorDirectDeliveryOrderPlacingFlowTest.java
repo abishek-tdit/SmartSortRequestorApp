@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class C2RequestorDirectDeliveryOrderPlacingFlowTest extends BaseClassMobile {
 
-    @Test(priority = 2)
+    @Test(priority = 4)
     public void smartSortDirectDeliveryOrderFlow() throws Exception {
 
         Thread.sleep(5000);

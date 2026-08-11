@@ -20,7 +20,7 @@ import java.util.Map;
 
 public class BaseClassMobile {
 
-    protected static AndroidDriver driver;
+    public static AndroidDriver driver;
     public static WebDriverWait wait;
     protected static ExtentReports extent;
 

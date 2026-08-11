@@ -397,7 +397,31 @@ public class ASignUpArabicPage {
 
         ExtentTestListener.logStep("Success popup Confirm button clicked");
 
+        // ==========================================================
+        // Change Language from Arabic to English
+        // ==========================================================
+
+        Thread.sleep(5000);
+         // Wait until the AR button is visible
+        WebElement languageBtn = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.accessibilityId("AR")));
+
+        // Wait until it is clickable and click
+        wait.until(ExpectedConditions.elementToBeClickable(languageBtn)).click();
+
+        ExtentTestListener.logStep("Language button (AR) clicked");
+
+
+        // Click English
+        WebElement englishBtn = wait.until(
+                ExpectedConditions.elementToBeClickable(
+                        AppiumBy.xpath("//android.widget.Button[contains(@content-desc,'English')]")));
+
+        englishBtn.click();
+
+        ExtentTestListener.logStep("English language selected");
+
         ExtentTestListener.logStep("======Arabic Registration Flow completed successfully======");
     }
 }
-

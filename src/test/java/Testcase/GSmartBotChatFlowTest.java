@@ -8,17 +8,10 @@ import org.testng.annotations.Test;
 
 public class GSmartBotChatFlowTest extends BaseClassMobile {
 
-    @Test(priority = 4)
+    @Test(priority = 15)
     public void smartBotFlow() throws InterruptedException {
 
         ExtentTestListener.logStep("========== SMARTBOT TEST STARTED ==========");
-        //Abiram abi      - 0500000055 Dom
-        // Login
-//        ALoginPage loginPage = new ALoginPage(driver);
-//        loginPage.login("0500000055",
-//                        "Admin@194");
-//
-//        ExtentTestListener.logStep("Login Completed Successfully");
 
         // Open SmartBot
         BSmartBotPage smartBotPage = new BSmartBotPage(driver);

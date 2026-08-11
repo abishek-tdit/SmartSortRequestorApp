@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class C7CollectionCenterDirectDeliveryOrderFlowTest extends BaseClassMobile {
 
-    @Test(priority = 7)
+    @Test(priority = 9)
     public void GCollectionCenterDirectDeliveryOrderFlow() throws Exception {
 
         //Direct - Order:

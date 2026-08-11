@@ -22,7 +22,7 @@ public class DBusinessPointHistoryPage extends BasePage {
             AppiumBy.accessibilityId("Business Point History");
 
     private final By startDate =
-            AppiumBy.accessibilityId("2026-07-06");
+            AppiumBy.accessibilityId("2026-07-12");
 
     private final By nextMonth =
             AppiumBy.accessibilityId("Next month");
@@ -31,10 +31,10 @@ public class DBusinessPointHistoryPage extends BasePage {
             AppiumBy.xpath("//android.widget.Button[starts-with(@content-desc,'1,')]");
 
     private final By endDate =
-            AppiumBy.accessibilityId("2026-08-05");
+            AppiumBy.accessibilityId("2026-08-11");
 
     private final By endDay =
-            AppiumBy.accessibilityId("5, Wednesday, August 5, 2026, Today");
+            AppiumBy.accessibilityId("11, Tuesday, August 11, 2026, Today");
 
     private final By okButton =
             AppiumBy.accessibilityId("OK");

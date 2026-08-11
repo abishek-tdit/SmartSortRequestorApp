@@ -9,12 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class LBContactUsPage {
+public class G2ContactUsPage {
 
     AndroidDriver driver;
     WebDriverWait wait;
 
-    public LBContactUsPage(AndroidDriver driver) {
+    public G2ContactUsPage(AndroidDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
@@ -22,9 +22,11 @@ public class LBContactUsPage {
     public void submitContactUsForm() throws InterruptedException {
 
         // Click Contact Us
-        wait.until(ExpectedConditions.elementToBeClickable(
-                AppiumBy.accessibilityId("Contact us")
-        )).click();
+        WebElement contactUs = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        AppiumBy.accessibilityId("Contact us")));
+
+        wait.until(ExpectedConditions.elementToBeClickable(contactUs)).click();
 
         ExtentTestListener.logStep("Contact Us Clicked");
 
@@ -109,7 +111,5 @@ public class LBContactUsPage {
 
         ExtentTestListener.logStep("OK Popup Clicked");
 
-
-        ExtentTestListener.logStep("Profile Icon Clicked");
     }
 }

@@ -8,36 +8,37 @@
     <test name="SmartSortFlowTest">
         <classes>
 <!--REGISTRATION FLOW -->
-<!--            <class name="Testcase.ASmartSortRegistrationFlowTest"/>-->
-<!--            <class name="Testcase.BSmartSortRegistrationArabicFlowTest"/>-->
+            <class name="Testcase.ASmartSortRegistrationFlowTest"/>
+            <class name="Testcase.BSmartSortRegistrationArabicFlowTest"/>
 
 <!--DOOR PICKUP & DIRECT DELIVERY FULL ORDER PLACING & COMPLETION FLOW-->
-<!--            <class name="Testcase.C1RequestorOrderPlacingFlowTest"/>-->
-<!--            <class name="Testcase.C2RequestorDirectDeliveryOrderPlacingFlowTest"/>-->
-<!--            <class name="Testcase.C3CollectorUtilityOrderCompleteFlowTest"/>-->
-<!--            <class name="Testcase.C4CollectionCenterAcceptOrderFlowTest"/>-->
-<!--            <class name="Testcase.C5CollectorNavigateToCollectionCenterFlowTest"/>-->
-<!--            <class name="Testcase.C6CollectionCenterUpdateQuantityFlowTest"/>-->
-<!--            <class name="Testcase.C7CollectionCenterDirectDeliveryOrderFlowTest"/>-->
+            <class name="Testcase.C1RequestorOrderPlacingFlowTest"/>
+            <class name="Testcase.C2RequestorDirectDeliveryOrderPlacingFlowTest"/>
+            <class name="Testcase.C3CollectorUtilityOrderCompleteFlowTest"/>
+            <class name="Testcase.C4CollectionCenterAcceptOrderFlowTest"/>
+            <class name="Testcase.C5CollectorNavigateToCollectionCenterFlowTest"/>
+            <class name="Testcase.C6CollectionCenterUpdateQuantityFlowTest"/>
+            <class name="Testcase.C7CollectionCenterDirectDeliveryOrderFlowTest"/>
 
 <!--REQUESTOR FLOW-->
-<!--            <class name="Testcase.DRequestorRedeemFlowTest"/>-->
+            <class name="Testcase.DRequestorRedeemFlowTest"/>
             <class name="Testcase.E1PlaceOrderForRescheduleFlowTest"/>
             <class name="Testcase.E2RequestorRescheduleFlowTest"/>
             <class name="Testcase.F1PlaceOrderForCancelFlowTest"/>
             <class name="Testcase.F2RequestorOrderCancellingFlowTest"/>
-<!--            <class name="Testcase.GSmartBotChatFlowTest"/>-->
-<!--            <class name="Testcase.HSmartBotTicketManagementFlowTest"/>-->
-<!--            <class name="Testcase.IProfileViewBasicFeaturesFlowTest"/>-->
-<!--            <class name="Testcase.JCustomerCareServicesFlowTest"/>-->
-<!--            <class name="Testcase.KNotificationsFlowTest"/>-->
-<!--            <class name="Testcase.LOrderDetailsFlowTest"/>-->
-<!--            <class name="Testcase.NAccountDeleteFlowTest"/>-->
+            <class name="Testcase.GSmartBotChatFlowTest"/>
+            <class name="Testcase.HSmartBotTicketManagementFlowTest"/>
+            <class name="Testcase.IProfileViewBasicFeaturesFlowTest"/>
+            <class name="Testcase.JCustomerCareServicesFlowTest"/>
+            <class name="Testcase.KNotificationsFlowTest"/>
+            <class name="Testcase.LOrderDetailsFlowTest"/>
+            <class name="Testcase.MAccountDeleteFlowTest"/>
 
 <!--REFER AND EARN FLOW-->
-<!--            <class name="Testcase.O1ReferAndEarnFlowTest"/>-->
-<!--            <class name="Testcase.O2CollectorUtilityOrderCompleteFlowTest"/>-->
-<!--            <class name="Testcase.O3VerifyReferralPointsFlowTest"/>-->
+            <class name="Testcase.N1ReferAndEarnFlowTest"/>
+            <class name="Testcase.N2CollectorUtilityOrderCompleteFlowTest"/>
+            <class name="Testcase.N3VerifyReferralPointsFlowTest"/>
         </classes>
     </test>
 </suite>
+

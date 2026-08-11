@@ -6,21 +6,24 @@ import Utility.MobileUtility;
 import com.AndroidTest.N1ReferAndEarnFlow.*;
 import org.testng.annotations.Test;
 
-public class O1ReferAndEarnFlowTest extends BaseClassMobile {
+public class N1ReferAndEarnFlowTest extends BaseClassMobile {
 
     @Test(priority = 1)
     public void testReferAndEarnFlow() throws Exception {
 
+
+        // Location
+        A1LocationPage locationPage = new A1LocationPage(driver);
+        locationPage.selectLocation();
+
         // Page Objects
-        AReferAndEarnPage referPage = new AReferAndEarnPage(driver);
+        A2ReferAndEarnPage referPage = new A2ReferAndEarnPage(driver);
         BLogoutPage logoutPage = new BLogoutPage(driver);
         CASignUpPage signUpPage = new CASignUpPage(driver);
 
         // ================= REFER & EARN =================
 
-        ExtentTestListener.getTest().info("Scrolling to Refer & Earn");
-        referPage.scrollDownLittle();
-
+        referPage.clickReferAndEarn();
         ExtentTestListener.getTest().info("Clicking Refer & Earn");
         referPage.clickReferAndEarn();
         ExtentTestListener.getTest().pass("Refer & Earn opened successfully");

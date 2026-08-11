@@ -8,13 +8,13 @@ import org.openqa.selenium.By;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.elementToBeClickable;
 
-public class BSmartBotPage extends BasePage {
+public class ASmartBotPage extends BasePage {
 
     //=========================================================
     // Constructor
     //=========================================================
 
-    public BSmartBotPage(AndroidDriver driver) {
+    public ASmartBotPage(AndroidDriver driver) {
         super(driver);
     }
 

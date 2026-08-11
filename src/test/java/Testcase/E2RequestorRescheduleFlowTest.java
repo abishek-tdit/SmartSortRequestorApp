@@ -10,7 +10,7 @@ import static com.sun.activation.registries.LogSupport.log;
 
 public class E2RequestorRescheduleFlowTest extends BaseClassMobile {
 
-    @Test(priority = 2)
+    @Test(priority = 12)
     public void rescheduleFlow() throws Exception {
 
         String orderNumber = BOrderDataReschedule.orderNumberReschedule;

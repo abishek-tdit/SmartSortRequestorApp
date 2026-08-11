@@ -5,7 +5,7 @@ import Base.ExtentTestListener;
 import com.AndroidTest.N2CollectorUtilityOrderCompleteFlow.*;
 import org.testng.annotations.Test;
 
-public class O2CollectorUtilityOrderCompleteFlowTest extends BaseClassMobile {
+public class N2CollectorUtilityOrderCompleteFlowTest extends BaseClassMobile {
 
     @Test(priority = 2)
     public void collectorUtilityOrderCompleteFlow() throws Exception {

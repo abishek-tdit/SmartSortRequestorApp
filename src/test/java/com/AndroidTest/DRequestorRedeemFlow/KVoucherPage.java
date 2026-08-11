@@ -38,23 +38,6 @@ public class KVoucherPage extends BasePage {
             AppiumBy.accessibilityId("OK");
 
     //=========================================================
-    // Scroll & Click Redeem Cash Out
-    //=========================================================
-
-    public void scrollAndClickRedeemCashOut() {
-
-        // Scroll down
-        scrollDown();
-        scrollDown();
-
-        utility.delay(3);
-
-        click(AppiumBy.accessibilityId("Redeem & cash it out"));
-
-        log("Clicked Redeem & Cash It Out");
-    }
-
-    //=========================================================
     // Proceed To Redeem Points
     //=========================================================
 

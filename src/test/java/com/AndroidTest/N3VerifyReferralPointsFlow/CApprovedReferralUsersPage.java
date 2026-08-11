@@ -18,47 +18,44 @@ public class CApprovedReferralUsersPage extends BasePage {
     // Locator
     //=========================================================
 
-    private final By redeemCashOutButton =
-            AppiumBy.xpath("//*[@content-desc='Redeem & cash it out']");
+    private final By REDEEM_CASH_OUT =
+            AppiumBy.accessibilityId("Redeem & cash it out");
 
-    //=========================================================
     // Redeem Cash Out
-    //=========================================================
-
     public void clickRedeemCashOut() throws InterruptedException {
 
         ExtentTestListener.logStep("========== REDEEM CASH OUT STARTED ==========");
 
-        boolean isFound = false;
+        boolean found = false;
 
-        // Scroll until Redeem button appears
-        for (int i = 0; i < 5; i++) {
-
-            if (!driver.findElements(redeemCashOutButton).isEmpty()) {
-
-                isFound = true;
-                ExtentTestListener.logStep("Redeem & Cash Out button found");
-                break;
-            }
-
-            utility.swipeUp(0.7);
-            ExtentTestListener.logStep("Scrolling down...");
+        // Check current screen first
+        if (!driver.findElements(REDEEM_CASH_OUT).isEmpty()) {
+            found = true;
         }
 
-        if (!isFound) {
-            throw new RuntimeException(
-                    "Redeem & Cash Out button not found after scrolling");
+        // Scroll until Redeem button is found
+        while (!found) {
+
+            utility.swipeUp(0.7);
+
+            if (!driver.findElements(REDEEM_CASH_OUT).isEmpty()) {
+                found = true;
+                break;
+            }
         }
 
         WebElement redeemButton = wait.until(
-                ExpectedConditions.elementToBeClickable(redeemCashOutButton));
+                ExpectedConditions.elementToBeClickable(REDEEM_CASH_OUT));
 
         redeemButton.click();
 
         ExtentTestListener.logStep("Clicked 'Redeem & Cash It Out'");
-//=========================================================
-// Approved Referral Users
-//=========================================================
+
+        ExtentTestListener.logStep("Wait for Approved Referral Users Page to Load");
+        Thread.sleep(10000);
+        //=========================================================
+        // Approved Referral Users
+        //=========================================================
 
         WebElement approvedReferralUsers = wait.until(
                 ExpectedConditions.elementToBeClickable(
@@ -68,13 +65,20 @@ public class CApprovedReferralUsersPage extends BasePage {
 
         ExtentTestListener.logStep("Approved Referral Users Clicked");
 
-// Wait for page to load
         Thread.sleep(5000);
 
-// Navigate Back
+        //=========================================================
+        // Navigate Back
+        //=========================================================
+
         driver.navigate().back();
         driver.navigate().back();
 
-        ExtentTestListener.getTest().pass("Approved Referral Users Page Verified Successfully");
+        ExtentTestListener.logStep("Navigated back successfully");
+
+        ExtentTestListener.getTest().pass(
+                "Approved Referral Users Page Verified Successfully");
+
+        ExtentTestListener.logStep("========== REDEEM CASH OUT COMPLETED ==========");
     }
 }

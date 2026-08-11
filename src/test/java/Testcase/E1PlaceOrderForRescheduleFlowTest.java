@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class E1PlaceOrderForRescheduleFlowTest extends BaseClassMobile {
 
-    @Test(priority = 1)
+    @Test(priority = 11)
     public void placeOrderForRescheduleFlow() throws Exception {
 
         //=========================================================
